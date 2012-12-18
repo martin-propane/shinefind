@@ -32,15 +32,6 @@ class Carwash_Repository {
 			else
 				$phone = '(' . substr($phone, 0, 3) . ') ' . substr($phone, 3, 3) . ' - ' . substr($phone, 6, 4);
 		}
-		/*$phone1 = $info['phone1'];
-		$phone2 = $info['phone2'];
-		$phone3 = $info['phone3'];
-
-		$phone = '';
-		if ($phone1 != '' && $phone2 != '' && $phone3 != '')
-			$phone = '(' . $phone1 . ') ' . $phone2 . '-' . $phone3;
-		else if ($phone1 != '' || $phone2 != '' || $phone3 != '')
-			return 'Phone number was not of correct length.';*/
 
 		$notes = $info['notes'];
 		$website = $info['website'];

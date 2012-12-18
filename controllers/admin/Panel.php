@@ -17,7 +17,6 @@ class Admin_Panel_Controller extends Base_Controller {
 	{
 		$this->layout->title = 'Add Location';
 		$this->layout->nest('content', 'Admin.Panel.add_location', array());
-		//return View::make('Admin.Panel.add_location');
 	}
 
 	public function post_add_location()
@@ -26,7 +25,7 @@ class Admin_Panel_Controller extends Base_Controller {
 
 		$cw_repo = IoC::resolve('carwash_repository');
 		$res = $cw_repo->add(Input::all());
-		//is it safe to send all POST variables?
+
 		if ($res === TRUE)
 			return Response::make('Succesful submission!');
 		else
@@ -38,11 +37,6 @@ class Admin_Panel_Controller extends Base_Controller {
 		$cw_repo = IoC::resolve('carwash_repository');
 		$res = $cw_repo->get_all();
 		return View::make('Admin.Panel.view_all')->with('carwashes', $res);
-		//foreach ($res as $c)
-		//{
-		//	echo $c->name . '<br>';
-		//}
-		//return Response::make('End');
 	}
 }
 
