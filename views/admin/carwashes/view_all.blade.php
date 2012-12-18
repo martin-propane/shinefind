@@ -27,7 +27,7 @@
 			<td><?php echo $c->email ?></td>
 			<td><?php echo $c->website ?></td>
 			<td><?php echo $c->corp_ad ?></td>
-			<td><?php echo HTML::link_to_action('admin.carwashes@edit', 'edit', array($c->id), array('class'=>'btn')) ?></td>
+			<td><?php echo HTML::link_to_action('admin.carwashes@edit', 'Edit', array($c->id), array('class'=>'btn')) ?></td>
 		</tr>
 	</tbody>
 	<?php endforeach; ?>
