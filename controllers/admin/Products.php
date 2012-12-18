@@ -11,7 +11,7 @@ class Admin_Products_Controller extends Base_Controller {
 	public function get_add()
 	{
 		$this->layout->title = 'Add Product';
-		$this->layout->nest('content', 'Admin.Product.add', array());
+		$this->layout->nest('content', 'Admin.Products.add', array());
 	}
 
 	public function post_add()

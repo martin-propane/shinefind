@@ -11,7 +11,7 @@ class Admin_Associations_Controller extends Base_Controller {
 	public function get_add()
 	{
 		$this->layout->title = 'Add Association';
-		$this->layout->nest('content', 'Admin.Association.add', array());
+		$this->layout->nest('content', 'Admin.Associations.add', array());
 	}
 
 	public function post_add()
