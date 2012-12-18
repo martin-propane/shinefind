@@ -133,7 +133,7 @@ class Association_Repository {
 
 	public function get($id) {
 		//TODO: Properly check if id exists
-		$db = Database::table('Data_Association');
+		$db = Database::table('Data_Associations');
 		$max_id = $db->max('id');
 
 		if ($id > $max_id || $id < 0)
@@ -158,7 +158,7 @@ class Association_Repository {
 	}
 
 	public function get_all() {
-		$quer = Database::table('Data_Association')->get();
+		$quer = Database::table('Data_Associations')->get();
 		return $this->get_entities($quer);
 	}
 }
