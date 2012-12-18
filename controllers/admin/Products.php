@@ -21,10 +21,7 @@ class Admin_Products_Controller extends Base_Controller {
 		$p_repo = IoC::resolve('product_repository');
 		$res = $p_repo->add(Input::all());
 
-		if ($res === TRUE)
-			return Response::make('Succesful submission!');
-		else
-			return Response::make($res);
+		return Redirect::to_action('Admin.Products.view_all');
 	}
 
 	public function get_edit($id)

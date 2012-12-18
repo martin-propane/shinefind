@@ -21,10 +21,7 @@ class Admin_Associations_Controller extends Base_Controller {
 		$cw_repo = IoC::resolve('association_repository');
 		$res = $cw_repo->add(Input::all());
 
-		if ($res === TRUE)
-			return Response::make('Succesful submission!');
-		else
-			return Response::make($res);
+		return Redirect::to_action('Admin.Associations.view_all');
 	}
 
 	public function get_edit($id)
