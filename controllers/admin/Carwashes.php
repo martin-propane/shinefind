@@ -45,7 +45,17 @@ class Admin_Carwashes_Controller extends Base_Controller {
 
 		$res = $cw_repo->edit($id, Input::all());
 
-		return Redirect::to_action('Admin.Panel.view_all');
+		return Redirect::to_action('Admin.Carwashes.view_all');
+	}
+
+	public function get_view_all()
+	{
+		$this->layout->title = 'Carwashes';
+		
+		$cw_repo = IoC::resolve('carwash_repository');
+		$res = $cw_repo->get_all();
+
+		$this->layout->nest('content', 'Admin.Carwashes.view_all', array('carwashes' => $res));
 	}
 }
 
