@@ -24,6 +24,7 @@ class Product_Repository {
 				$phone = '(' . substr($phone, 0, 3) . ') ' . substr($phone, 3, 3) . ' - ' . substr($phone, 6, 4);
 		}
 		$website = $info['website'];
+		$type = $info['type'];
 		
 		$db = Database::table('Data_Products');
 
@@ -35,6 +36,8 @@ class Product_Repository {
 			$send['phone'] = $phone;
 		if ($website != '')
 			$send['website'] = $website;
+		if ($type != '')
+			$send['type'] = $type;
 
 		$id = $db->insert_get_id($send);
 
@@ -63,6 +66,7 @@ class Product_Repository {
 				$phone = '(' . substr($phone, 0, 3) . ') ' . substr($phone, 3, 3) . ' - ' . substr($phone, 6, 4);
 		}
 		$website = $info['website'];
+		$type = $info['type'];
 		
 		if ($name == '')
 			return 'Name is required.';
@@ -71,6 +75,7 @@ class Product_Repository {
 		$send['company'] = $company;
 		$send['phone'] = $phone;
 		$send['website'] = $website;
+		$send['type'] = $type;
 
 		$db->where('id', '=', $id)->update($send);
 
