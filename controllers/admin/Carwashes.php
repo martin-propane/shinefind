@@ -26,7 +26,7 @@ class Admin_Carwashes_Controller extends Base_Controller {
 
 		$res = $cw_repo->edit($id, Input::all());
 
-		return Response::make($res);
+		return Redirect::to_action('Admin.Panel.view_all');
 	}
 }
 
