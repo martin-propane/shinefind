@@ -10,9 +10,15 @@
 		<div class="row-fluid">
 			<div class="span2">
 				<ul class="nav nav-list nav-stacked">
-					<li class = "nav-header">Carwashes</li>
+					<li class="nav-header">Carwashes</li>
 					<li><?php echo HTML::Link('admin/carwashes/view_all', 'View All') ?></li>
 					<li><?php echo HTML::Link('admin/carwashes/add', 'Add'); ?></li>
+					<li class="nav-header">Associations</li>
+					<li><?php echo HTML::Link('admin/associations/view_all', 'View All') ?></li>
+					<li><?php echo HTML::Link('admin/associations/add', 'Add') ?></li>
+					<li class="nav-header">Products</li>
+					<li><?php echo HTML::Link('admin/products/view_all', 'View All') ?></li>
+					<li><?php echo HTML::Link('admin/products/add', 'Add') ?></li>
 				</ul>
 			</div>
 			<div class="span10">
