@@ -188,3 +188,12 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 IoC::singleton('carwash_repository', function() {
 	return new Shinefind\Repositories\Carwash_Repository();
 });
+
+IoC::singleton('association_repository', function() {
+	return new Shinefind\Repositories\Association_Repository();
+});
+
+IoC::singleton('product_repository', function() {
+	return new Shinefind\Repositories\Product_Repository();
+});
+
