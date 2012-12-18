@@ -55,8 +55,8 @@ $state_list = array('AL'=>"Alabama",
 
 ?>
 <?php
-echo Form::open('admin/panel/add_location', 'POST', array('id' => 'addForm', 'class' => 'form-horizontal'));
-echo '<legend>Add location</legend>';
+echo Form::open('admin/carwashes/add', 'POST', array('id' => 'addForm', 'class' => 'form-horizontal'));
+echo '<legend>Add carwash</legend>';
 
 echo '<div class = "control-group">';
 echo Form::label('name', 'Name', array('class' => 'control-label'));
@@ -241,7 +241,7 @@ $(document).ready(function()
 	});
 
 	$('input[name=phone]').change(function() {
-		var txtbox = $('input[name=phone]');
+		var txtbox = $(this);
 		var num = txtbox.val().replace(/[^\d.]/g, '');
 		var newval = '';
 		if (num.length < 4) {
@@ -259,6 +259,7 @@ $(document).ready(function()
 
 		txtbox.val(newval);
 	});
+
 
 });
 </script>

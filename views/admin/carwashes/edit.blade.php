@@ -37,7 +37,7 @@ $(document).ready(function()
 	});
 
 	$('input[name=phone]').change(function() {
-		var txtbox = $('input[name=phone]');
+		var txtbox = $(this);
 		var num = txtbox.val().replace(/[^\d.]/g, '');
 		var newval = '';
 		if (num.length < 4) {
