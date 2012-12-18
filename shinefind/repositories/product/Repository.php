@@ -100,7 +100,7 @@ class Product_Repository {
 	}
 
 	public function get_entity($tuple) {
-		return new Product($tuple->id, $tuple->name, $tuple->company, $tuple->phone, $tuple->website);
+		return new Product($tuple->id, $tuple->name, $tuple->company, $tuple->phone, $tuple->website, $tuple->type);
 	}
 
 	public function get_all() {

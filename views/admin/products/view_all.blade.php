@@ -6,6 +6,7 @@
 			<td>Company</td>
 			<td>Phone</td>
 			<td>Website</td>
+			<td>Type</td>
 			<td>Edit</td>
 		</tr>
 	</thead>
@@ -17,6 +18,7 @@
 			<td><?php echo $p->company ?></td>
 			<td><?php echo $p->phone ?></td>
 			<td><?php echo $p->website ?></td>
+			<td><?php echo $p->type ?></td>
 			<td><?php echo HTML::link_to_action('admin.products@edit', 'Edit', array($p->id), array('class'=>'btn')) ?></td>
 		</tr>
 	</tbody>
