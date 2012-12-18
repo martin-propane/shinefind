@@ -107,7 +107,7 @@ class Carwash_Repository {
 		$db = Database::table('Data_Carwashes');
 		$max_id = $db->max('id');
 
-		if ($id >= $max_id && $id < 0)
+		if ($id > $max_id && $id < 0)
 			return 'Id is not in proper range.';
 
 		$busi_ad = $info['busi_ad'];
