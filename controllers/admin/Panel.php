@@ -34,9 +34,12 @@ class Admin_Panel_Controller extends Base_Controller {
 
 	public function get_view_all()
 	{
+		$this->layout->title = 'Carwashes';
+		
 		$cw_repo = IoC::resolve('carwash_repository');
 		$res = $cw_repo->get_all();
-		return View::make('Admin.Panel.view_all')->with('carwashes', $res);
+
+		$this->layout->nest('content', 'Admin.Panel.view_all', array('carwashes' => $res));
 	}
 }
 
