@@ -1,119 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Add Location</title>
-<?php echo Asset::scripts(); ?>
-<?php echo Asset::styles(); ?>
-<?php echo HTML::script('js/jquery.validate.min.js'); ?>
-<script type = "text/javascript">
-$(document).ready(function()
-{
-	/*var phoneEntered = function() {
-		var p1 = $('#phone1').val().length > 0;
-		var p2 = $('#phone2').val().length > 0;
-		var p3 = $('#phone3').val().length > 0;
-
-		return (p1 || p2 || p3);
-	}
-
-	var phoneFocused = function() {
-		return $(':focus').is('#phone1, #phone2, #phone3');
-	}
-
-	jQuery.validator.addMethod('phoneCheck', function (value, element) {
-		var p1 = $('#phone1').val().length === 3;
-		var p2 = $('#phone2').val().length === 3;
-		var p3 = $('#phone3').val().length === 4;
-		var care = phoneFocused();
-
-		return !phoneEntered() || (p1 && p2 && p3);
-	}, 'Enter a valid phone number.');*/
-
-	jQuery.validator.addMethod('validPhone', function (value, element) {
-		var num = value.replace(/[^\d.]/g, '');
-		return this.optional(element) || (num.length === 10);
-	}, 'Enter a valid phone number (123-456-7890).');
-
-	$('#addForm').validate({
-		onkeyup: false,
-		/*groups: {
-			phone: 'phone1 phone2 phone3'
-		},*/
-		rules: {
-			name: 'required',
-			phone: {
-				validPhone: true
-			}
-			/*phone1: {
-				phoneCheck: true,
-			},
-			phone2: {
-				phoneCheck: true,
-			},
-			phone3: {
-				phoneCheck: true,
-			},*/
-					
-		},
-		/*messages: {
-			phone1: {
-				required: 'Enter a valid phone number11.',
-				phoneCheck: 'Enter a valid phone number1.'
-			},
-			phone2: {
-				required: 'Enter a valid phone number22.',
-				phoneCheck: 'Enter a valid phone number2.'
-			},
-			phone3: {
-				required: 'Enter a valid phone number33.',
-				phoneCheck: 'Enter a valid phone number3.'
-			}
-		},*/
-		errorPlacement: function(error, element) {
-			error.insertAfter($(element));//.parent().children('help-inline'));
-		},
-		highlight: function(element, errorClass, validClass) {
-			var con = $(element).parent().parent();
-			con.addClass(errorClass);
-
-		},
-		unhighlight: function(element, errorClass, validClass) {
-			var con = $(element).parent().parent();
-			con.removeClass(errorClass);
-		},
-		errorElement: 'span'
-		/*invalidHandler: function(form, validator) {
-			$('#phone').val($('#phone').val().replace(/[^\d.]/g, ''));
-		}*/
-
-	});
-
-	$('input[name=phone]').change(function() {
-		var txtbox = $('input[name=phone]');
-		var num = txtbox.val().replace(/[^\d.]/g, '');
-		var newval = '';
-		if (num.length < 4) {
-			newval = '(' + num;
-			if (num.length === 3)
-				newval = newval + ') ';
-		}
-		else if (num.length > 3 && num.length < 7) {
-			newval = '(' + num.substring(0, 3) + ') ' + num.substring(3);
-			if (num.length === 6)
-				newval = newval + ' - ';
-		}
-		else
-			newval = '(' + num.substring(0, 3) + ') ' + num.substring(3, 6) + ' - ' + num.substring(6);
-
-		txtbox.val(newval);
-	});
-
-});
-</script>
-</head>
-<body>
 <?php
-
 $state_list = array('AL'=>"Alabama",  
 			'AK'=>"Alaska",  
 			'AZ'=>"Arizona",  
@@ -206,10 +91,6 @@ echo '</div></div>';
 echo '<div class = "control-group" id = "phoneControl">';
 echo Form::label('phone1', 'Phone', array('class' => 'control-label'));
 echo '<div class = "controls">';
-/* Never again.
-echo Form::text('phone1', null, array('id' => 'phone1', 'maxlength' => 3, 'class' => 'input-mini', 'placeholder' => '123'));
-echo Form::text('phone2', null, array('id' => 'phone2', 'maxlength' => 3, 'class' => 'input-mini', 'placeholder' => '456'));
-echo Form::text('phone3', null, array('id' => 'phone3', 'maxlength' => 4, 'class' => 'input-mini', 'placeholder' => '7890'));*/
 echo Form::text('phone', null, array('id' => 'phone', 'placeholder' => '123-456-7890'));
 echo '<span class = "help-inline" id = "phoneError"></span>';
 echo '</div></div>';
@@ -327,6 +208,58 @@ echo '</div></div>';
 echo Form::close();
 
 ?>
-</body>
-</html>
+<?php echo HTML::script('js/jquery.validate.min.js'); ?>
+<script type = "text/javascript">
+$(document).ready(function()
+{
+	jQuery.validator.addMethod('validPhone', function (value, element) {
+		var num = value.replace(/[^\d.]/g, '');
+		return this.optional(element) || (num.length === 10);
+	}, 'Enter a valid phone number (123-456-7890).');
+
+	$('#addForm').validate({
+		onkeyup: false,
+		rules: {
+			name: 'required',
+			phone: {
+				validPhone: true
+			}
+		},
+		errorPlacement: function(error, element) {
+			error.insertAfter($(element));
+		},
+		highlight: function(element, errorClass, validClass) {
+			var con = $(element).parent().parent();
+			con.addClass(errorClass);
+
+		},
+		unhighlight: function(element, errorClass, validClass) {
+			var con = $(element).parent().parent();
+			con.removeClass(errorClass);
+		},
+		errorElement: 'span'
+	});
+
+	$('input[name=phone]').change(function() {
+		var txtbox = $('input[name=phone]');
+		var num = txtbox.val().replace(/[^\d.]/g, '');
+		var newval = '';
+		if (num.length < 4) {
+			newval = '(' + num;
+			if (num.length === 3)
+				newval = newval + ') ';
+		}
+		else if (num.length > 3 && num.length < 7) {
+			newval = '(' + num.substring(0, 3) + ') ' + num.substring(3);
+			if (num.length === 6)
+				newval = newval + ' - ';
+		}
+		else
+			newval = '(' + num.substring(0, 3) + ') ' + num.substring(3, 6) + ' - ' + num.substring(6);
+
+		txtbox.val(newval);
+	});
+
+});
+</script>
 
