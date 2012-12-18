@@ -310,15 +310,15 @@ class Carwash_Repository {
 		else
 			Database::table('Other_Salon')->where('cw_id', '=', $id)->delete();
 
-
 		return TRUE;
 	}
 
 	public function get($id) {
+		//TODO: Properly check if id exists
 		$db = Database::table('Data_Carwashes');
 		$max_id = $db->max('id');
 
-		if ($id >= $max_id || $id < 0)
+		if ($id > $max_id || $id < 0)
 			return 'Id is not in proper range.';
 
 		$type_tuple = array();
