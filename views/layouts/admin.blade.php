@@ -9,9 +9,10 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span2">
-				<ul class="nav nav-tabs nav-stacked">
-					<li><?php echo HTML::Link('admin/carwashes/view_all', 'View Carwashes') ?></li>
-					<li><?php echo HTML::Link('admin/carwashes/add', 'Add Location'); ?></li>
+				<ul class="nav nav-list nav-stacked">
+					<li class = "nav-header">Carwashes</li>
+					<li><?php echo HTML::Link('admin/carwashes/view_all', 'View All') ?></li>
+					<li><?php echo HTML::Link('admin/carwashes/add', 'Add'); ?></li>
 				</ul>
 			</div>
 			<div class="span10">
