@@ -1,5 +1,6 @@
 <?php namespace Shinefind\Repositories;
 
+use \stdClass;
 use Laravel\Database;
 use Shinefind\Entities\Carwash;
 
@@ -350,6 +351,28 @@ class Carwash_Repository {
 	public function get_all() {
 		$quer = Database::table('Data_Carwashes')->get();
 		return $this->get_entities($quer);
+	}
+
+	public function get_state() {
+		$quer = Database::table('Data_Carwashes')->where('state', '=', $state)->get();
+		return $this->get_entities($quer);
+	}
+
+	public function get_city($state, $city) {
+		$quer = Database::table('Data_Carwashes')->where('state', '=', $state)->where('city', '=', $city)->get();
+		return $this->get_entities($quer);
+	}
+
+	public function get_city_paged($state, $city, $per_page, $page = 1) {
+		$info = new stdClass();
+
+		$quer = Database::table('Data_Carwashes')->where('state', '=', $state)->where('city', '=', $city);
+		$info->count = $quer->count();
+		$results = $quer->take($per_page)->skip($per_page*($page - 1))->get();
+		$info->page = $this->get_entities($results);
+		$info->per_page = $per_page;
+
+		return $info;
 	}
 }
 

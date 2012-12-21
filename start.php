@@ -80,7 +80,8 @@ Autoloader::directories(array(
 ));
 
 Autoloader::namespaces(array(
-    'Shinefind'   => path('app').'shinefind'
+    'Shinefind'   => path('app').'shinefind',
+    'Extension'   => path('app').'libraries/'.'extension'
 ));
 
 
@@ -88,6 +89,8 @@ Autoloader::namespaces(array(
 Asset::add('jquery', 'js/jquery-1.8.3.min.js');
 Asset::add('bootstrap', 'js/bootstrap.min.js');
 Asset::add('bootstrap-css', 'css/bootstrap.min.css');
+
+Asset::container('front-header')->add('960', 'css/960.css')->add('text', 'css/text.css')->add('reset', 'css/reset.css')->add('sf-main', 'css/shinefind_main.css')->add('jquery182', 'js/jquery-1.8.2.min.js')->add('shinefind-js', 'js/shinefind.js');
 
 /*
 |--------------------------------------------------------------------------
