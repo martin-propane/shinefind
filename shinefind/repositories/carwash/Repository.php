@@ -5,6 +5,8 @@ use Laravel\Database;
 use Shinefind\Entities\Carwash;
 
 class Carwash_Repository {
+	public $DB_ATTRIBUTES = array('id', 'name', 'business_address', 'city', 'state', 'zip', 'phone', 'notes', 'email', 'website', 'corp_address', 'certified');
+
 
 	public function find($type, $others) {
 		
@@ -345,7 +347,7 @@ class Carwash_Repository {
 	}
 
 	public function get_entity($tuple, $types_tuple = null, $options_tuple = null) {
-		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $types_tuple, $options_tuple);
+		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->certified, $types_tuple, $options_tuple);
 	}
 
 	public function get_all() {
@@ -363,16 +365,44 @@ class Carwash_Repository {
 		return $this->get_entities($quer);
 	}
 
-	public function get_city_paged($state, $city, $per_page, $page = 1) {
+	public function get_city_paged($state, $city, $type, $per_page, $page = 1) {
 		$info = new stdClass();
 
 		$quer = Database::table('Data_Carwashes')->where('state', '=', $state)->where('city', '=', $city);
+		$attributes = array();
+
+		foreach ($this->DB_ATTRIBUTES as $name=>$val)
+			$attributes[$name] = 'Data_Carwashes.' . $val;
+
+		$TYPE_NAMES = array('fullservice'=>'Type_FullService', 'tunnel'=>'Type_Tunnel', 'handwash'=>'Type_HandWash', 'mobile'=>'Type_Mobile', 'detailing'=>'Type_Detailing');
+		if (array_key_exists($type, $TYPE_NAMES))
+		{
+			$table_name = $TYPE_NAMES[$type];
+			$quer = $quer->join($table_name, 'Data_Carwashes.id', '=', $table_name.'.cw_id');
+		}
+
 		$info->count = $quer->count();
-		$results = $quer->take($per_page)->skip($per_page*($page - 1))->get();
+		$results = $quer->take($per_page)->skip($per_page*($page - 1))->get($attributes);
 		$info->page = $this->get_entities($results);
 		$info->per_page = $per_page;
 
 		return $info;
+	}
+
+	public function get_city_count($state, $city, $type = 'all')
+	{
+		$quer = Database::table('Data_Carwashes')->where('state', '=', $state)->where('city', '=', $city);
+		
+		$TYPE_NAMES = array('fullservice'=>'Type_FullService', 'tunnel'=>'Type_Tunnel', 'handwash'=>'Type_HandWash', 'mobile'=>'Type_Mobile', 'detailing'=>'Type_Detailing');
+		if (array_key_exists($type, $TYPE_NAMES))
+		{
+			$table_name = $TYPE_NAMES[$type];
+			$quer = $quer->join($table_name, 'Data_Carwashes.id', '=', $table_name.'.cw_id');
+		}
+
+		$count = $quer->count();
+
+		return $count;
 	}
 }
 

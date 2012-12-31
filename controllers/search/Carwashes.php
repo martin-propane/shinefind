@@ -13,6 +13,7 @@ class Search_Carwashes_Controller extends Base_Controller {
 	{
 		$cw_repo = IoC::resolve('carwash_repository');
 		$carwashes = null;
+		$inputs = Input::get(); //Will be used by views to save information in current query
 
 		$this->layout->title = 'Search Carwashes';
 
@@ -24,14 +25,21 @@ class Search_Carwashes_Controller extends Base_Controller {
 		$this->layout->state = $state;
 
 		$page = Input::get('page', 1);
-		echo 'page: ' . $page;
+		$type = Input::get('type', 'all');
 
-		if ($city_str)
-		{
-			$carwashes = $cw_repo->get_city_paged($state, $city, $this->RESULTS_PER_PAGE, $page);
-		}
+		$counts = array();
+		$types = array('all', 'detailing', 'fullservice', 'tunnel', 'handwash', 'mobile', 'detailing');
+		//if ($city_str)
+		//{
+			//get information for each type
+			foreach ($types as $t)
+				$counts[$t] = $cw_repo->get_city_count($state, $city, $t);
 
-		$this->layout->nest('results', 'Search.Carwashes.results', array('carwashes' => $carwashes, 'city' => $city, 'state' => $state, 'page' => $page));
+			$carwashes = $cw_repo->get_city_paged($state, $city, $type, $this->RESULTS_PER_PAGE, $page);
+		//}
+
+		$this->layout->nest('results', 'Search.Carwashes.results', array('carwashes' => $carwashes, 'city' => $city, 'state' => $state, 'page' => $page, 'type'=>$type, 'query'=>$inputs));
+		$this->layout->nest('top_menu', 'Search.Carwashes.top_menu', array('query' => $inputs, 'type' => $type, 'counts' => $counts));
 	}
 
 	public function post_index()

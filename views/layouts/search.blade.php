@@ -55,14 +55,7 @@ echo Asset::container('front-header')->scripts();
           <div id="refine_box_info">
             <h4><?php echo $city . ', ' . $state; ?></h4>
             <a href="#" class="small_link">(change city)</a>
-            <ul>
-              <li><a href="#">&raquo;All(135)</a></li>
-              <li>&raquo;Full Service(15)</li>
-              <li><a href="#">&raquo;Drive Through Tunnels(39)</a></li>
-              <li><a href="#">&raquo;Manual Wash(47)</a></li>
-              <li><a href="#">&raquo;Mobile Detail(23)</a></li>
-              <li><a href="#">&raquo;Advanced Detail(9)</a></li>
-            </ul>
+	    {{ $top_menu }}
           </div>
         </div><!--refine search-->
         <div class="lt_col_ad">

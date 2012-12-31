@@ -69,8 +69,18 @@ return array(
 
 		'mysql' => array(
 			'driver'   => 'mysql',
-			'host'     => 'localhost',
+			'host'     => '127.0.0.1',
 			'database' => 'ShineFindData',
+			'username' => 'root',
+			'password' => '',
+			'charset'  => 'utf8',
+			'prefix'   => '',
+		),
+
+		'test' => array(
+			'driver'   => 'mysql',
+			'host'     => '127.0.0.1',
+			'database' => 'ShineFindTest',
 			'username' => 'root',
 			'password' => '',
 			'charset'  => 'utf8',
