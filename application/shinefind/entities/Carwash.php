@@ -27,14 +27,14 @@ class Carwash {
 
 		foreach (Carwash::$TYPES as $type)
 			if (!array_key_exists($type, $types))
-				$types[$type] = null;
+				$types[$type] = false;
 
 		if ($options === null)
 			$options = array();
 
 		foreach (Carwash::$OPTIONS as $option)
 			if (!array_key_exists($option, $options))
-				$options[$option] = null; 
+				$options[$option] = false; 
 
 		$this->id = $id;
 		$this->name = $name;

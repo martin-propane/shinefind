@@ -40,7 +40,40 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 			'salon' => true
 		);
 
-		$this->added_id = $this->cw_repo->add($this->params);
+
+		$this->params2 = array(
+			'name' => 'UnitCarwash2',
+			'busi_ad' => '1234 Unit Test Drive2',
+			'city' => 'Memphis2',
+			'state' => 'TX',
+			'email' => 'test2@test.com',
+			'zip' => '38102',
+			'phone' => '9011234562',
+			'notes' => 'Lorem ipsum ...2',
+			'website' => 'http://www.shinefind2.com/',
+			'corp_ad' => '4321 Evird Tset Tinu2',
+
+			'detailing' => false,
+			'freevac' => false,
+			'fullservice' => false,
+			'handwash' => false,
+			'mobile' => true,
+			'selfserve' => false,
+			'softtouch' => false,
+			'touchfree' => false,
+			'tunnel' => false,
+			'xpress' => false,
+
+			'creditcards' => false,
+			'conveniencestore' => false,
+			'fuel' => false,
+			'giftcards' => false,
+			'oilchange' => false,
+			'other_other' => false,
+			'petwash' => false,
+			'salon' => false
+		);
+
 	}
 
 	protected function formatPhone($phone)
@@ -60,7 +93,9 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 
 	public function testRepositoryAddsAndGetsData()
 	{
-		$cw = $this->cw_repo->get($this->added_id);
+		$this->id1 = $this->cw_repo->add($this->params);
+		
+		$cw = $this->cw_repo->get($this->id1);
 		$params = $this->params;
 		
 		$this->assertEquals($cw->name, $this->params['name']);
@@ -73,86 +108,62 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 		$this->assertEquals($cw->notes, $this->params['notes']);
 		$this->assertEquals($cw->website, $this->params['website']);
 		$this->assertEquals($cw->corp_ad, $this->params['corp_ad']);
-		$this->assertEquals($cw->id, $this->added_id);
+		$this->assertEquals($cw->id, $this->id1);
 
-		//Types and options are set as long as their keys exist
-		if (array_key_exists('detailing', $params))
-			$this->assertArrayHasKey('Detailing', $cw->types);
-		if (array_key_exists('freevac', $params))
-			$this->assertArrayHasKey('FreeVacuums', $cw->types);
-		if (array_key_exists('fullservice', $params))
-			$this->assertArrayHasKey('FullService', $cw->types);
-		if (array_key_exists('handwash', $params))
-			$this->assertArrayHasKey('HandWash', $cw->types);
-		if (array_key_exists('mobile', $params))
-			$this->assertArrayHasKey('Mobile', $cw->types);
-		if (array_key_exists('selfserve', $params))
-			$this->assertArrayHasKey('SelfServe', $cw->types);
-		if (array_key_exists('touchfree', $params))
-			$this->assertArrayHasKey('TouchFree', $cw->types);
-		if (array_key_exists('tunnel', $params))
-			$this->assertArrayHasKey('Tunnel', $cw->types);
-		if (array_key_exists('xpress', $params))
-			$this->assertArrayHasKey('Xpress', $cw->types);
+		foreach ($this->cw_repo->SHORT_TYPES as $short=>$index)
+		{
+			if (array_key_exists($short, $params) && $params[$short] == true)
+				$this->assertTrue($cw->types[$index]);
+			else
+				$this->assertFalse($cw->types[$index]);
+		}
 
-		if (array_key_exists('creditcards', $params))
-			$this->assertArrayHasKey('CreditCards', $cw->options);
-		if (array_key_exists('conveniencestore', $params))
-			$this->assertArrayHasKey('ConvenienceStore', $cw->options);
-		if (array_key_exists('fuel', $params))
-			$this->assertArrayHasKey('Fuel', $cw->options);
-		if (array_key_exists('giftcards', $params))
-			$this->assertArrayHasKey('GiftCards', $cw->options);
-		if (array_key_exists('oilchange', $params))
-			$this->assertArrayHasKey('OilChange', $cw->options);
-		if (array_key_exists('other_other', $params))
-			$this->assertArrayHasKey('Other', $cw->options);
-		if (array_key_exists('petwash', $params))
-			$this->assertArrayHasKey('PetWash', $cw->options);
-		if (array_key_exists('salon', $params))
-			$this->assertArrayHasKey('Salon', $cw->options);
+		foreach ($this->cw_repo->SHORT_OPTIONS as $short=>$index)
+		{
+			if (array_key_exists($short, $params) && $params[$short] == true)
+				$this->assertTrue($cw->options[$index]);
+			else
+				$this->assertFalse($cw->options[$index]);
+		}
 	}
-}
-
-
-class Carwash_Repository {
-	public $DB_ATTRIBUTES = array('id', 'name', 'business_address', 'city', 'state', 'zip', 'phone', 'notes', 'email', 'website', 'corp_address', 'certified');
-
-	public function find($type, $others) {
-		
-	}
-
-	public function add($info) {
-	}
-
-	public function edit($id, $info) {
-	}
-
-	public function get($id) {
-		return new Carwash($id, 'Bob', '1234 Alice Drive', 'TestCity', 'TS', '33333', '(901) 123 - 3456', 'Test notes.', 'test@test.com', 'http://www.test.com/', '', 1, array(), array());
-
-	}
-
-	public function get_entities($relation) {
-	}
-
-	public function get_entity($tuple, $types_tuple = null, $options_tuple = null) {
-	}
-
-	public function get_all() {
-	}
-
-	public function get_state() {
-	}
-
-	public function get_city($state, $city) {
-	}
-
-	public function get_city_paged($state, $city, $type, $per_page, $page = 1) {
-	}
-
-	public function get_city_count($state, $city, $type = 'all')
+	/**
+	 * @depends testRepositoryAddsAndGetsData
+	  */
+	public function testRepositoryAddsSecond()
 	{
+		$this->id2 = $this->cw_repo->add($this->params2);
+
+		$cw = $this->cw_repo->get($this->id2);
+
+		$params = $this->params2;
+
+		$this->assertEquals($cw->name, $this->params2['name']);
+		$this->assertEquals($cw->busi_ad, $this->params2['busi_ad']);
+		$this->assertEquals($cw->city, $this->params2['city']);
+		$this->assertEquals($cw->state, $this->params2['state']);
+		$this->assertEquals($cw->email, $this->params2['email']);
+		$this->assertEquals($cw->zip, $this->params2['zip']);
+		$this->assertEquals($cw->phone, $this->formatPhone($this->params2['phone']));
+		$this->assertEquals($cw->notes, $this->params2['notes']);
+		$this->assertEquals($cw->website, $this->params2['website']);
+		$this->assertEquals($cw->corp_ad, $this->params2['corp_ad']);
+		$this->assertEquals($cw->id, $this->id2);
+
+		foreach ($this->cw_repo->SHORT_TYPES as $short=>$index)
+		{
+			if (array_key_exists($short, $params) && $params[$short] == true)
+				$this->assertTrue($cw->types[$index]);
+			else
+				$this->assertFalse($cw->types[$index]);
+		}
+
+		foreach ($this->cw_repo->SHORT_OPTIONS as $short=>$index)
+		{
+			if (array_key_exists($short, $params) && $params[$short] == true)
+				$this->assertTrue($cw->options[$index]);
+			else
+				$this->assertFalse($cw->options[$index]);
+		}
 	}
 }
 ?>

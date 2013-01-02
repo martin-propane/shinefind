@@ -6,7 +6,28 @@ use Shinefind\Entities\Carwash;
 
 class Carwash_Repository {
 	public $DB_ATTRIBUTES = array('id', 'name', 'business_address', 'city', 'state', 'zip', 'phone', 'notes', 'email', 'website', 'corp_address', 'certified');
-
+	public $SHORT_TYPES = array(
+		'detailing'=>'Detailing',
+		'freevac'=>'FreeVacuums',
+		'fullservice'=>'FullService',
+		'handwash'=>'HandWash',
+		'mobile'=>'Mobile',
+		'selfserve'=>'SelfServe',
+		'softouch'=>'SoftTouch',
+		'touchfree'=>'TouchFree',
+		'tunnel'=>'Tunnel',
+		'xpress'=>'Xpress'
+	);
+	public $SHORT_OPTIONS = array(
+		'creditcards'=>'CreditCards',
+		'conveniencestore'=>'ConvenienceStore',
+		'fuel'=>'Fuel',
+		'giftcards'=>'GiftCards',
+		'oilchange'=>'OilChange',
+		'other_other'=>'Other',
+		'petwash'=>'PetWash',
+		'salon'=>'Salon'
+	);
 
 	public function find($type, $others) {
 		
@@ -63,42 +84,13 @@ class Carwash_Repository {
 
 		$id = $db->insert_get_id($send);
 
-		if (array_key_exists('detailing', $info))
-			Database::table('Type_Detailing')->insert(array('cw_id' => $id));
-		if (array_key_exists('freevac', $info))
-			Database::table('Type_FreeVacuums')->insert(array('cw_id' => $id));
-		if (array_key_exists('fullservice', $info))
-			Database::table('Type_FullService')->insert(array('cw_id' => $id));
-		if (array_key_exists('handwash', $info))
-			Database::table('Type_HandWash')->insert(array('cw_id' => $id));
-		if (array_key_exists('mobile', $info))
-			Database::table('Type_Mobile')->insert(array('cw_id' => $id));
-		if (array_key_exists('selfserve', $info))
-			Database::table('Type_SelfServe')->insert(array('cw_id' => $id));
-		if (array_key_exists('softtouch', $info))
-			Database::table('Type_SoftTouch')->insert(array('cw_id' => $id));
-		if (array_key_exists('touchfree', $info))
-			Database::table('Type_TouchFree')->insert(array('cw_id' => $id));
-		if (array_key_exists('tunnel', $info))
-			Database::table('Type_Tunnel')->insert(array('cw_id' => $id));
-		if (array_key_exists('xpress', $info))
-			Database::table('Type_Xpress')->insert(array('cw_id' => $id));
-		if (array_key_exists('creditcards', $info))
-			Database::table('Other_CreditCards')->insert(array('cw_id' => $id));
-		if (array_key_exists('conveniencestore', $info))
-			Database::table('Other_ConvenienceStore')->insert(array('cw_id' => $id));
-		if (array_key_exists('fuel', $info))
-			Database::table('Other_Fuel')->insert(array('cw_id' => $id));
-		if (array_key_exists('giftcards', $info))
-			Database::table('Other_GiftCards')->insert(array('cw_id' => $id));
-		if (array_key_exists('oilchange', $info))
-			Database::table('Other_OilChange')->insert(array('cw_id' => $id));
-		if (array_key_exists('other_other', $info))
-			Database::table('Other_Other')->insert(array('cw_id' => $id));
-		if (array_key_exists('petwash', $info))
-			Database::table('Other_PetWash')->insert(array('cw_id' => $id));
-		if (array_key_exists('salon', $info))
-			Database::table('Other_Salon')->insert(array('cw_id' => $id));
+		foreach ($this->SHORT_TYPES as $short=>$db_table)
+			if (array_key_exists($short, $info) && $info[$short] == true)
+				Database::table('Type_'.$db_table)->insert(array('cw_id' => $id));
+
+		foreach ($this->SHORT_OPTIONS as $short=>$db_table)
+			if (array_key_exists($short, $info) && $info[$short] == true)
+				Database::table('Other_'.$db_table)->insert(array('cw_id' => $id));
 
 		return $id;
 	}
@@ -327,10 +319,10 @@ class Carwash_Repository {
 		$type_tuple = array();
 		$option_tuple = array();
 		foreach (Carwash::$TYPES as $type)
-			$type_tuple[$type] = Database::table('Type_' . $type)->where('cw_id', '=', $id)->first();
+			$type_tuple[$type] = Database::table('Type_' . $type)->where('cw_id', '=', $id)->first() !== null;
 
 		foreach (Carwash::$OPTIONS as $option)
-			$option_tuple[$option] = Database::table('Other_' . $option)->where('cw_id', '=', $id)->first();
+			$option_tuple[$option] = Database::table('Other_' . $option)->where('cw_id', '=', $id)->first() !== null;
 
 		return $this->get_entity($db->where('id', '=', $id)->first(), $type_tuple, $option_tuple);
 
