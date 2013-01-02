@@ -332,7 +332,7 @@ class Carwash_Repository {
 		$entities = array();
 
 		foreach ($relation as $i=>$tuple) {
-			$entities[$i] = $this->get_entity($tuple, null, null);
+			$entities[$i] = $this->get_entity($tuple, $tuple->types, $tuple->options);
 		}
 
 		return $entities;
@@ -349,7 +349,15 @@ class Carwash_Repository {
 		//need to consider changing, or not allowing lookup of all type/other info in get_all
 		foreach ($quer as $tuple)
 		{
-			foreach (
+			$type_tuple = array();
+			foreach ($this->SHORT_TYPES as $type)
+				$type_tuple[$type] = Database::table('Type_' . $type)->where('cw_id', '=', $tuple->id)->first() !== null;
+			$tuple->types = $type_tuple;
+
+			$option_tuple = array();
+			foreach ($this->SHORT_OPTIONS as $option)
+				$option_tuple[$option] = Database::table('Other_' . $option)->where('cw_id', '=', $tuple->id)->first() !== null;
+			$tuple->options = $option_tuple;
 		}
 
 		return $this->get_entities($quer);

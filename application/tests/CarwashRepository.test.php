@@ -9,10 +9,9 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		Command::run(array('ClearDatabase'));
-
 		$this->cw_repo = IoC::resolve('carwash_repository');
 
-		$this->params = array(
+		$this->params[0] = array(
 			'name' => 'UnitCarwash',
 			'busi_ad' => '1234 Unit Test Drive',
 			'city' => 'Memphis',
@@ -46,7 +45,7 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 		);
 
 
-		$this->params2 = array(
+		$this->params[1] = array(
 			'name' => 'UnitCarwash2',
 			'busi_ad' => '1234 Unit Test Drive2',
 			'city' => 'Memphis2',
@@ -96,24 +95,19 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 		return $phone;
 	}
 
-	public function testRepositoryAddsAndGetsData()
+	protected function assertCarwashEquals($cw, $params, $id)
 	{
-		$this->id1 = $this->cw_repo->add($this->params);
-		
-		$cw = $this->cw_repo->get($this->id1);
-		$params = $this->params;
-		
-		$this->assertEquals($cw->name, $this->params['name']);
-		$this->assertEquals($cw->busi_ad, $this->params['busi_ad']);
-		$this->assertEquals($cw->city, $this->params['city']);
-		$this->assertEquals($cw->state, $this->params['state']);
-		$this->assertEquals($cw->email, $this->params['email']);
-		$this->assertEquals($cw->zip, $this->params['zip']);
-		$this->assertEquals($cw->phone, $this->formatPhone($this->params['phone']));
-		$this->assertEquals($cw->notes, $this->params['notes']);
-		$this->assertEquals($cw->website, $this->params['website']);
-		$this->assertEquals($cw->corp_ad, $this->params['corp_ad']);
-		$this->assertEquals($cw->id, $this->id1);
+		$this->assertEquals($cw->name, $params['name']);
+		$this->assertEquals($cw->busi_ad, $params['busi_ad']);
+		$this->assertEquals($cw->city, $params['city']);
+		$this->assertEquals($cw->state, $params['state']);
+		$this->assertEquals($cw->email, $params['email']);
+		$this->assertEquals($cw->zip, $params['zip']);
+		$this->assertEquals($cw->phone, $this->formatPhone($params['phone']));
+		$this->assertEquals($cw->notes, $params['notes']);
+		$this->assertEquals($cw->website, $params['website']);
+		$this->assertEquals($cw->corp_ad, $params['corp_ad']);
+		$this->assertEquals($cw->id, $id);
 
 		foreach ($this->cw_repo->SHORT_TYPES as $short=>$index)
 		{
@@ -131,53 +125,34 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 				$this->assertFalse($cw->options[$index]);
 		}
 	}
-	/**
-	 * @depends testRepositoryAddsAndGetsData
-	  */
-	public function testRepositoryAddsSecond()
+
+	public function testRepositoryAddsAndGetsCarwash()
 	{
-		$this->id2 = $this->cw_repo->add($this->params2);
+		$params = $this->params[0];
+		$id = $this->cw_repo->add($params);
+		
+		$cw = $this->cw_repo->get($id);
 
-		$cw = $this->cw_repo->get($this->id2);
-
-		$params = $this->params2;
-
-		$this->assertEquals($cw->name, $this->params2['name']);
-		$this->assertEquals($cw->busi_ad, $this->params2['busi_ad']);
-		$this->assertEquals($cw->city, $this->params2['city']);
-		$this->assertEquals($cw->state, $this->params2['state']);
-		$this->assertEquals($cw->email, $this->params2['email']);
-		$this->assertEquals($cw->zip, $this->params2['zip']);
-		$this->assertEquals($cw->phone, $this->formatPhone($this->params2['phone']));
-		$this->assertEquals($cw->notes, $this->params2['notes']);
-		$this->assertEquals($cw->website, $this->params2['website']);
-		$this->assertEquals($cw->corp_ad, $this->params2['corp_ad']);
-		$this->assertEquals($cw->id, $this->id2);
-
-		foreach ($this->cw_repo->SHORT_TYPES as $short=>$index)
-		{
-			if (array_key_exists($short, $params) && $params[$short] == true)
-				$this->assertTrue($cw->types[$index]);
-			else
-				$this->assertFalse($cw->types[$index]);
-		}
-
-		foreach ($this->cw_repo->SHORT_OPTIONS as $short=>$index)
-		{
-			if (array_key_exists($short, $params) && $params[$short] == true)
-				$this->assertTrue($cw->options[$index]);
-			else
-				$this->assertFalse($cw->options[$index]);
-		}
+		$this->assertCarwashEquals($cw, $params, $id);
 	}
+
 	/**
-	 * @depends testRepositoryAddsSecond
+	 * @depends testRepositoryAddsAndGetsCarwash
 	 */
 	public function testRepositoryViewsAll()
 	{
+		foreach ($this->params as $i=>$params)
+		{
+			$id = $this->cw_repo->add($params);
+			$tuple_params[$id] = $i;
+		}
+
 		$carwashes = $this->cw_repo->get_all();
 
-		
+		$this->assertEquals(count($carwashes), 2);
+
+		foreach ($carwashes as $cw)
+			$this->assertCarwashEquals($cw, $this->params[$tuple_params[$cw->id]], $cw->id);
 	}
 }
 ?>
