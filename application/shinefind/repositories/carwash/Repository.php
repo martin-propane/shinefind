@@ -29,10 +29,6 @@ class Carwash_Repository {
 		'salon'=>'Salon'
 	);
 
-	public function find($type, $others) {
-		
-	}
-
 	public function add($info) {
 		$send = array();
 		$name = $info['name'];
@@ -328,7 +324,7 @@ class Carwash_Repository {
 
 	}
 
-	public function get_entities($relation) {
+	protected function get_entities($relation) {
 		$entities = array();
 
 		foreach ($relation as $i=>$tuple) {
@@ -338,16 +334,13 @@ class Carwash_Repository {
 		return $entities;
 	}
 
-	public function get_entity($tuple, $types_tuple = null, $options_tuple = null) {
+	protected function get_entity($tuple, $types_tuple = null, $options_tuple = null) {
 		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->certified, $types_tuple, $options_tuple);
 	}
 
-	public function get_all() {
-		$quer = Database::table('Data_Carwashes')->get();
-
-		//this is bad, necessary because of the way the tables are set up
-		//need to consider changing, or not allowing lookup of all type/other info in get_all
-		foreach ($quer as $tuple)
+	protected function get_types_options($query_results)
+	{
+		foreach ($query_results as $tuple)
 		{
 			$type_tuple = array();
 			foreach ($this->SHORT_TYPES as $type)
@@ -359,6 +352,16 @@ class Carwash_Repository {
 				$option_tuple[$option] = Database::table('Other_' . $option)->where('cw_id', '=', $tuple->id)->first() !== null;
 			$tuple->options = $option_tuple;
 		}
+
+		return $query_results;
+	}
+
+	public function get_all() {
+		$quer = Database::table('Data_Carwashes')->get();
+
+		//this is bad, necessary because of the way the tables are set up
+		//need to consider changing, or not allowing lookup of all type/other info in get_all
+		$quer = $this->get_types_options($quer);
 
 		return $this->get_entities($quer);
 	}

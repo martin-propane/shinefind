@@ -135,6 +135,18 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 
 		$this->assertCarwashEquals($cw, $params, $id);
 	}
+	/**
+	 * @depends testRepositoryAddsAndGetsCarwash
+	 */
+	public function testRepositoryEditsCarwash()
+	{
+		$id = $this->cw_repo->add($this->params[0]);
+
+		$this->cw_repo->edit($id, $this->params[1]);
+		$cw = $this->cw_repo->get($id);
+
+		$this->assertCarwashEquals($cw, $this->params[1], $id);
+	}
 
 	/**
 	 * @depends testRepositoryAddsAndGetsCarwash
