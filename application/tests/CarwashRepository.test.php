@@ -1,10 +1,15 @@
 <?php
+
+use Laravel\CLI\Command;
+
 class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 {
 	//public function testAddCarw
 
 	public function setUp()
 	{
+		Command::run(array('ClearDatabase'));
+
 		$this->cw_repo = IoC::resolve('carwash_repository');
 
 		$this->params = array(
@@ -164,6 +169,15 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 			else
 				$this->assertFalse($cw->options[$index]);
 		}
+	}
+	/**
+	 * @depends testRepositoryAddsSecond
+	 */
+	public function testRepositoryViewsAll()
+	{
+		$carwashes = $this->cw_repo->get_all();
+
+		
 	}
 }
 ?>
