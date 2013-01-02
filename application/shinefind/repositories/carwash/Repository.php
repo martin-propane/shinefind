@@ -344,6 +344,14 @@ class Carwash_Repository {
 
 	public function get_all() {
 		$quer = Database::table('Data_Carwashes')->get();
+
+		//this is bad, necessary because of the way the tables are set up
+		//need to consider changing, or not allowing lookup of all type/other info in get_all
+		foreach ($quer as $tuple)
+		{
+			foreach (
+		}
+
 		return $this->get_entities($quer);
 	}
 
