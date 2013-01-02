@@ -137,169 +137,29 @@ class Carwash_Repository {
 
 		$db->where('id', '=', $id)->update($send);
 
-		//TODO: Replace manual code for types and options with code that uses array
-
-		if (array_key_exists('detailing', $info) && $info['detailing'] == true)
+		foreach ($this->SHORT_TYPES as $s=>$type)
 		{
-			$count = Database::table('Type_Detailing')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Type_Detailing')->insert(array('cw_id' => $id));
+			if (array_key_exists($s, $info) && $info[$s] == true)
+			{
+				$count = Database::table('Type_'.$type)->where('cw_id', '=', $id)->count();
+				if ($count == 0)
+					Database::table('Type_'.$type)->insert(array('cw_id' => $id));
+			}
+			else
+				Database::table('Type_'.$type)->where('cw_id', '=', $id)->delete();
 		}
-		else
-			Database::table('Type_Detailing')->where('cw_id', '=', $id)->delete();
 
-		if (array_key_exists('freevac', $info) && $info['freevac'] == true)
+		foreach ($this->SHORT_OPTIONS as $s=>$option)
 		{
-			$count = Database::table('Type_FreeVacuums')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Type_FreeVacuums')->insert(array('cw_id' => $id));
+			if (array_key_exists($s, $info) && $info[$s] == true)
+			{
+				$count = Database::table('Other_'.$option)->where('cw_id', '=', $id)->count();
+				if ($count == 0)
+					Database::table('Other_'.$option)->insert(array('cw_id' => $id));
+			}
+			else
+				Database::table('Other_'.$option)->where('cw_id', '=', $id)->delete();
 		}
-		else
-			Database::table('Type_FreeVacuums')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('fullservice', $info) && $info['fullservice'] == true)
-		{
-			$count = Database::table('Type_FullService')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Type_FullService')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Type_FullService')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('handwash', $info) && $info['handwash'] == true)
-		{
-			$count = Database::table('Type_HandWash')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Type_HandWash')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Type_HandWash')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('mobile', $info) && $info['mobile'] == true)
-		{
-			$count = Database::table('Type_Mobile')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Type_Mobile')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Type_Mobile')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('selfserve', $info) && $info['selfserve'] == true)
-		{
-			$count = Database::table('Type_SelfServe')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Type_SelfServe')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Type_SelfServe')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('softtouch', $info) && $info['softtouch'] == true)
-		{
-			$count = Database::table('Type_SoftTouch')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Type_SoftTouch')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Type_SoftTouch')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('touchfree', $info) && $info['touchfree'] == true)
-		{
-			$count = Database::table('Type_TouchFree')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Type_TouchFree')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Type_TouchFree')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('tunnel', $info) && $info['tunnel'] == true)
-		{
-			$count = Database::table('Type_Tunnel')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Type_Tunnel')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Type_Tunnel')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('xpress', $info) && $info['xpress'] == true)
-		{
-			$count = Database::table('Type_Xpress')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Type_Xpress')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Type_Xpress')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('creditcards', $info) && $info['creditcards'] == true)
-		{
-			$count = Database::table('Other_CreditCards')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Other_CreditCards')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Other_CreditCards')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('conveniencestore', $info) && $info['conveniencestore'] == true)
-		{
-			$count = Database::table('Other_ConvenienceStore')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Other_ConvenienceStore')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Other_ConvenienceStore')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('fuel', $info) && $info['fuel'] == true)
-		{
-			$count = Database::table('Other_Fuel')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Other_Fuel')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Other_Fuel')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('giftcards', $info) && $info['giftcards'] == true)
-		{
-			$count = Database::table('Other_GiftCards')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Other_GiftCards')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Other_GiftCards')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('oilchange', $info) && $info['oilchange'] == true)
-		{
-			$count = Database::table('Other_OilChange')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Other_OilChange')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Other_OilChange')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('other_other', $info) && $info['other_other'] == true)
-		{
-			$count = Database::table('Other_Other')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Other_Other')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Other_Other')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('petwash', $info) && $info['petwash'] == true)
-		{
-			$count = Database::table('Other_PetWash')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Other_PetWash')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Other_PetWash')->where('cw_id', '=', $id)->delete();
-
-		if (array_key_exists('salon', $info) && $info['salon'] == true)
-		{
-			$count = Database::table('Other_Salon')->where('cw_id', '=', $id)->count();
-			if ($count == 0)
-				Database::table('Other_Salon')->insert(array('cw_id' => $id));
-		}
-		else
-			Database::table('Other_Salon')->where('cw_id', '=', $id)->delete();
 
 		return TRUE;
 	}
