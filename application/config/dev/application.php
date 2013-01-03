@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'url' => 'http://shinefind.propanemedia.com/public',
+	'url' => 'http://shinefind.propanemedia.com',
 );
 
 ?>

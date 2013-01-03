@@ -258,7 +258,7 @@ class Carwash_Repository {
 
 		$info->count = $quer->count();
 		$results = $quer->take($per_page)->skip($per_page*($page - 1))->get($attributes);
-		$info->page = $this->get_entities($results);
+		$info->page = $this->get_full_entities($results);
 		$info->per_page = $per_page;
 
 		return $info;
