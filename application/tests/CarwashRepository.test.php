@@ -78,6 +78,39 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 			'salon' => false
 		);
 
+		$this->params[2] = array(
+			'name' => 'UnitCarwash3',
+			'busi_ad' => '1234 Unit Test Drive3',
+			'city' => 'Memphis',
+			'state' => 'TN',
+			'email' => 'test3@test.com',
+			'zip' => '38103',
+			'phone' => '9011234563',
+			'notes' => 'Lorem ipsum ...3',
+			'website' => 'http://www.shinefind3.com/',
+			'corp_ad' => '4321 Evird Tset Tinu3',
+
+			'detailing' => false,
+			'freevac' => false,
+			'fullservice' => false,
+			'handwash' => false,
+			'mobile' => true,
+			'selfserve' => false,
+			'softtouch' => false,
+			'touchfree' => false,
+			'tunnel' => false,
+			'xpress' => false,
+
+			'creditcards' => true,
+			'conveniencestore' => false,
+			'fuel' => false,
+			'giftcards' => true,
+			'oilchange' => false,
+			'other_other' => true,
+			'petwash' => false,
+			'salon' => false
+		);
+
 	}
 
 	protected function formatPhone($phone)
@@ -161,7 +194,7 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 
 		$carwashes = $this->cw_repo->get_all();
 
-		$this->assertEquals(count($carwashes), 2);
+		$this->assertEquals(count($carwashes), count($this->params));
 
 		foreach ($carwashes as $cw)
 			$this->assertCarwashEquals($cw, $this->params[$tuple_params[$cw->id]], $cw->id);
