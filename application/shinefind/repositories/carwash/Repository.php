@@ -216,14 +216,18 @@ class Carwash_Repository {
 		return $query_results;
 	}
 
+	protected function get_full_entities($relation)
+	{
+		return $this->get_entities($this->get_types_options($relation));
+	}
+
 	public function get_all() {
 		$quer = Database::table('Data_Carwashes')->get();
 
 		//this is bad, necessary because of the way the tables are set up
 		//need to consider changing, or not allowing lookup of all type/other info in get_all
-		$quer = $this->get_types_options($quer);
 
-		return $this->get_entities($quer);
+		return $this->get_full_entities($quer);
 	}
 
 	public function get_state() {
@@ -233,7 +237,7 @@ class Carwash_Repository {
 
 	public function get_city($state, $city) {
 		$quer = Database::table('Data_Carwashes')->where('state', '=', $state)->where('city', '=', $city)->get();
-		return $this->get_entities($quer);
+		return $this->get_full_entities($quer);
 	}
 
 	public function get_city_paged($state, $city, $type, $per_page, $page = 1) {

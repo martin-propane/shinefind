@@ -110,7 +110,6 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 			'petwash' => false,
 			'salon' => false
 		);
-
 	}
 
 	protected function formatPhone($phone)
@@ -198,6 +197,24 @@ class TestCarwash_Repository extends PHPUnit_Framework_TestCase
 
 		foreach ($carwashes as $cw)
 			$this->assertCarwashEquals($cw, $this->params[$tuple_params[$cw->id]], $cw->id);
+	}
+
+	public function testRepositoryGetsCity()
+	{
+		foreach ($this->params as $i=>$params)
+			$this->cw_repo->add($params);
+
+		$city = $this->params[0]['city'];
+		$state = $this->params[0]['state'];
+
+		$city_count = 0;
+		foreach ($this->params as $params)
+			if ($params['state'] === $state && $params['city'] === $city)
+				$city_count++;
+
+		$carwashes = $this->cw_repo->get_city($state, $city);
+		
+		$this->assertEquals($city_count, count($carwashes));
 	}
 }
 ?>
