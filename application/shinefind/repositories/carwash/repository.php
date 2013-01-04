@@ -230,9 +230,9 @@ class Carwash_Repository {
 		return $this->get_full_entities($quer);
 	}
 
-	public function get_state() {
+	public function get_state($state) {
 		$quer = Database::table('Data_Carwashes')->where('state', '=', $state)->get();
-		return $this->get_entities($quer);
+		return $this->get_full_entities($quer);
 	}
 
 	public function get_city($state, $city) {

@@ -21,7 +21,7 @@ class Admin_Products_Controller extends Base_Controller {
 		$p_repo = IoC::resolve('product_repository');
 		$res = $p_repo->add(Input::all());
 
-		return Redirect::to_action('Admin.Products.view_all');
+		return Redirect::to_action('Admin.Products.view');
 	}
 
 	public function get_edit($id)
@@ -42,17 +42,17 @@ class Admin_Products_Controller extends Base_Controller {
 
 		$res = $p_repo->edit($id, Input::all());
 
-		return Redirect::to_action('Admin.Products.view_all');
+		return Redirect::to_action('Admin.Products.view');
 	}
 
-	public function get_view_all()
+	public function get_view()
 	{
 		$this->layout->title = 'Products';
 	
 		$p_repo = IoC::resolve('product_repository');
 		$res = $p_repo->get_all();
 
-		$this->layout->nest('content', 'Admin.Products.view_all', array('products' => $res));
+		$this->layout->nest('content', 'Admin.Products.view', array('products' => $res));
 	}
 }
 

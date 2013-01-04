@@ -21,7 +21,7 @@ class Admin_Carwashes_Controller extends Base_Controller {
 		$cw_repo = IoC::resolve('carwash_repository');
 		$res = $cw_repo->add(Input::all());
 
-		return Redirect::to_action('Admin.Carwashes.view_all');
+		return Redirect::to_action('Admin.Carwashes.view');
 
 		if ($res === TRUE)
 			return Response::make('Succesful submission!');
@@ -47,17 +47,24 @@ class Admin_Carwashes_Controller extends Base_Controller {
 
 		$res = $cw_repo->edit($id, Input::all());
 
-		return Redirect::to_action('Admin.Carwashes.view_all');
+		return Redirect::to_action('Admin.Carwashes.view');
 	}
 
-	public function get_view_all()
+	public function get_view()
 	{
 		$this->layout->title = 'Carwashes';
-		
-		$cw_repo = IoC::resolve('carwash_repository');
-		$res = $cw_repo->get_all();
 
-		$this->layout->nest('content', 'Admin.Carwashes.view_all', array('carwashes' => $res));
+		$state = Input::get('state', 'all');
+		
+
+		$cw_repo = IoC::resolve('carwash_repository');
+
+		if ($state === 'all')
+			$carwashes = $cw_repo->get_all();
+		else
+			$carwashes = $cw_repo->get_state($state);
+
+		$this->layout->nest('content', 'Admin.Carwashes.view', array('carwashes' => $carwashes));
 	}
 }
 

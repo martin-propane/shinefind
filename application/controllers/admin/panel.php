@@ -10,7 +10,7 @@ class Admin_Panel_Controller extends Base_Controller {
 
 	public function get_index()
 	{
-		return Redirect::to_action('Admin.Carwashes.view_all');
+		return Redirect::to_action('Admin.Carwashes.view');
 		return View::make('Admin.Panel.index');
 	}
 

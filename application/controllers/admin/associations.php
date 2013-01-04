@@ -21,7 +21,7 @@ class Admin_Associations_Controller extends Base_Controller {
 		$cw_repo = IoC::resolve('association_repository');
 		$res = $cw_repo->add(Input::all());
 
-		return Redirect::to_action('Admin.Associations.view_all');
+		return Redirect::to_action('Admin.Associations.view');
 	}
 
 	public function get_edit($id)
@@ -42,17 +42,17 @@ class Admin_Associations_Controller extends Base_Controller {
 
 		$res = $cw_repo->edit($id, Input::all());
 
-		return Redirect::to_action('Admin.Associations.view_all');
+		return Redirect::to_action('Admin.Associations.view');
 	}
 
-	public function get_view_all()
+	public function get_view()
 	{
 		$this->layout->title = 'Associations';
 	
 		$cw_repo = IoC::resolve('association_repository');
 		$res = $cw_repo->get_all();
 
-		$this->layout->nest('content', 'Admin.Associations.view_all', array('associations' => $res));
+		$this->layout->nest('content', 'Admin.Associations.view', array('associations' => $res));
 	}
 }
 

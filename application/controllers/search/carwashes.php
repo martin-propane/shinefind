@@ -49,7 +49,7 @@ class Search_Carwashes_Controller extends Base_Controller {
 		$cw_repo = IoC::resolve('carwash_repository');
 		$res = $cw_repo->add(Input::all());
 
-		return Redirect::to_action('Admin.Carwashes.view_all');
+		return Redirect::to_action('Admin.Carwashes.view');
 
 		if ($res === TRUE)
 			return Response::make('Succesful submission!');
