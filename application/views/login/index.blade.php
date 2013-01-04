@@ -1,4 +1,6 @@
 {{ Form::open('login', 'POST', array('class'=>'form-horizontal')) }}
+	<fieldset>
+		<legend>ShineFind Login</legend>
 	<div class="control-group">
 		{{ Form::label('email', 'Email', array('class'=>'control-label')) }}
 		<div class="controls">
@@ -16,5 +18,6 @@
 			{{ Form::submit('Login', array('class'=>'btn')) }}
 		</div>
 	</div>
+	</fieldset>
 {{ Form::close() }}
 
