@@ -20,6 +20,8 @@
 					<li><?php echo HTML::Link('admin/products/view_all', 'View All') ?></li>
 					<li><?php echo HTML::Link('admin/products/add', 'Add') ?></li>
 				</ul>
+				<br>
+				{{ $user }}
 			</div>
 			<div class="span10">
 				{{ $content }}

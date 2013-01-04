@@ -36,8 +36,10 @@ Route::controller(Controller::detect());
 
 Route::get('/', function()
 {
-	return Redirect::to('search/carwashes');
+	return Redirect::to('login');
 });
+
+Route::filter('pattern: admin/*', 'auth');
 
 /*
 |--------------------------------------------------------------------------
@@ -110,4 +112,10 @@ Route::filter('csrf', function()
 Route::filter('auth', function()
 {
 	if (Auth::guest()) return Redirect::to('login');
+	else if (!Auth::user()->admin) return Redirect::to('search/carwashes');
+});
+
+View::composer('layouts.admin', function($view)
+{
+    $view->nest('user', 'partials.userbar', array('user' => Auth::user()->email));
 });
