@@ -54,12 +54,12 @@ class Admin_Carwashes_Controller extends Base_Controller {
 	{
 		$this->layout->title = 'Carwashes';
 
-		$state = Input::get('state', 'all');
+		$state = Input::get('state', 'All');
 		
 
 		$cw_repo = IoC::resolve('carwash_repository');
 
-		if ($state === 'all')
+		if ($state === 'All')
 			$carwashes = $cw_repo->get_all();
 		else
 			$carwashes = $cw_repo->get_state($state);

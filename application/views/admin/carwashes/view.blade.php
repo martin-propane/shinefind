@@ -1,4 +1,19 @@
+<?php
+$state_list = array('All', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD','TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY');
+?>
 <table class="table table-hover">
+	<?php
+		for ($i = 0; $i < count($state_list); $i++)
+		{
+			$state = $state_list[$i];
+			$params['state'] = $state;
+			echo HTML::link(URL::current_query($params), $state);
+			if ($i !== count($state_list) - 1)
+				echo ' | ';
+		}
+	?>
+	{{ Form::open(URI::current(), 'POST', array('class'=>'form-inline')) }}
+	{{ Form::close() }}
 	<thead>
 		<tr>
 			<td>ID</td>
