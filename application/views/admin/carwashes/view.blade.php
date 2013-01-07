@@ -3,11 +3,17 @@ $state_list = array('All', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 ?>
 <table class="table table-hover">
 	<?php
+		$cur_state = $params['state'];
 		for ($i = 0; $i < count($state_list); $i++)
 		{
 			$state = $state_list[$i];
 			$params['state'] = $state;
-			echo HTML::link(URL::current_query($params), $state);
+			$link = HTML::link(URL::current_query($params), $state);
+
+			if ($cur_state === $state)
+				echo '<b>'.$link.'</b>';
+			else
+				echo $link;
 			if ($i !== count($state_list) - 1)
 				echo ' | ';
 		}

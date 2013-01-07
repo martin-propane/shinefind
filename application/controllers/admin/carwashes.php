@@ -53,7 +53,7 @@ class Admin_Carwashes_Controller extends Base_Controller {
 	public function get_view()
 	{
 		$this->layout->title = 'Carwashes';
-
+		$input = Input::get();
 		$state = Input::get('state', 'All');
 		
 
@@ -64,7 +64,9 @@ class Admin_Carwashes_Controller extends Base_Controller {
 		else
 			$carwashes = $cw_repo->get_state($state);
 
-		$this->layout->nest('content', 'Admin.Carwashes.view', array('carwashes' => $carwashes));
+		$input['state'] = $state;
+
+		$this->layout->nest('content', 'Admin.Carwashes.view', array('carwashes' => $carwashes, 'params' => $input));
 	}
 }
 

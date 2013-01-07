@@ -200,3 +200,7 @@ IoC::singleton('product_repository', function() {
 	return new Shinefind\Repositories\Product_Repository();
 });
 
+IoC::singleton('user_repository', function() {
+	return new Shinefind\Repositories\User_Repository();
+});
+
