@@ -5,6 +5,7 @@
 			<td>Email</td>
 			<td>Admin Level</td>
 			<td>Edit</td>
+			<td>Delete</td>
 		</tr>
 	</thead>
 	<?php foreach ($users as $user): ?>
@@ -27,7 +28,20 @@
 				}
 			?></td>
 			<td><?php echo HTML::link_to_action('admin.users@edit', 'Edit', array($user->id), array('class'=>'btn')) ?></td>
+			<td><a href="javascript:void(0)" onClick="deleteItem(<?php echo $user->id ?>)" class = "btn">Delete</a></td>
 		</tr>
 	</tbody>
 	<?php endforeach; ?>
 </table>
+
+<script type = "text/javascript">
+function deleteItem(id)
+{
+	var conf = confirm('Do you really want to delete this user?');
+	if (conf)
+		window.location = '<?php echo URL::to_action('admin.users@delete')?>/' + id;
+}
+</script>
+
+
+

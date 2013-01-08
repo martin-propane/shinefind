@@ -34,6 +34,11 @@ class User_Repository
 		Database::table($this->TABLE)->where('id', '=', $id)->update($send);
 	}
 
+	public function delete($id)
+	{
+		Database::table($this->TABLE)->delete($id);
+	}
+
 	public function get_all()
 	{
 		return $this->get_entities(Database::table($this->TABLE)->get());

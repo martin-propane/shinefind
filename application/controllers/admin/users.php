@@ -36,6 +36,15 @@ class Admin_Users_Controller extends Base_Controller
 		$this->layout->nest('content', 'Admin.Users.edit', get_object_vars($user));
 	}
 
+	public function get_delete($id)
+	{
+		$this->layout->title = 'Delete User';
+		$user_repo = IoC::resolve('user_repository');
+		$user_repo->delete($id);
+
+		return Redirect::to_action('Admin.Users.view');
+	}
+
 	public function post_edit($id)
 	{
 		$user_repo = IoC::resolve('user_repository');
