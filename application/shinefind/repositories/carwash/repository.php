@@ -3,6 +3,7 @@
 use \stdClass;
 use Laravel\Database;
 use Shinefind\Entities\Carwash;
+use Shinefind\Repositories\Carwash_Query;
 
 class Carwash_Repository {
 	public $TABLE = 'Data_Carwashes';
@@ -285,6 +286,11 @@ class Carwash_Repository {
 		$count = $quer->count();
 
 		return $count;
+	}
+
+	public function query()
+	{
+		return new Carwash_Query();
 	}
 }
 

@@ -61,22 +61,67 @@ class Admin_Carwashes_Controller extends Base_Controller {
 
 	public function get_view()
 	{
+		$per_page = 10;
 		$this->layout->title = 'Carwashes';
 		$input = Input::get();
+		$name = Input::get('name');
 		$state = Input::get('state', 'All');
-		
+		$city = Input::get('city');
+		$phone = Input::get('phone');
+		$sort = Input::get('sort');
+		$order = Input::get('order', 'asc');
+		$page = Input::get('page', '1');
 
 		$cw_repo = IoC::resolve('carwash_repository');
+		$query = $cw_repo->query();
 
-		if ($state === 'All')
-			$carwashes = $cw_repo->get_all();
-		else
-			$carwashes = $cw_repo->get_state($state);
+		if ($state !== 'All')
+			$query->state_is($state);
 
+		if ($name != null)
+			$query->name_like($name);
+		
+		if ($phone != null)
+			$query->phone_like($phone);
+
+		if ($city != null)
+			$query->city_like($city);
+
+		switch ($sort)
+		{
+			case 'id':
+				$query->sort_id($order);
+				break;
+			case 'name':
+				$query->sort_name($order);
+				break;
+			case 'state':
+				$query->sort_state($order);
+				break;
+			case 'city':
+				$query->sort_city($order);
+				break;
+		}
+
+		$count = $query->count();
+		$page_count = $count / $per_page;
+		if ($count % $per_page)
+			$page_count++;
+		$carwashes = $query->page($per_page, $page - 1);
+		
+		//done so default values will be sent
+		$input['name'] = $name;
 		$input['state'] = $state;
+		$input['city'] = $city;
+		$input['phone'] = $phone;
+		$input['sort'] = $sort;
+		$input['order'] = $order;
+		$input['page'] = $page;
 
-		$this->layout->nest('content', 'Admin.Carwashes.view', array('carwashes' => $carwashes, 'params' => $input));
+
+		$this->layout->nest('content', 'Admin.Carwashes.view', array('carwashes' => $carwashes, 'params' => $input, 'count'=>$page_count));
 	}
 }
 
 ?>
+

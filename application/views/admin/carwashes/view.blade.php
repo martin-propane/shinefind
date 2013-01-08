@@ -1,24 +1,66 @@
 <?php
-$state_list = array('All', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD','TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY');
+$state_list = array(
+	'All'=>'All',
+	'AL'=>"Alabama",  
+	'AK'=>"Alaska",  
+	'AZ'=>"Arizona",  
+	'AR'=>"Arkansas",  
+	'CA'=>"California",  
+	'CO'=>"Colorado",  
+	'CT'=>"Connecticut",  
+	'DE'=>"Delaware",  
+	'DC'=>"District Of Columbia",  
+	'FL'=>"Florida",  
+	'GA'=>"Georgia",  
+	'HI'=>"Hawaii",  
+	'ID'=>"Idaho",  
+	'IL'=>"Illinois",  
+	'IN'=>"Indiana",  
+	'IA'=>"Iowa",  
+	'KS'=>"Kansas",  
+	'KY'=>"Kentucky",  
+	'LA'=>"Louisiana",  
+	'ME'=>"Maine",  
+	'MD'=>"Maryland",  
+	'MA'=>"Massachusetts",  
+	'MI'=>"Michigan",  
+	'MN'=>"Minnesota",  
+	'MS'=>"Mississippi",  
+	'MO'=>"Missouri",  
+	'MT'=>"Montana",
+	'NE'=>"Nebraska",
+	'NV'=>"Nevada",
+	'NH'=>"New Hampshire",
+	'NJ'=>"New Jersey",
+	'NM'=>"New Mexico",
+	'NY'=>"New York",
+	'NC'=>"North Carolina",
+	'ND'=>"North Dakota",
+	'OH'=>"Ohio",  
+	'OK'=>"Oklahoma",  
+	'OR'=>"Oregon",  
+	'PA'=>"Pennsylvania",  
+	'RI'=>"Rhode Island",  
+	'SC'=>"South Carolina",  
+	'SD'=>"South Dakota",
+	'TN'=>"Tennessee",  
+	'TX'=>"Texas",  
+	'UT'=>"Utah",  
+	'VT'=>"Vermont",  
+	'VA'=>"Virginia",  
+	'WA'=>"Washington",  
+	'WV'=>"West Virginia",  
+	'WI'=>"Wisconsin",  
+	'WY'=>"Wyoming");
 ?>
 <table class="table table-hover">
-	<?php
-		$cur_state = $params['state'];
-		for ($i = 0; $i < count($state_list); $i++)
-		{
-			$state = $state_list[$i];
-			$params['state'] = $state;
-			$link = HTML::link(URL::current_query($params), $state);
-
-			if ($cur_state === $state)
-				echo '<b>'.$link.'</b>';
-			else
-				echo $link;
-			if ($i !== count($state_list) - 1)
-				echo ' | ';
-		}
-	?>
-	{{ Form::open(URI::current(), 'POST', array('class'=>'form-inline')) }}
+	{{ Form::open(URI::current(), 'GET', array('class'=>'form-inline', 'id'=>'view_form')) }}
+		{{ Form::select('state', $state_list, $params['state']) }}
+		{{ Form::text('name', $params['name'], array('class'=>'input-small', 'placeholder'=>'Name')) }}
+		{{ Form::text('city', $params['city'], array('class'=>'input-small', 'placeholder'=>'City')) }}
+		{{ Form::text('phone', $params['phone'], array('placeholder'=>'(000) 000 - 000')) }}
+		{{ Form::hidden('page', $params['page'], array('id'=>'page')) }}
+		{{ Form::submit('Go', array('class'=>'btn')) }}
 	{{ Form::close() }}
 	<thead>
 		<tr>
@@ -55,13 +97,21 @@ $state_list = array('All', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 	</tbody>
 	<?php endforeach; ?>
 </table>
-
+@for ($i = 1; $i <= $count; $i++)
+	{{ $i === $params['page'] ? $i : '<a href="javascript:void(0)" onClick="submitPage('.$i.')">'.$i.' </a>' }}
+@endfor
 <script type = "text/javascript">
 function deleteItem(id)
 {
 	var conf = confirm('Do you really want to delete this carwash?');
 	if (conf)
 		window.location = '<?php echo URL::to_action('admin.carwashes@delete')?>/' + id;
+}
+
+function submitPage(page)
+{
+	$('#page').val(page);
+	$('#view_form').submit();
 }
 </script>
 
