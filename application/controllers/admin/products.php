@@ -36,6 +36,15 @@ class Admin_Products_Controller extends Base_Controller {
 		$this->layout->nest('content', 'Admin.Products.edit', get_object_vars($p));
 	}
 
+	public function get_delete($id)
+	{
+		$this->layout->title = 'Delete Product';
+		$user_repo = IoC::resolve('product_repository');
+		$user_repo->delete($id);
+
+		return Redirect::to_action('Admin.Products.view');
+	}
+
 	public function post_edit($id)
 	{
 		$p_repo = IoC::resolve('product_repository');

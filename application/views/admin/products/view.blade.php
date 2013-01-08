@@ -8,6 +8,7 @@
 			<td>Website</td>
 			<td>Type</td>
 			<td>Edit</td>
+			<td>Delete</td>
 		</tr>
 	</thead>
 	<?php foreach ($products as $p): ?>
@@ -20,7 +21,17 @@
 			<td><?php echo $p->website ?></td>
 			<td><?php echo $p->type ?></td>
 			<td><?php echo HTML::link_to_action('admin.products@edit', 'Edit', array($p->id), array('class'=>'btn')) ?></td>
+			<td><a href="javascript:void(0)" onClick="deleteItem(<?php echo $p->id ?>)" class = "btn">Delete</a></td>
 		</tr>
 	</tbody>
 	<?php endforeach; ?>
 </table>
+
+<script type = "text/javascript">
+function deleteItem(id)
+{
+	var conf = confirm('Do you really want to delete this product?');
+	if (conf)
+		window.location = '<?php echo URL::to_action('admin.products@delete')?>/' + id;
+}
+</script>

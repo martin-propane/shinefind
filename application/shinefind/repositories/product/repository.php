@@ -4,6 +4,7 @@ use Laravel\Database;
 use Shinefind\Entities\Product;
 
 class Product_Repository {
+	public $TABLE = 'Data_Products';
 
 	public function add($info) {
 		$send = array();
@@ -26,7 +27,7 @@ class Product_Repository {
 		$website = $info['website'];
 		$type = $info['type'];
 		
-		$db = Database::table('Data_Products');
+		$db = Database::table($this->TABLE);
 
 		$send['name'] = $name;
 
@@ -48,7 +49,7 @@ class Product_Repository {
 		$send = array();
 		$name = $info['name'];
 
-		$db = Database::table('Data_Products');
+		$db = Database::table($this->TABLE);
 		$max_id = $db->max('id');
 
 		if ($id > $max_id && $id < 0)
@@ -82,9 +83,14 @@ class Product_Repository {
 		return TRUE;
 	}
 
+	public function delete($id)
+	{
+		Database::table($this->TABLE)->delete($id);
+	}
+
 	public function get($id) {
 		//TODO: Properly check if id exists
-		$db = Database::table('Data_Products');
+		$db = Database::table($this->TABLE);
 		$max_id = $db->max('id');
 
 		if ($id > $max_id || $id < 0)
@@ -109,7 +115,7 @@ class Product_Repository {
 	}
 
 	public function get_all() {
-		$quer = Database::table('Data_Products')->get();
+		$quer = Database::table($this->TABLE)->get();
 		return $this->get_entities($quer);
 	}
 }

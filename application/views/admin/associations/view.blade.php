@@ -13,6 +13,7 @@
 			<td>Fax</td>
 			<td>Fee</td>
 			<td>Edit</td>
+			<td>Delete</td>
 		</tr>
 	</thead>
 	<?php foreach ($associations as $a): ?>
@@ -30,7 +31,18 @@
 			<td><?php echo $a->fax ?></td>
 			<td><?php echo $a->fee ?></td>
 			<td><?php echo HTML::link_to_action('admin.associations@edit', 'Edit', array($a->id), array('class'=>'btn')) ?></td>
+			<td><a href="javascript:void(0)" onClick="deleteItem(<?php echo $a->id ?>)" class = "btn">Delete</a></td>
 		</tr>
 	</tbody>
 	<?php endforeach; ?>
 </table>
+
+<script type = "text/javascript">
+function deleteItem(id)
+{
+	var conf = confirm('Do you really want to delete this association?');
+	if (conf)
+		window.location = '<?php echo URL::to_action('admin.associations@delete')?>/' + id;
+}
+</script>
+

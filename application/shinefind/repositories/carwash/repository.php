@@ -5,6 +5,8 @@ use Laravel\Database;
 use Shinefind\Entities\Carwash;
 
 class Carwash_Repository {
+	public $TABLE = 'Data_Carwashes';
+
 	public $DB_ATTRIBUTES = array('id', 'name', 'business_address', 'city', 'state', 'zip', 'phone', 'notes', 'email', 'website', 'corp_address', 'certified');
 	public $SHORT_TYPES = array(
 		'detailing'=>'Detailing',
@@ -57,7 +59,7 @@ class Carwash_Repository {
 		$website = $info['website'];
 		$corp_ad = $info['corp_ad'];
 		
-		$db = Database::table('Data_Carwashes');
+		$db = Database::table($this->TABLE);
 
 		if ($busi_ad != '')
 			$send['business_address'] = $busi_ad;
@@ -95,7 +97,7 @@ class Carwash_Repository {
 		$send = array();
 		$name = $info['name'];
 
-		$db = Database::table('Data_Carwashes');
+		$db = Database::table($this->TABLE);
 		$max_id = $db->max('id');
 
 		if ($id > $max_id && $id < 0)
@@ -164,9 +166,14 @@ class Carwash_Repository {
 		return TRUE;
 	}
 
+	public function delete($id)
+	{
+		Database::table($this->TABLE)->delete($id);
+	}
+
 	public function get($id) {
 		//TODO: Properly check if id exists
-		$db = Database::table('Data_Carwashes');
+		$db = Database::table($this->TABLE);
 		$max_id = $db->max('id');
 
 		if ($id > $max_id || $id < 0)
@@ -222,7 +229,7 @@ class Carwash_Repository {
 	}
 
 	public function get_all() {
-		$quer = Database::table('Data_Carwashes')->get();
+		$quer = Database::table($this->TABLE)->get();
 
 		//this is bad, necessary because of the way the tables are set up
 		//need to consider changing, or not allowing lookup of all type/other info in get_all
@@ -231,19 +238,19 @@ class Carwash_Repository {
 	}
 
 	public function get_state($state) {
-		$quer = Database::table('Data_Carwashes')->where('state', '=', $state)->get();
+		$quer = Database::table($this->TABLE)->where('state', '=', $state)->get();
 		return $this->get_full_entities($quer);
 	}
 
 	public function get_city($state, $city) {
-		$quer = Database::table('Data_Carwashes')->where('state', '=', $state)->where('city', '=', $city)->get();
+		$quer = Database::table($this->TABLE)->where('state', '=', $state)->where('city', '=', $city)->get();
 		return $this->get_full_entities($quer);
 	}
 
 	public function get_city_paged($state, $city, $type, $per_page, $page = 1) {
 		$info = new stdClass();
 
-		$quer = Database::table('Data_Carwashes')->where('state', '=', $state)->where('city', '=', $city);
+		$quer = Database::table($this->TABLE)->where('state', '=', $state)->where('city', '=', $city);
 		$attributes = array();
 
 		foreach ($this->DB_ATTRIBUTES as $name=>$val)
@@ -266,7 +273,7 @@ class Carwash_Repository {
 
 	public function get_city_count($state, $city, $type = 'all')
 	{
-		$quer = Database::table('Data_Carwashes')->where('state', '=', $state)->where('city', '=', $city);
+		$quer = Database::table($this->TABLE)->where('state', '=', $state)->where('city', '=', $city);
 		
 		$TYPE_NAMES = array('fullservice'=>'Type_FullService', 'tunnel'=>'Type_Tunnel', 'handwash'=>'Type_HandWash', 'mobile'=>'Type_Mobile', 'detailing'=>'Type_Detailing');
 		if (array_key_exists($type, $TYPE_NAMES))

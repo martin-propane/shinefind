@@ -50,6 +50,15 @@ class Admin_Carwashes_Controller extends Base_Controller {
 		return Redirect::to_action('Admin.Carwashes.view');
 	}
 
+	public function get_delete($id)
+	{
+		$this->layout->title = 'Delete Carwash';
+		$cw_repo = IoC::resolve('carwash_repository');
+		$cw_repo->delete($id);
+
+		return Redirect::to_action('Admin.Carwashes.view');
+	}
+
 	public function get_view()
 	{
 		$this->layout->title = 'Carwashes';

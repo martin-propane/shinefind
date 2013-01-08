@@ -33,6 +33,7 @@ $state_list = array('All', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 			<td>Website</td>
 			<td>Corporate Address</td>
 			<td>Edit</td>
+			<td>Delete</td>
 		</tr>
 	</thead>
 	<?php foreach ($carwashes as $c): ?>
@@ -49,7 +50,18 @@ $state_list = array('All', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 			<td><?php echo $c->website ?></td>
 			<td><?php echo $c->corp_ad ?></td>
 			<td><?php echo HTML::link_to_action('admin.carwashes@edit', 'Edit', array($c->id), array('class'=>'btn')) ?></td>
+			<td><a href="javascript:void(0)" onClick="deleteItem(<?php echo $c->id ?>)" class = "btn">Delete</a></td>
 		</tr>
 	</tbody>
 	<?php endforeach; ?>
 </table>
+
+<script type = "text/javascript">
+function deleteItem(id)
+{
+	var conf = confirm('Do you really want to delete this carwash?');
+	if (conf)
+		window.location = '<?php echo URL::to_action('admin.carwashes@delete')?>/' + id;
+}
+</script>
+

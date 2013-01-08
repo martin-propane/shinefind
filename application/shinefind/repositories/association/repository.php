@@ -4,6 +4,7 @@ use Laravel\Database;
 use Shinefind\Entities\Association;
 
 class Association_Repository {
+	public $TABLE = 'Data_Associations';
 
 	public function add($info) {
 		$send = array();
@@ -42,7 +43,7 @@ class Association_Repository {
 		$website = $info['website'];
 		$fee = $info['fee'];
 		
-		$db = Database::table('Data_Associations');
+		$db = Database::table($this->TABLE);
 
 		$send['name'] = $name;
 		if ($address != '')
@@ -75,7 +76,7 @@ class Association_Repository {
 		$send = array();
 		$name = $info['name'];
 
-		$db = Database::table('Data_Associations');
+		$db = Database::table($this->TABLE);
 		$max_id = $db->max('id');
 
 		if ($id > $max_id && $id < 0)
@@ -131,9 +132,14 @@ class Association_Repository {
 		return TRUE;
 	}
 
+	public function delete($id)
+	{
+		Database::table($this->TABLE)->delete($id);
+	}
+
 	public function get($id) {
 		//TODO: Properly check if id exists
-		$db = Database::table('Data_Associations');
+		$db = Database::table($this->TABLE);
 		$max_id = $db->max('id');
 
 		if ($id > $max_id || $id < 0)
@@ -158,7 +164,7 @@ class Association_Repository {
 	}
 
 	public function get_all() {
-		$quer = Database::table('Data_Associations')->get();
+		$quer = Database::table($this->TABLE)->get();
 		return $this->get_entities($quer);
 	}
 }
