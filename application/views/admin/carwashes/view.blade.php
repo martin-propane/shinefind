@@ -52,28 +52,47 @@ $state_list = array(
 	'WV'=>"West Virginia",  
 	'WI'=>"Wisconsin",  
 	'WY'=>"Wyoming");
+
+$attr_list = array(
+	'id'=>'ID',
+	'name'=>'Name',
+	'address'=>'Address',
+	'city'=>'City',
+	'state'=>'State',
+	'zip'=>'Zip',
+	'phone'=>'Phone',
+	'email'=>'Email',
+	'website'=>'Website',
+	'corp_ad'=>'Corporate Address');
 ?>
-<table class="table table-hover">
 	{{ Form::open(URI::current(), 'GET', array('class'=>'form-inline', 'id'=>'view_form')) }}
 		{{ Form::select('state', $state_list, $params['state']) }}
 		{{ Form::text('name', $params['name'], array('class'=>'input-small', 'placeholder'=>'Name')) }}
 		{{ Form::text('city', $params['city'], array('class'=>'input-small', 'placeholder'=>'City')) }}
 		{{ Form::text('phone', $params['phone'], array('placeholder'=>'(000) 000 - 000')) }}
 		{{ Form::hidden('page', $params['page'], array('id'=>'page')) }}
+		{{ Form::hidden('sort', $params['sort'], array('id'=>'sort')) }}
+		{{ Form::hidden('order', $params['order'], array('id'=>'order')) }}
 		{{ Form::submit('Go', array('class'=>'btn')) }}
 	{{ Form::close() }}
+<table class="table table-hover">
 	<thead>
 		<tr>
-			<td>ID</td>
-			<td>Name</td>
-			<td>Address</td>
-			<td>City</td>
-			<td>State</td>
-			<td>Zip</td>
-			<td>Phone</td>
-			<td>Email</td>
-			<td>Website</td>
-			<td>Corporate Address</td>
+			@foreach ($attr_list as $key=>$text)
+			<td>
+				<a href="javascript:void(0)" onClick="submitSort('{{$key}}')">{{$text}}<?php
+				if ($params['sort'] === $key)
+				{
+					if ($params['order'] === 'asc')
+						echo '<i class="icon-chevron-down"> </i>';
+					else
+						echo '<i class="icon-chevron-up"> </i>';
+				}
+				else
+					echo '<i class="icon-chevron-right"> </i>';
+				?></a>
+			</td>
+			@endforeach
 			<td>Edit</td>
 			<td>Delete</td>
 		</tr>
@@ -98,7 +117,7 @@ $state_list = array(
 	<?php endforeach; ?>
 </table>
 @for ($i = 1; $i <= $count; $i++)
-	{{ $i === $params['page'] ? $i : '<a href="javascript:void(0)" onClick="submitPage('.$i.')">'.$i.' </a>' }}
+	{{ $i == $params['page'] ? $i : '<a href="javascript:void(0)" onClick="submitPage('.$i.')">'.$i.' </a>' }}
 @endfor
 <script type = "text/javascript">
 function deleteItem(id)
@@ -111,6 +130,20 @@ function deleteItem(id)
 function submitPage(page)
 {
 	$('#page').val(page);
+	$('#view_form').submit();
+}
+
+function submitSort(sort)
+{
+	if (sort === $('#sort').val())
+		$('#order').val($('#order').val() === 'asc' ? 'desc' : 'asc');
+	else
+	{
+		$('#page').val(1);
+		$('#sort').val(sort);
+		$('#order').val('asc');
+	}
+
 	$('#view_form').submit();
 }
 </script>

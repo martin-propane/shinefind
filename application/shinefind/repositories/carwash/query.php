@@ -83,9 +83,9 @@ class Carwash_Query
 		return $this;
 	}
 
-	public function sort_state($order = 'asc')
+	public function sort_busi_ad($order = 'asc')
 	{
-		$this->query = $this->query->order_by('state', $order);
+		$this->query = $this->query->order_by('business_address', $order);
 
 		return $this;
 	}
@@ -93,6 +93,48 @@ class Carwash_Query
 	public function sort_city($order = 'asc')
 	{
 		$this->query = $this->query->order_by('city', $order);
+
+		return $this;
+	}
+
+	public function sort_state($order = 'asc')
+	{
+		$this->query = $this->query->order_by('state', $order);
+
+		return $this;
+	}
+
+	public function sort_zip($order = 'asc')
+	{
+		$this->query = $this->query->order_by('zip', $order);
+
+		return $this;
+	}
+	
+	public function sort_phone($order = 'asc')
+	{
+		$this->query = $this->query->order_by('phone', $order);
+
+		return $this;
+	}
+	
+	public function sort_email($order = 'asc')
+	{
+		$this->query = $this->query->order_by('email', $order);
+
+		return $this;
+	}
+	
+	public function sort_website($order = 'asc')
+	{
+		$this->query = $this->query->order_by('website', $order);
+
+		return $this;
+	}
+	
+	public function sort_corp_ad($order = 'asc')
+	{
+		$this->query = $this->query->order_by('corp_address', $order);
 
 		return $this;
 	}

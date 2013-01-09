@@ -68,7 +68,7 @@ class Admin_Carwashes_Controller extends Base_Controller {
 		$state = Input::get('state', 'All');
 		$city = Input::get('city');
 		$phone = Input::get('phone');
-		$sort = Input::get('sort');
+		$sort = Input::get('sort', 'id');
 		$order = Input::get('order', 'asc');
 		$page = Input::get('page', '1');
 
@@ -95,11 +95,29 @@ class Admin_Carwashes_Controller extends Base_Controller {
 			case 'name':
 				$query->sort_name($order);
 				break;
+			case 'busi_ad':
+				$query->sort_busi_ad($order);
+				break;
 			case 'state':
 				$query->sort_state($order);
 				break;
 			case 'city':
 				$query->sort_city($order);
+				break;
+			case 'zip':
+				$query->sort_zip($order);
+				break;
+			case 'phone':
+				$query->sort_phone($order);
+				break;
+			case 'email':
+				$query->sort_email($order);
+				break;
+			case 'website':
+				$query->sort_website($order);
+				break;
+			case 'corp_ad':
+				$query->sort_corp_ad($order);
 				break;
 		}
 
