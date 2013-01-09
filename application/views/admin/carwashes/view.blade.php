@@ -111,7 +111,7 @@ $attr_list = array(
 			<td><?php echo $c->website ?></td>
 			<td><?php echo $c->corp_ad ?></td>
 			<td><?php echo HTML::link_to_action('admin.carwashes@edit', 'Edit', array($c->id), array('class'=>'btn')) ?></td>
-			<td><a href="javascript:void(0)" onClick="deleteItem(<?php echo $c->id ?>)" class = "btn">Delete</a></td>
+			<td><a href="javascript:void(0)" onClick="deleteItem({{ $c->id }}, '{{ $c->name }}')" class = "btn">Delete</a></td>
 		</tr>
 	</tbody>
 	<?php endforeach; ?>
@@ -120,9 +120,9 @@ $attr_list = array(
 	{{ $i == $params['page'] ? $i : '<a href="javascript:void(0)" onClick="submitPage('.$i.')">'.$i.' </a>' }}
 @endfor
 <script type = "text/javascript">
-function deleteItem(id)
+function deleteItem(id, name)
 {
-	var conf = confirm('Do you really want to delete this carwash?');
+	var conf = confirm('Do you really want to delete "' + name + '?"');
 	if (conf)
 		window.location = '<?php echo URL::to_action('admin.carwashes@delete')?>/' + id;
 }
