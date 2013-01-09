@@ -65,6 +65,7 @@ $attr_list = array(
 	'website'=>'Website',
 	'corp_ad'=>'Corporate Address');
 ?>
+<legend>Carwashes</legend>
 	{{ Form::open(URI::current(), 'GET', array('class'=>'form-inline', 'id'=>'view_form')) }}
 		{{ Form::select('state', $state_list, $params['state']) }}
 		{{ Form::text('name', $params['name'], array('class'=>'input-small', 'placeholder'=>'Name')) }}
@@ -74,6 +75,11 @@ $attr_list = array(
 		{{ Form::hidden('sort', $params['sort'], array('id'=>'sort')) }}
 		{{ Form::hidden('order', $params['order'], array('id'=>'order')) }}
 		{{ Form::submit('Go', array('class'=>'btn')) }}
+		<span class="inline pull-right">
+@for ($i = 1; $i <= $count; $i++)
+	{{ $i == $params['page'] ? $i : '<a href="javascript:void(0)" onClick="submitPage('.$i.')">'.$i.' </a>' }}
+@endfor
+		</span>
 	{{ Form::close() }}
 <table class="table table-hover">
 	<thead>
