@@ -65,6 +65,8 @@ $attr_list = array(
 	'website'=>'Website',
 	'corp_ad'=>'Corporate Address');
 ?>
+<style>
+</style>
 <legend>Carwashes</legend>
 	{{ Form::open(URI::current(), 'GET', array('class'=>'form-inline', 'id'=>'view_form')) }}
 		{{ Form::select('state', $state_list, $params['state']) }}
@@ -85,7 +87,7 @@ $attr_list = array(
 	<thead>
 		<tr>
 			@foreach ($attr_list as $key=>$text)
-			<td>
+			<td style="white-space: nowrap">
 				<a href="javascript:void(0)" onClick="submitSort('{{$key}}')">{{$text}}<?php
 				if ($params['sort'] === $key)
 				{
