@@ -204,3 +204,7 @@ IoC::singleton('user_repository', function() {
 	return new Shinefind\Repositories\User_Repository();
 });
 
+IoC::singleton('carwash_review_repository', function() {
+	return new Shinefind\Repositories\Carwash_Review_Repository();
+});
+
