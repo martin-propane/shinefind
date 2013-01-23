@@ -34,10 +34,7 @@
 
 Route::controller(Controller::detect());
 
-Route::get('/', function()
-{
-	return Redirect::to('login');
-});
+Route::get('/', 'home@index');
 
 Route::filter('pattern: admin/*', 'manager');
 
