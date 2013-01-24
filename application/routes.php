@@ -133,3 +133,4 @@ View::composer('layouts.admin', function($view)
 		$view->nest('admin_menu', 'partials.admin_menu');
     $view->nest('user', 'partials.userbar', array('user' => Auth::user()->email));
 });
+
