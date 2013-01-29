@@ -128,6 +128,7 @@ $attr_list = array(
 	{{ $i == $params['page'] ? $i : '<a href="javascript:void(0)" onClick="submitPage('.$i.')">'.$i.' </a>' }}
 @endfor
 <script type = "text/javascript">
+var page_changed = 0;
 function deleteItem(id, name)
 {
 	var conf = confirm('Do you really want to delete "' + name + '?"');
@@ -138,6 +139,7 @@ function deleteItem(id, name)
 function submitPage(page)
 {
 	$('#page').val(page);
+	page_changed = true;
 	$('#view_form').submit();
 }
 
@@ -147,12 +149,20 @@ function submitSort(sort)
 		$('#order').val($('#order').val() === 'asc' ? 'desc' : 'asc');
 	else
 	{
-		$('#page').val(1);
 		$('#sort').val(sort);
 		$('#order').val('asc');
 	}
 
 	$('#view_form').submit();
 }
+
+$('#view_form').submit(function() {
+	if (!page_changed)
+		$('#page').val(1);
+	
+	return true;
+});
+
+
 </script>
 
