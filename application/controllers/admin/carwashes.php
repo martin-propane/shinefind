@@ -61,7 +61,7 @@ class Admin_Carwashes_Controller extends Base_Controller {
 
 	public function get_view()
 	{
-		$per_page = 10;
+		$per_page = 50;
 		$this->layout->title = 'Carwashes';
 		$input = Input::get();
 		$name = Input::get('name');
