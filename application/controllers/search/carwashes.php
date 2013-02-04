@@ -6,7 +6,7 @@ use Shinefind\Entities\Carwash;
 class Search_Carwashes_Controller extends Base_Controller {
 	
 	public $restful = true;
-	public $layout = 'layouts.search';
+	public $layout = 'layouts.frontend';
 	public $RESULTS_PER_PAGE = 4;
 
 	public function get_index()
@@ -17,12 +17,9 @@ class Search_Carwashes_Controller extends Base_Controller {
 
 		$this->layout->title = 'Search Carwashes';
 
-		$city_str = Input::get('city');
-		$city = trim(strstr($city_str, ',', true));
-		$state = trim(substr($city_str, strpos($city_str, ',') + 1));
-
-		$this->layout->city = $city;
-		$this->layout->state = $state;
+		$city = Cookie::get('city');
+		$state = Cookie::get('state');
+		$this->layout->nest('content', 'Search.Carwashes.index', array('city'=>$city, 'state'=>$state));
 
 		$page = Input::get('page', 1);
 		$type = Input::get('type', 'all');
@@ -38,8 +35,8 @@ class Search_Carwashes_Controller extends Base_Controller {
 			$carwashes = $cw_repo->get_city_paged($state, $city, $type, $this->RESULTS_PER_PAGE, $page);
 		//}
 
-		$this->layout->nest('results', 'Search.Carwashes.results', array('carwashes' => $carwashes, 'city' => $city, 'state' => $state, 'page' => $page, 'type'=>$type, 'query'=>$inputs));
-		$this->layout->nest('top_menu', 'Search.Carwashes.top_menu', array('query' => $inputs, 'type' => $type, 'counts' => $counts));
+		$this->layout->content->nest('top_menu', 'Search.Carwashes.top_menu', array('query' => $inputs, 'type' => $type, 'counts' => $counts));
+		$this->layout->content->nest('results', 'Search.Carwashes.results', array('carwashes' => $carwashes, 'city' => $city, 'state' => $state, 'page' => $page, 'type'=>$type, 'query'=>$inputs));
 	}
 
 	public function post_index()

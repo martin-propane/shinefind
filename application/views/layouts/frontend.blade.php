@@ -19,7 +19,7 @@
   
     <div id="header">
       <div id="logo">
-        <a href="#"><h1>Shinefind</h1></a>
+        <a href="{{ URL::base(); }}"><h1>Shinefind</h1></a>
       </div> <!--end logo-->
       <div id="facebook">
         <a href="#"><img src="{{ URL::to_asset('images/facebook.png'); }}" width="302" height="33" /></a><p><a href="#">or create a login</a></p>
@@ -28,23 +28,18 @@
     
     <div id="menu">
       <ul>
-        <li><a href="#"><img src="{{ URL::to_asset('images/nav_city.jpg'); }}" width="160" height="44" border="0" /></a></li>
-        <li><a href="#"><img src="{{ URL::to_asset('images/nav_detailers.jpg'); }}" width="123" height="44" border="0" /></a></li>
+        <li><a href="javascript:void(0)" onClick="showCityPopup();"><img src="{{ URL::to_asset('images/nav_city.jpg'); }}" width="160" height="44" border="0" /></a></li>
+        <li><a href="{{ URL::to_action('search/carwashes@index'); }}"><img src="{{ URL::to_asset('images/nav_detailers.jpg'); }}" width="123" height="44" border="0" /></a></li>
         <li><a href="#"><img src="{{ URL::to_asset('images/nav_diyprod.jpg'); }}" width="153" height="44" border="0" /></a></li>
         <li><a href="#"><img src="{{ URL::to_asset('images/nav_diyres.jpg'); }}" width="162" height="44" border="0" /></a></li>
         <li><a href="#"><img src="{{ URL::to_asset('images/nav_review.jpg'); }}" width="169" height="44" border="0" /></a></li>
-        <li><div id="search_box"><input type="text" name="search" size="17" placeholder="Site Search"><a href="#"><img src="{{ URL::to_asset('images/search_button.png'); }}" align="right" /></a></div></li>
+        <li><div id="search_box"><input id="site_search" type="text" name="search" size="17" placeholder="Site Search"><a href="#"><img src="{{ URL::to_asset('images/search_button.png'); }}" align="right" /></a></div></li>
       </ul>      
     </div> <!--end menu-->
     
-    <div id="container" class="container_12">
 {{ $content }}
-    </div> <!--end container-->
-   
-  	<div id="iphone_app_link">
-         <h3>Get the iPhone App!</h3>
-            <a href="#">Click Here to go to the App store</a>
-    </div><!--iphone app-->  
+  
+{{ $iphone_app_link }} 
     
     <div id="footer">
       <div id="footer_container">
@@ -69,6 +64,63 @@
       </div> <!--end footer_container-->
     </div> <!--end footer-->
   </div> <!--end bg_wrapper2-->
-    </div> <!--end bg_wrapper1-->
+ </div> <!--end bg_wrapper1-->
+	<div id="city_popup_holder">
+		<div id="city_popup">
+			<h2>Choose a City</h2>
+			<p>Choose from our currently supported cities.</p>
+			<br>
+			{{ Form::open('home/city', 'POST', array('id'=>'city_form')); }}
+			{{ Form::hidden('city', null, array('id'=>'city_val')); }}
+			{{ Form::hidden('state', null, array('id'=>'state_val')); }}
+			<div id="cities_left">
+				<ul>
+				<?php
+				for ($i = 0; $i < 25; $i++)
+				{
+					$city = $cities[$i]['city'];
+					$state = $cities[$i]['state'];
+					echo '<li>';
+					echo '<a href="javascript:void(0)" onClick="chooseCity(\''.$city.'\', \''.$state.'\')">'.$city.', '.$state.'</a> ';
+					echo '</li>';
+				}
+				?>
+				</ul>
+			</div>
+			<div id="cities_right">
+				<ul>
+				<?php
+				for ($i = 25; $i < 50; $i++)
+				{
+					$city = $cities[$i]['city'];
+					$state = $cities[$i]['state'];
+					echo '<li>';
+					echo '<a href="javascript:void(0)" onClick="chooseCity(\''.$city.'\', \''.$state.'\')">'.$city.', '.$state.'</a> ';
+					echo '</li>';
+				}
+				?>
+				</ul>
+			</div>
+			{{ Form::close(); }}
+		</div>
+	</div>
+<script type = "text/javascript">
+function chooseCity(city, state)
+{
+	$('#city_val').val(city);
+	$('#state_val').val(state);
+	$('#city_form').submit();
+}
+
+function showCityPopup()
+{
+	$('#city_popup_holder').show();
+}
+$(function() {
+@if ($current_city === null || $current_state === null)
+showCityPopup();
+@endif
+});
+</script>
 </body>
 </html>

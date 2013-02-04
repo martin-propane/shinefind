@@ -292,6 +292,33 @@ class Carwash_Repository {
 	{
 		return new Carwash_Query();
 	}
+
+	/*
+	* Return a list of cities along with their states
+	*/
+	public function get_cities()
+	{
+		$tuples = Database::query(
+			'SELECT * ' .
+			'FROM (SELECT DISTINCT city, state ' .
+			'FROM Data_Carwashes ' .
+			'GROUP BY city, state ' .
+			'ORDER BY count(*) desc ' .
+			'LIMIT 0, 50) top ' .
+			'ORDER BY state asc, city asc; ');
+
+		foreach ($tuples as $tuple)
+			$cities[] = (array) $tuple;
+
+		uasort($cities, function($a, $b) {
+			return $a['city'] > $b['city'];
+		});
+		uasort($cities, function($a, $b) {
+			return $a['state'] > $b['state'];
+		});
+
+		return $cities;
+	}
 }
 
 ?>

@@ -821,3 +821,37 @@ p.sponsor_red {
 .star_align {
 	margin-right:10px;
 }
+
+#city_popup {
+	display:block;
+	position:absolute;
+	width:800px;
+	height:650px;
+	margin:20px auto 0;
+	margin-left:-400px;
+	left:50%;
+	background-color:white;
+	padding:10px;
+	top: 5px;
+	border-width:4px;
+	border-style:solid;
+	border-color:darkred;
+	border-radius:10px;
+	overflow:hidden;
+}
+
+#city_popup_holder {
+	width:100%;
+	display:none;
+}
+
+#cities_left {
+	float:left;
+	width:50%;
+}
+
+#cities_right {
+	float:right;
+	width:50%;
+}
+

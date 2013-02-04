@@ -1,47 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-
-<?php
-echo Asset::container('front-header')->styles();
-echo Asset::container('front-header')->scripts();
-?>
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Shinefind</title>
-</head>
-
-<body>
-  <div id="bg_wrapper1">
-  <div id="bg_wrapper2">
-  
-    <div id="header">
-      <div id="logo">
-        <a href="#"><h1>Shinefind</h1></a>
-      </div> <!--end logo-->
-      <div id="facebook">
-        <a href="#"><img src="<?php echo asset('images/facebook.png'); ?>" width="302" height="33" border="0" /></a><p><a href="#">or create a login</a></p>
-      </div> <!--end facebook-->
-    </div> <!--end header-->
-    
-    <div id="menu">
-      <ul>
-        <li><a href="#"><img src="<?php echo asset('images/nav_city.jpg'); ?>" width="160" height="44" border="0" /></a></li>
-        <li><a href="#"><img src="<?php echo asset('images/nav_detailers.jpg'); ?>" width="123" height="44" border="0" /></a></li>
-        <li><a href="#"><img src="<?php echo asset('images/nav_diyprod.jpg'); ?>" width="153" height="44" border="0" /></a></li>
-        <li><a href="#"><img src="<?php echo asset('images/nav_diyres.jpg'); ?>" width="162" height="44" border="0" /></a></li>
-        <li><a href="#"><img src="<?php echo asset('images/nav_review.jpg'); ?>" width="169" height="44" border="0" /></a></li>
-        <li>
-	  <div id="search_box">
-	    <?php echo Form::open('search/carwashes', 'GET', array('id' => 'search_form')); ?>
-	      <input type="text" name="city" size="17" placeholder="Site Search">
-	      <a href="javascript:void(0)" onclick="postForm()"><img src="<?php echo asset('images/search_button.png'); ?>" align="right" /></a>
-	    <?php echo Form::close(); ?>
-	  </div>
-	</li>
-      </ul>      
-    </div> <!--end menu-->
-    
     <div id="container2" class="container_12">
       <div class="grid_12" id="body_topbreak">
       </div>
@@ -54,7 +10,7 @@ echo Asset::container('front-header')->scripts();
         <div id="refine_box">
           <div id="refine_box_info">
             <h4><?php echo $city . ', ' . $state; ?></h4>
-            <a href="#" class="small_link">(change city)</a>
+            <a href="javascript:void(0)" class="small_link" onClick="showCityPopup();">(change city)</a>
 	    {{ $top_menu }}
           </div>
         </div><!--refine search-->
@@ -113,44 +69,4 @@ echo Asset::container('front-header')->scripts();
         </div>
       </div><!--right column-->
     </div> <!--end container-->
-    
-    <div id="iphone_app_link2">
-         <h3>Get the iPhone App!</h3>
-            <a href="#">&raquo;Click Here to go to the App store</a>
-    </div><!--iphone app--> 
-    
-    <div id="footer">
-      <div id="footer_container">
-        <div id="footer_info">
-          <img src="<?php echo asset('images/footer_copyright.png'); ?>" width="220" height="25" border="0" />
-          <p>THE authorative force for all things detail-oriented. We pride ourselves with providing our users with accurate and relevant reviews and information to keep their cars looking their best.</p>
-		</div> <!--end footer_info-->
-        <div id="sitemap">
-          <p>SITEMAP</p>
-          <ul>
-            <li><a href="#">&raquo;Wash Reviews</a></li>
-            <li><a href="#">&raquo;Detailer Reviews</a></li>
-            <li><a href="#">&raquo;Privacy Policy</a></li>
-            <li><a href="#">&raquo;Product Reviews</a></li>
-            <li><a href="#">&raquo;Member Login</a></li>
-            <li><a href="#">&raquo;Advertise</a></li>
-            <li><a href="#">&raquo;Information Articles</a></li>
-            <li><a href="#">&raquo;Company Info</a></li>
-            <li><a href="#">&raquo;Get your Product or Company Listed</a></li>
-          </ul>
-        </div> <!--end sitemap-->
-      </div> <!--end footer_container-->
-    </div> <!--end footer-->
-  </div> <!--end bg_wrapper2-->
-    </div> <!--end bg_wrapper1-->
-
-    <!-- Javascript -->
-  <script type="text/javascript">
-   function postForm() {
-     $('#search_form').submit();
-   }
-  </script>
-
-</body>
-</html>
 

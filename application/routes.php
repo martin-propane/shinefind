@@ -1,5 +1,9 @@
 <?php
 
+use Shinefind\Repositories\Carwash_Repository;
+use Shinefind\Entities\Carwash;
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -132,5 +136,24 @@ View::composer('layouts.admin', function($view)
 	if ($user->admin >= 2)
 		$view->nest('admin_menu', 'partials.admin_menu');
     $view->nest('user', 'partials.userbar', array('user' => Auth::user()->email));
+});
+
+View::composer('layouts.frontend', function($view)
+{
+	//Provide the city list for the city popup
+	//This list might be something best cached in the repository, or only fetched if the user clicks change city
+
+	$uri = URI::current();
+
+	$cw_repo = IoC::resolve('carwash_repository');
+	
+	$view->cities = $cw_repo->get_cities();
+	$view->current_city = Cookie::get('city');
+	$view->current_state = Cookie::get('state');
+
+	if ($uri === '/')
+		$view->nest('iphone_app_link', 'partials.iphone_add_link');
+	else
+		$view->nest('iphone_app_link', 'partials.iphone_add_link2');
 });
 

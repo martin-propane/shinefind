@@ -1,3 +1,4 @@
+    <div id="container" class="container_12">
       <div class="grid_12" id="body_topbreak">
       </div>
       <div class="grid_7">
@@ -11,7 +12,7 @@
           </ul>
         </div>
         <div class="tab_sub_bar">
-          <p>Currently Searching: <b>Memphis, TN</b> <a href="#" class="small_wlink">(change city)</a></p>
+          <p>Currently Searching: <b>{{$current_city.', '.$current_state}}</b> <a href="" onClick="showCityPopup();" class="small_wlink">(change city)</a></p>
         </div>
         <div class="tab_shadow">
         </div>
@@ -69,4 +70,5 @@
       <div class="grid_2 alpha omega" id="rt_ad_main">
         <img src="{{ URL::to_asset('images/ad_120x600.jpg'); }}" width="120" height="600" />
       </div><!--right column-->
+    </div> <!--end container-->
 
