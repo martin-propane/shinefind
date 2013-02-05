@@ -29,8 +29,15 @@ class Home_Controller extends Base_Controller
 			Cookie::forever('city', $new_city);
 			Cookie::forever('state', $new_state);
 		}
-
-		return Redirect::back();
+		
+		//now the reqiest should be redirected to the previous page
+		//GET parameters are removed since the application state just changed
+		$referrer = Request::referrer();
+		$url = parse_url($referrer);
+		$path = $url['path'];
+		
+		//this looks messy, but it seems to work for getting rid of the query string from a url
+		return Redirect::to($url['scheme'] . '://' . $url['host'] . (isset($url['port']) ? ':'.$url['port'] : '') . $path);
 	}
 }
 
