@@ -23,6 +23,27 @@ class Search_Carwashes_Controller extends Base_Controller {
 
 		$page = Input::get('page', 1);
 		$type = Input::get('type', 'all');
+		$sort = Input::get('sort', '');
+		$order = Input::get('order', 'asc');
+
+		$query = $cw_repo->query();
+
+		$query->state_is($state);
+
+		$query->city_is($city);
+
+		switch ($sort)
+		{
+			case 'alpha':
+				$query->sort_name($order);
+				break;
+			case 'ranking':
+				$query->sort_ranking($order);
+				break;
+			case 'certified':
+				$query->sort_certified($order);
+				break;
+		}
 
 		$counts = array();
 		$types = array('all', 'detailing', 'fullservice', 'tunnel', 'handwash', 'mobile', 'detailing');
@@ -35,8 +56,13 @@ class Search_Carwashes_Controller extends Base_Controller {
 			$carwashes = $cw_repo->get_city_paged($state, $city, $type, $this->RESULTS_PER_PAGE, $page);
 		//}
 
-		$this->layout->content->nest('top_menu', 'Search.Carwashes.top_menu', array('query' => $inputs, 'type' => $type, 'counts' => $counts));
-		$this->layout->content->nest('results', 'Search.Carwashes.results', array('carwashes' => $carwashes, 'city' => $city, 'state' => $state, 'page' => $page, 'type'=>$type, 'query'=>$inputs));
+		$params['page'] = $page;
+		$params['type'] = $type;
+		$params['sort'] = $sort;
+		$params['order'] = $order;
+
+		$this->layout->content->nest('top_menu', 'Search.Carwashes.top_menu', array('query' => $params, 'type' => $type, 'counts' => $counts));
+		$this->layout->content->nest('results', 'Search.Carwashes.results', array('carwashes' => $carwashes, 'city' => $city, 'state' => $state, 'page' => $page, 'type'=>$type, 'query'=>$params));
 	}
 
 	public function post_index()

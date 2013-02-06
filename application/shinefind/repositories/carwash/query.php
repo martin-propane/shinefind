@@ -49,6 +49,12 @@ class Carwash_Query
 		return $this;
 	}
 
+	public function city_is($city)
+	{
+		$this->query = $this->query->where('city', '=', '%'.$city.'%');
+		return $this;
+	}
+
 	public function state_is($state)
 	{
 		$this->query = $this->query->where('state', '=', $state);

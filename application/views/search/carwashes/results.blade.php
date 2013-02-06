@@ -9,6 +9,32 @@
 		$next_page = $num_pages;
 	$params = $query;
 
+	function get_order($params, $sort)
+	{
+		if ($params['sort'] === $sort)
+			return $params['order'] === 'asc' ? 'desc' : 'asc';
+		else
+			return 'asc';
+	}
+	
+	function get_sort_url($params, $sort)
+	{
+		return URL::current_query(array('sort'=>$sort, 'order'=>get_order($params, $sort)) + $params);
+	}
+
+	function get_arrow($params, $sort)
+	{
+		if ($params['sort'] === $sort)
+		{
+			if ($params['order'] === 'asc')
+				return '<img src="'.asset('images/arrow-down.jpg').'" width="13" height="9" border="0"/>';
+			else
+				return '<img src="'.asset('images/arrow-up.jpg').'" width="13" height="9" border="0"/>';
+		}
+		else
+			return '<img src="'.asset('images/arrow-right.jpg').'" width="9" height="13" border="0"/>';
+	}
+
 	$TYPE_NAMES = array('all'=>'All', 'fullservice'=>'Full Service', 'tunnel'=>'Drive Through Tunnels', 'handwash'=>'Manual Wash', 'mobile'=>'Mobile Detail', 'detailing'=>'Advanced Detailing');
 ?>
 	<div class="grid_4">
@@ -22,13 +48,13 @@
             <p>Sort by</p>
           </div> 
           <div class="grid_2 omega">
-            <a href="#">Star Rating</a>&nbsp;<img src="<?php echo asset('images/arrow-right.jpg'); ?>" width="9" height="13" border="0"/>
+            <a href="{{ get_sort_url($params, 'rating'); }}">Star Rating</a>&nbsp;{{ get_arrow($params, 'rating'); }}
           </div>
           <div class="grid_2 alpha omega">
-            <a href="#">Alphabetical</a>&nbsp;<img src="<?php echo asset('images/arrow-right.jpg'); ?>" width="9" height="13" border="0"/>
+            <a href="{{ get_sort_url($params, 'alpha'); }}">Alphabetical</a>&nbsp;{{ get_arrow($params, 'alpha'); }}
           </div>
           <div class="grid_2 omega" id="certified_sort">
-            <a href="#">Certified</a>&nbsp;<img src="<?php echo asset('images/arrow-right.jpg'); ?>" width="9" height="13" border="0"/>
+            <a href="{{ get_sort_url($params, 'certified'); }}">Certified</a>&nbsp;{{ get_arrow($params, 'certified'); }}
           </div>
 	  <?php endif; ?><!--sorting-->
 	  <?php if ($carwashes): ?>
