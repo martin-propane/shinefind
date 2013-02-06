@@ -258,10 +258,6 @@ echo Form::checkbox('oilchange', TRUE, $options['OilChange'], array('class' => '
 echo Form::label('oilchange', 'Oil Change', array('class' => 'checkbox inline'));
 echo '</div>';
 echo '<div>';
-echo Form::checkbox('other_other', TRUE, $options['Other'], array('class' => 'checkbox'));
-echo Form::label('other_other', 'Other', array('class' => 'checkbox inline'));
-echo '</div>';
-echo '<div>';
 echo Form::checkbox('petwash', TRUE, $options['PetWash'], array('class' => 'checkbox'));
 echo Form::label('petwash', 'Pet Wash', array('class' => 'checkbox inline'));
 echo '</div>';
