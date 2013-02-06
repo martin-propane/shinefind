@@ -18,7 +18,7 @@ class Carwash {
 	public $certified;
 
 	public static $TYPES = array('Detailing', 'FreeVacuums', 'FullService', 'HandWash', 'Mobile', 'SelfServe', 'SoftTouch', 'TouchFree', 'Tunnel', 'Xpress');
-	public static $OPTIONS = array('ConvenienceStore', 'CreditCards', 'Fuel', 'GiftCards', 'OilChange', 'Other', 'PetWash', 'Salon');
+	public static $OPTIONS = array('ConvenienceStore', 'CreditCards', 'Fuel', 'Fundraiser', 'GiftCards', 'MilitaryDiscount', 'OilChange', 'Other', 'PetWash', 'Salon', 'SeniorDiscount');
 
 	public function __construct($id, $name, $busi_ad, $city, $state, $zip, $phone, $notes, $email, $website, $corp_ad, $certified, $types, $options)
 	{

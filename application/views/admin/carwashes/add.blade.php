@@ -119,6 +119,8 @@ echo '<div class = "controls">';
 echo Form::text('corp_ad');
 echo '</div></div>';
 
+//TODO: Make types and options boxes generated from arrays
+
 echo '<div class = "control-group">';
 echo Form::label('type', 'Type', array('class' => 'control-label'));
 echo '<div class = "controls">';
@@ -180,8 +182,16 @@ echo Form::checkbox('fuel', TRUE, false, array('class' => 'checkbox'));
 echo Form::label('fuel', 'Fuel', array('class' => 'checkbox inline'));
 echo '</div>';
 echo '<div>';
+echo Form::checkbox('fundraiser', TRUE, false, array('class' => 'checkbox'));
+echo Form::label('fundraiser', 'Fundraiser', array('class' => 'checkbox inline'));
+echo '</div>';
+echo '<div>';
 echo Form::checkbox('giftcards', TRUE, false, array('class' => 'checkbox'));
 echo Form::label('giftcards', 'Gift Cards', array('class' => 'checkbox inline'));
+echo '</div>';
+echo '<div>';
+echo Form::checkbox('militarydiscount', TRUE, false, array('class' => 'checkbox'));
+echo Form::label('militarydiscount', 'Military Discount', array('class' => 'checkbox inline'));
 echo '</div>';
 echo '<div>';
 echo Form::checkbox('oilchange', TRUE, false, array('class' => 'checkbox'));
@@ -198,6 +208,10 @@ echo '</div>';
 echo '<div>';
 echo Form::checkbox('salon', TRUE, false, array('class' => 'checkbox'));
 echo Form::label('salon', 'Salon', array('class' => 'checkbox inline'));
+echo '</div>';
+echo '<div>';
+echo Form::checkbox('seniordiscount', TRUE, false, array('class' => 'checkbox'));
+echo Form::label('seniordiscount', 'Senior Discount', array('class' => 'checkbox inline'));
 echo '</div>';
 echo '</div></div>';
 

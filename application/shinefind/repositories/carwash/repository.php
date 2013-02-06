@@ -25,11 +25,14 @@ class Carwash_Repository {
 		'creditcards'=>'CreditCards',
 		'conveniencestore'=>'ConvenienceStore',
 		'fuel'=>'Fuel',
+		'fundraiser'=>'Fundraiser',
 		'giftcards'=>'GiftCards',
+		'militarydiscount'=>'MilitaryDiscount',
 		'oilchange'=>'OilChange',
 		'other_other'=>'Other',
 		'petwash'=>'PetWash',
-		'salon'=>'Salon'
+		'salon'=>'Salon',
+		'seniordiscount'=>'SeniorDiscount'
 	);
 
 	public function add($info) {
