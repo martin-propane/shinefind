@@ -13,6 +13,7 @@ class Carwash {
 	public $email;
 	public $website;
 	public $corp_ad;
+	public $option_other;
 	public $types;
 	public $options;
 	public $certified;
@@ -20,7 +21,7 @@ class Carwash {
 	public static $TYPES = array('Detailing', 'FreeVacuums', 'FullService', 'HandWash', 'Mobile', 'SelfServe', 'SoftTouch', 'TouchFree', 'Tunnel', 'Xpress');
 	public static $OPTIONS = array('ConvenienceStore', 'CreditCards', 'Fuel', 'Fundraiser', 'GiftCards', 'MilitaryDiscount', 'OilChange', 'Other', 'PetWash', 'Salon', 'SeniorDiscount');
 
-	public function __construct($id, $name, $busi_ad, $city, $state, $zip, $phone, $notes, $email, $website, $corp_ad, $certified, $types, $options)
+	public function __construct($id, $name, $busi_ad, $city, $state, $zip, $phone, $notes, $email, $website, $corp_ad, $option_other, $certified, $types, $options)
 	{
 		if ($types === null)
 			$types = array();
@@ -47,6 +48,7 @@ class Carwash {
 		$this->email = $email;
 		$this->website = $website;
 		$this->corp_ad = $corp_ad;
+		$this->option_other = $option_other;
 		$this->types = $types;
 		$this->options = $options;
 		$this->certified = $certified;

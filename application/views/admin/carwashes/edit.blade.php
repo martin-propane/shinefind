@@ -273,6 +273,10 @@ echo '<div>';
 echo Form::checkbox('seniordiscount', TRUE, $options['SeniorDiscount'], array('class' => 'checkbox'));
 echo Form::label('seniordiscount', 'Senior Discount', array('class' => 'checkbox inline'));
 echo '</div>';
+echo '<div>';
+echo Form::text('option_other', $option_other);
+echo Form::label('option_other', 'Other', array('class' => 'checkbox inline'));
+echo '</div>';
 echo '</div></div>';
 
 echo '<div class = "control-group">';

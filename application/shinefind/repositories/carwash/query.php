@@ -173,7 +173,7 @@ class Carwash_Query
 	}
 
 	protected function get_entity($tuple, $types_tuple = null, $options_tuple = null) {
-		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->certified, $types_tuple, $options_tuple);
+		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $types_tuple, $options_tuple);
 	}
 
 	protected function get_types_options($query_results)

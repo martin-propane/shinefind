@@ -62,6 +62,7 @@ class Carwash_Repository {
 		$notes = $info['notes'];
 		$website = $info['website'];
 		$corp_ad = $info['corp_ad'];
+		$option_other = $info['option_other'];
 		
 		$db = Database::table($this->TABLE);
 
@@ -83,6 +84,8 @@ class Carwash_Repository {
 			$send['website'] = $website;
 		if ($corp_ad != '')
 			$send['corp_address'] = $corp_ad;
+		if ($option_other != '')
+			$send['option_other'] = $option_other;
 
 		$id = $db->insert_get_id($send);
 
@@ -127,6 +130,7 @@ class Carwash_Repository {
 		$notes = $info['notes'];
 		$website = $info['website'];
 		$corp_ad = $info['corp_ad'];
+		$option_other = $info['option_other'];
 		
 		if ($name == '')
 			return 'Name is required.';
@@ -140,6 +144,7 @@ class Carwash_Repository {
 		$send['notes'] = $notes;
 		$send['website'] = $website;
 		$send['corp_address'] = $corp_ad;
+		$send['option_other'] = $option_other;
 
 		$db->where('id', '=', $id)->update($send);
 
@@ -206,7 +211,7 @@ class Carwash_Repository {
 	}
 
 	protected function get_entity($tuple, $types_tuple = null, $options_tuple = null) {
-		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->certified, $types_tuple, $options_tuple);
+		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $types_tuple, $options_tuple);
 	}
 
 	protected function get_types_options($query_results)
