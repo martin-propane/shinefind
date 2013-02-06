@@ -8,7 +8,7 @@ use Shinefind\Repositories\Carwash_Query;
 class Carwash_Repository {
 	public $TABLE = 'Data_Carwashes';
 
-	public $DB_ATTRIBUTES = array('id', 'name', 'business_address', 'city', 'state', 'zip', 'phone', 'notes', 'email', 'website', 'corp_address', 'certified');
+	public $DB_ATTRIBUTES = array('id', 'name', 'business_address', 'city', 'state', 'zip', 'phone', 'notes', 'email', 'website', 'corp_address', 'option_other', 'certified');
 	public $SHORT_TYPES = array(
 		'detailing'=>'Detailing',
 		'freevac'=>'FreeVacuums',
