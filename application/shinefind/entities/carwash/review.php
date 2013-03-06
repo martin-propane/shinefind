@@ -1,19 +1,11 @@
 <?php namespace Shinefind\Entities;
 
-class Carwash_Review
+class Carwash_Review extends Base
 {
-	public $id;
-	public $cw_id;
-	public $rating;
-	public $review;
-	public $timestamp;
+	protected $properties = array('id', 'cw_id', 'rating', 'title', 'review', 'timestamp');
 
-	public function __construct($id, $cw_id, $rating, $review, $timestamp)
+	public function __construct($values)
 	{
-		$this->id = $id;
-		$this->cw_id = $cw_id;
-		$this->rating = $rating;
-		$this->review = $review;
-		$this->timestamp = $timestamp;
+		parent::__construct($this->properties, $values);
 	}
 }

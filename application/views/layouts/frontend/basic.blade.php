@@ -26,43 +26,13 @@
       </div> <!--end facebook-->
     </div> <!--end header-->
     
-    <div id="menu">
-      <ul>
-        <li><a href="javascript:void(0)" onClick="showCityPopup();"><img src="{{ URL::to_asset('images/nav_city.jpg'); }}" width="160" height="44" border="0" /></a></li>
-        <li><a href="{{ URL::to_action('search/carwashes@index'); }}"><img src="{{ URL::to_asset('images/nav_detailers.jpg'); }}" width="123" height="44" border="0" /></a></li>
-        <li><a href="#"><img src="{{ URL::to_asset('images/nav_diyprod.jpg'); }}" width="153" height="44" border="0" /></a></li>
-        <li><a href="#"><img src="{{ URL::to_asset('images/nav_diyres.jpg'); }}" width="162" height="44" border="0" /></a></li>
-        <li><a href="#"><img src="{{ URL::to_asset('images/nav_review.jpg'); }}" width="169" height="44" border="0" /></a></li>
-        <li><div id="search_box"><input id="site_search" type="text" name="search" size="17" placeholder="Site Search"><a href="#"><img src="{{ URL::to_asset('images/search_button.png'); }}" align="right" /></a></div></li>
-      </ul>      
-    </div> <!--end menu-->
-    
+{{ render('partials.top_menu'); }}
+
 {{ $content }}
   
 {{ $iphone_app_link }} 
-    
-    <div id="footer">
-      <div id="footer_container">
-        <div id="footer_info">
-          <img src="{{ URL::to_asset('images/footer_copyright.png'); }}" width="220" height="25" />
-          <p>THE authorative force for all things detail-oriented. We pride ourselves with providing our users with accurate and relevant reviews and information to keep their cars looking their best.</p>
-		</div> <!--end footer_info-->
-        <div id="sitemap">
-          <p>SITEMAP</p>
-          <ul>
-            <li><a href="#">&raquo;Wash Reviews</a></li>
-            <li><a href="#">&raquo;Detailer Reviews</a></li>
-            <li><a href="#">&raquo;Privacy Policy</a></li>
-            <li><a href="#">&raquo;Product Reviews</a></li>
-            <li>{{ HTML::link_to_action('login@index', '&raquo;Member Login'); }}</li>
-            <li><a href="#">&raquo;Advertise</a></li>
-            <li><a href="#">&raquo;Information Articles</a></li>
-            <li><a href="#">&raquo;Company Info</a></li>
-            <li><a href="#">&raquo;Get your Product or Company Listed</a></li>
-          </ul>
-        </div> <!--end sitemap-->
-      </div> <!--end footer_container-->
-    </div> <!--end footer-->
+  
+{{ render('partials.footer'); }}  
   </div> <!--end bg_wrapper2-->
  </div> <!--end bg_wrapper1-->
 	<div id="city_popup_holder">

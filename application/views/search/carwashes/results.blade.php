@@ -63,14 +63,21 @@
             <img src="<?php echo asset('images/results_divider.jpg'); ?>" width="450" height="1" />
           </div>
           <div class="grid_6 alpha omega">
-            <div class="grid_2 omega"><img src="<?php echo asset('images/4star.jpg'); ?>" width="102" height="17" align="left" />
+            <div class="grid_2 omega"><img src="<?php echo asset('images/' . round($c->rating) . 'star.jpg'); ?>" width="102" height="17" align="left" />
 	    <?php if ($c->certified): ?>
 	    <img src="<?php echo asset('images/certification_logo.jpg'); ?>" width="75" height="83" class="certified_align" />
 	    <?php endif; ?>
             </div>
             <div class="grid_4 alpha omega">
               <h6><?php echo $c->name; ?></h6><p class="ital_caption">[CAPTION]Servicing Memphis and the surrounding areas</p>
-              <p class="height17"><?php echo $c->notes; ?><br /><br /><a href="#">&raquo;Read Review</a></p>
+              <p class="height17">
+			  @if (count($c->reviews) > 0)
+			  {{ $c->reviews[0]->review }}
+			  <br /><br /><a href="{{ URL::to('carwashes/' . $c->id); }}">&raquo;Read Review</a></p>
+			  @else
+			  There are no reviews for this location yet! Click <a href="{{URL::to_action('review@carwash', array($c->id))}}">here</a> to write a review.
+			  <br /><br /><a href="{{ URL::to('carwashes/' . $c->id); }}">&raquo;Goto Page</a></p>
+			  @endif
             </div>
           </div><!--results2-->
 	<?php endforeach; ?>

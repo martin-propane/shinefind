@@ -3,7 +3,7 @@
 class Home_Controller extends Base_Controller
 {
 	public$restful = true;
-	public $layout = 'layouts.frontend';
+	public $layout = 'layouts.frontend.basic';
 
 
 	public function get_index()

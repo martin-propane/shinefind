@@ -6,7 +6,7 @@ use Shinefind\Entities\Carwash;
 
 class Carwash_Review_Repository
 {
-	public $TABLE = 'Data_Reviews_Carwash';
+	public $TABLE = 'Data_Reviews_Carwashes';
 	public function add($data)
 	{
 		assert(array_key_exists('cw_id', $data));

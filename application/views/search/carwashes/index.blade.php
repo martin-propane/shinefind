@@ -63,7 +63,7 @@
         </div><!--180x150 ad-->
         <div id="get_listed_box">
           <p>Are you a detailer or product maker?<br />
-          <a href="#">&raquo;Get listed or claim your listing</a></p>
+          <a href="{{URL::to('listing')}}">&raquo;Get listed or claim your listing</a></p>
         </div><!--get listed-->
         <div class="grid_3 alpha omega" id="iphone_space2">
         </div>

@@ -6,7 +6,7 @@ use Shinefind\Entities\Carwash;
 class Search_Carwashes_Controller extends Base_Controller {
 	
 	public $restful = true;
-	public $layout = 'layouts.frontend';
+	public $layout = 'layouts.frontend.basic';
 	public $RESULTS_PER_PAGE = 4;
 
 	public function get_index()

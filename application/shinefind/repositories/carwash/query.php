@@ -3,6 +3,7 @@
 use \stdClass;
 use Laravel\Database;
 use Shinefind\Entities\Carwash;
+use Shinefind\Entities\Carwash_Review;
 
 class Carwash_Query
 {
@@ -30,6 +31,7 @@ class Carwash_Query
 		'salon'=>'Salon'
 	);
 	public $TABLE = 'Data_Carwashes';
+	public $REVIEWS_TABLE = 'Data_Reviews_Carwashes';
 
 	public function __construct()
 	{
@@ -51,7 +53,7 @@ class Carwash_Query
 
 	public function city_is($city)
 	{
-		$this->query = $this->query->where('city', '=', '%'.$city.'%');
+		$this->query = $this->query->where('city', '=', $city);
 		return $this;
 	}
 
@@ -162,6 +164,25 @@ class Carwash_Query
 		return $this->get_full_entities($tuples);
 	}
 
+	public function get_reviews_average($cw_id)
+	{
+		$avg = Database::table($this->REVIEWS_TABLE)->where('cw_id', '=', $cw_id)->avg('rating');
+
+		return $avg;
+	}
+
+	public function get_reviews($cw_id)
+	{
+		$tuples = Database::table($this->REVIEWS_TABLE)->where('cw_id', '=', $cw_id)->order_by('timestamp', 'desc')->get();
+
+		$entities = array();
+
+		foreach ($tuples as $tuple)
+			$entities[] = $this->get_review_entity($tuple);
+
+		return $entities;
+	}
+
 	protected function get_entities($relation) {
 		$entities = array();
 
@@ -173,7 +194,10 @@ class Carwash_Query
 	}
 
 	protected function get_entity($tuple, $types_tuple = null, $options_tuple = null) {
-		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $types_tuple, $options_tuple);
+		$reviews = $this->get_reviews($tuple->id);
+		$rating = $this->get_reviews_average($tuple->id);
+
+		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $reviews, $rating, $types_tuple, $options_tuple);
 	}
 
 	protected function get_types_options($query_results)
@@ -197,5 +221,10 @@ class Carwash_Query
 	protected function get_full_entities($relation)
 	{
 		return $this->get_entities($this->get_types_options($relation));
+	}
+
+	protected function get_review_entity($tuple)
+	{
+		return new Carwash_Review(get_object_vars($tuple));
 	}
 }

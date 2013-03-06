@@ -35,7 +35,14 @@ use Shinefind\Entities\Carwash;
 |		});
 |
 */
+Route::get('carwashes/(:all)', 'carwashes@index');
+Route::any('privacy', 'static@privacy');
+Route::any('resources', 'static@resources');
+Route::any('advertise', 'static@advertise');
+Route::any('about', 'static@about');
+Route::any('listing', 'static@listing');
 
+//TODO: Manually add all controllers
 Route::controller(Controller::detect());
 
 Route::get('/', 'home@index');
@@ -138,11 +145,10 @@ View::composer('layouts.admin', function($view)
     $view->nest('user', 'partials.userbar', array('user' => Auth::user()->email));
 });
 
-View::composer('layouts.frontend', function($view)
+View::composer('layouts.frontend.basic', function($view)
 {
 	//Provide the city list for the city popup
 	//This list might be something best cached in the repository, or only fetched if the user clicks change city
-
 	$uri = URI::current();
 
 	$cw_repo = IoC::resolve('carwash_repository');
@@ -155,5 +161,14 @@ View::composer('layouts.frontend', function($view)
 		$view->nest('iphone_app_link', 'partials.iphone_add_link');
 	else
 		$view->nest('iphone_app_link', 'partials.iphone_add_link2');
+});
+
+View::composer('partials.city_popup', function($view)
+{
+	$cw_repo = IoC::resolve('carwash_repository');
+	
+	$view->cities = $cw_repo->get_cities();
+	$view->current_city = Cookie::get('city');
+	$view->current_state = Cookie::get('state');
 });
 

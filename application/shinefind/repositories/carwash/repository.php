@@ -3,10 +3,13 @@
 use \stdClass;
 use Laravel\Database;
 use Shinefind\Entities\Carwash;
+use Shinefind\Entities\Carwash_Review;
 use Shinefind\Repositories\Carwash_Query;
+use Shinefind\Services\Carwash_Review_Validator;
 
 class Carwash_Repository {
 	public $TABLE = 'Data_Carwashes';
+	public $REVIEWS_TABLE = 'Data_Reviews_Carwashes';
 
 	public $DB_ATTRIBUTES = array('id', 'name', 'business_address', 'city', 'state', 'zip', 'phone', 'notes', 'email', 'website', 'corp_address', 'option_other', 'certified');
 	public $SHORT_TYPES = array(
@@ -211,7 +214,10 @@ class Carwash_Repository {
 	}
 
 	protected function get_entity($tuple, $types_tuple = null, $options_tuple = null) {
-		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $types_tuple, $options_tuple);
+		$reviews = $this->get_reviews($tuple->id);
+		$rating = $this->get_reviews_average($tuple->id);
+
+		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $reviews, $rating, $types_tuple, $options_tuple);
 	}
 
 	protected function get_types_options($query_results)
@@ -326,6 +332,60 @@ class Carwash_Repository {
 		});
 
 		return $cities;
+	}
+
+	public function add_review(&$entity)
+	{
+		$props = get_object_vars($entity);
+
+		if (Carwash_Review_Validator::validate($entity))
+		{
+			$id = Database::table($this->REVIEWS_TABLE)->insert_get_id($props);
+			
+			$entity->id = $id;
+
+			return true;
+		}
+		else
+			return false;
+	}
+
+	public function edit_review($entity)
+	{
+		$props = get_object_vars($entity);
+
+		Database::table($this->REVIEWS_TABLE)->where('id', '=', $props->id)->update($props);
+	}
+
+	public function get_review($id)
+	{
+		$tuple = Database::table($this->REVIEWS_TABLE)->where('id', '=', $id)->first();
+
+		return get_review_entity($tuple);
+	}
+
+	public function get_reviews($cw_id)
+	{
+		$tuples = Database::table($this->REVIEWS_TABLE)->where('cw_id', '=', $cw_id)->order_by('timestamp', 'desc')->get();
+
+		$entities = array();
+
+		foreach ($tuples as $tuple)
+			$entities[] = $this->get_review_entity($tuple);
+
+		return $entities;
+	}
+
+	public function get_reviews_average($cw_id)
+	{
+		$avg = Database::table($this->REVIEWS_TABLE)->where('cw_id', '=', $cw_id)->avg('rating');
+
+		return $avg;
+	}
+
+	protected function get_review_entity($tuple)
+	{
+		return new Carwash_Review(get_object_vars($tuple));
 	}
 }
 
