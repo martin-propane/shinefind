@@ -41,6 +41,8 @@ Route::any('resources', 'static@resources');
 Route::any('advertise', 'static@advertise');
 Route::any('about', 'static@about');
 Route::any('listing', 'static@listing');
+Route::any('company', 'static@company');
+Route::any('certification', 'static@certification');
 
 //TODO: Manually add all controllers
 Route::controller(Controller::detect());

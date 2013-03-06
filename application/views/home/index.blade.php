@@ -36,17 +36,17 @@
       <div class="grid_7" id="index_left_col">
         <div class="grid7" id="featured_story">
           <h2>Featured Story Headline</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br /><br /><a href="#">&raquo;Read the full story</a></p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br /><br /><a href="{{URL::to('resources')}}">&raquo;Read the full story</a></p>
         </div><!--end featured_story-->
         <div class="spacer10"></div>
         <div class="grid_7 alpha">
           <div id="index_read_more1">
             <h3>How it Works</h3>            
-            <p>ShineFind ratings are a combination of consumer reviews, reputation, certification and verifiable information. Find out more about the ratings process here.<br /><br /><a href="#">&raquo;Learn More</a></p>
+            <p>ShineFind ratings are a combination of consumer reviews, reputation, certification and verifiable information. Find out more about the ratings process here.<br /><br /><a href="{{URL::to('about')}}">&raquo;Learn More</a></p>
           </div><!--read more1-->
           <div id="index_read_more2">
             <h3>Certification</h3>
-            <p>When you see our badge next to a listing, it means ShineFind has certified the company. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore<br /><br /><a href="#">&raquo;Learn More</a></p>
+            <p>When you see our badge next to a listing, it means ShineFind has certified the company. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore<br /><br /><a href="{{URL::to('certification')}}">&raquo;Learn More</a></p>
           </div><!--read more 2-->
         </div><!--left column read more sections-->
         <div class="grid_7 alpha" id="index_bottom_ads">
