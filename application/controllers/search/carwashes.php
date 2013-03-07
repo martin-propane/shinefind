@@ -56,13 +56,17 @@ class Search_Carwashes_Controller extends Base_Controller {
 			$carwashes = $cw_repo->get_city_paged($state, $city, $type, $this->RESULTS_PER_PAGE, $page);
 		//}
 
+		$query->is_sponsored();
+
+		$sponsored = $query->get();
+
 		$params['page'] = $page;
 		$params['type'] = $type;
 		$params['sort'] = $sort;
 		$params['order'] = $order;
 
 		$this->layout->content->nest('top_menu', 'Search.Carwashes.top_menu', array('query' => $params, 'type' => $type, 'counts' => $counts));
-		$this->layout->content->nest('results', 'Search.Carwashes.results', array('carwashes' => $carwashes, 'city' => $city, 'state' => $state, 'page' => $page, 'type'=>$type, 'query'=>$params));
+		$this->layout->content->nest('results', 'Search.Carwashes.results', array('carwashes' => $carwashes, 'sponsored'=>$sponsored, 'city' => $city, 'state' => $state, 'page' => $page, 'type'=>$type, 'query'=>$params));
 	}
 
 	public function post_index()

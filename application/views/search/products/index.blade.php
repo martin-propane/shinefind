@@ -18,10 +18,6 @@
         </div><!--160x600 ad-->
       </div><!--left column-->
       <div class="grid_6 alpha">
-        <div id="sponsored_listing" class="grid_6 alpha omega">
-		  Sponsored listings here
-          <div class="grid_6 alpha omega spacer10"></div>
-        </div><!--sponsored listings-->
         <div class="grid_6 alpha omega" id="results_box">
 	  {{ $results }}
         </div><!--results-->

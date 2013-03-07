@@ -19,11 +19,13 @@ class Carwash {
 	public $certified;
 	public $reviews;
 	public $rating;
+	public $sponsored;
+	public $sponsor_description;
 
 	public static $TYPES = array('Detailing', 'FreeVacuums', 'FullService', 'HandWash', 'Mobile', 'SelfServe', 'SoftTouch', 'TouchFree', 'Tunnel', 'Xpress');
 	public static $OPTIONS = array('ConvenienceStore', 'CreditCards', 'Fuel', 'Fundraiser', 'GiftCards', 'MilitaryDiscount', 'OilChange', 'Other', 'PetWash', 'Salon', 'SeniorDiscount');
 
-	public function __construct($id, $name, $busi_ad, $city, $state, $zip, $phone, $notes, $email, $website, $corp_ad, $option_other, $certified, $reviews, $rating, $types, $options)
+	public function __construct($id, $name, $busi_ad, $city, $state, $zip, $phone, $notes, $email, $website, $corp_ad, $option_other, $certified, $reviews, $rating, $sponsored, $sponsor_description, $types, $options)
 	{
 		if ($types === null)
 			$types = array();
@@ -56,6 +58,8 @@ class Carwash {
 		$this->certified = $certified;
 		$this->reviews = $reviews;
 		$this->rating = $rating;
+		$this->sponsored = $sponsored;
+		$this->sponsor_description = $sponsor_description;
 	}
 }
 

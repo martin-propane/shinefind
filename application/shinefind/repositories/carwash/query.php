@@ -77,6 +77,13 @@ class Carwash_Query
 		return $this;
 	}
 
+	public function is_sponsored()
+	{
+		$this->query = $this->query->where('sponsored', '=', 1);
+
+		return $this;
+	}
+
 	public function sort_id($order = 'asc')
 	{
 		$this->query = $this->query->order_by('id', $order);
@@ -197,7 +204,7 @@ class Carwash_Query
 		$reviews = $this->get_reviews($tuple->id);
 		$rating = $this->get_reviews_average($tuple->id);
 
-		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $reviews, $rating, $types_tuple, $options_tuple);
+		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $reviews, $rating, $tuple->sponsored, $tuple->sponsor_description, $types_tuple, $options_tuple);
 	}
 
 	protected function get_types_options($query_results)

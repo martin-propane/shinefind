@@ -1,3 +1,22 @@
+        @if (count($sponsored) > 0)
+		<div id="sponsored_listing" class="grid_6 alpha omega">
+          <h5>Sponsored Listings</h5>
+		  @foreach ($sponsored as $s)
+          <img src="<?php echo asset('images/white_divider.jpg'); ?>" width="460" height="1" />
+          <div class="sponsor_listing">
+            <div class="sponsor_image">
+              <img src="<?php echo asset('images/pride_carwash_logo.png'); ?>" width="103" height="103" />
+            </div>
+            <div class="sponsor_info">
+              <h6>{{$s->name}}</h6><p class="sponsor_red">{{$s->busi_ad}}, {{$s->city}}, {{$s->state}}<br />{{$s->phone}}</p>
+              <p>{{$s->sponsor_description}}<br /><a href="{{ URL::to('carwashes/' . $s->id); }}">&raquo;Read Review</a></p>
+            </div>
+          </div><!--listing1-->
+          <div class="grid_6 alpha omega spacer10"></div>
+		  @endforeach
+        </div><!--sponsored listings-->
+		@endif
+        <div class="grid_6 alpha omega" id="results_box">
 <?php if ($carwashes && $carwashes != null): ?>
 <?php
 	$num_pages = (int) ceil($carwashes->count / $carwashes->per_page);
@@ -90,4 +109,4 @@
 	    <?php echo render('search/carwashes/results_pages', array('page' => $page, 'num_pages' => $num_pages, 'prev_page' => $prev_page, 'next_page' => $next_page, 'params' => $params)); ?>
           </div><!--results pages bottom-->
 <?php endif; ?>
-
+        </div><!--results-->

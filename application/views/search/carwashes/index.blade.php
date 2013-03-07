@@ -19,34 +19,7 @@
         </div><!--160x600 ad-->
       </div><!--left column-->
       <div class="grid_6 alpha">
-        <div id="sponsored_listing" class="grid_6 alpha omega">
-          <h5>Sponsored Listings</h5>
-          <img src="<?php echo asset('images/white_divider.jpg'); ?>" width="460" height="1" />
-          <div class="sponsor_listing">
-            <div class="sponsor_image">
-              <img src="<?php echo asset('images/pride_carwash_logo.png'); ?>" width="103" height="103" />
-            </div>
-            <div class="sponsor_info">
-              <h6>Mr. Pride Car Wash</h6><p class="sponsor_red">2019 Union Avenue, Memphis, TN<br />901-725-6240</p>
-              <p>We've built 10 express washes in TN in 5 years.<br /><a href="#">&raquo;Read Review</a></p>
-            </div>
-          </div><!--listing1-->
-          <div class="grid_6 alpha omega spacer10"></div>
-          <img src="<?php echo asset('images/white_divider.jpg'); ?>" width="460" height="1" />
-          <div class="sponsor_listing">
-            <div class="sponsor_image">
-              <img src="<?php echo asset('images/enfields_logo.png'); ?>" width="103" height="103" border="0" />
-            </div>
-            <div class="sponsor_info">
-              <h6>Enfield's Detail</h6><p class="sponsor_red">2370 Covington Cv, Memphis, TN<br />901-372-1560</p>
-              <p>Serving the greater east Memphis area. Serving the greater east Memphis area. Serving the greater east Memphis area.<br /><a href="#">&raquo;Read Review</a></p>
-            </div>
-          </div><!--listing2-->
-          <div class="grid_6 alpha omega spacer10"></div>
-        </div><!--sponsored listings-->
-        <div class="grid_6 alpha omega" id="results_box">
 	  {{ $results }}
-        </div><!--results-->
       </div><!--middle column-->
       <div class="grid_3 alpha omega">
 	  {{ render('partials.diy_box'); }}
