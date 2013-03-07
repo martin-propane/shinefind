@@ -50,7 +50,7 @@
           </div><!--read more 2-->
         </div><!--left column read more sections-->
         <div class="grid_7 alpha" id="index_bottom_ads">
-          <img src="{{ URL::to_asset('images/ad_180x150.jpg'); }}" width="180" height="150" align="left" /><img src="{{ URL::to_asset('images/claim_banner.jpg'); }}" width="352" height="151" align="right" />
+          <img src="{{ URL::to_asset('images/ad_180x150.jpg'); }}" width="180" height="150" align="left" /><a href="{{ URL::to_action('static@listing'); }}"><img src="{{ URL::to_asset('images/claim_banner.jpg'); }}" width="352" height="151" align="right" /></a>
         </div><!--left bottom ads-->
       </div> <!--left column-->
       <div class="grid_3" id="index_mid_col">
