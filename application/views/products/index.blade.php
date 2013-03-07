@@ -31,8 +31,6 @@
 		else
 			return '<img src="'.asset('images/arrow-right.jpg').'" width="9" height="13" border="0"/>';
 	}
-	$city_str = rawurlencode($carwash->busi_ad.','.$carwash->city.$carwash->state);
-	$marker_str = 'markers=size:mid%7Ccolor:red%7C'.$city_str;
 ?>
     <div id="container2" class="container_12">
       <div class="grid_12" id="body_topbreak">
@@ -41,14 +39,6 @@
         <a href="#"><img src="{{ URL::to_asset('images/ad_728x90.jpg'); }}" width="728" height="90" /></a>
       </div>
       <div class="grid_3">
-        <div id="location_pic_top">
-		<img src="http://maps.googleapis.com/maps/api/streetview?size=220x193&location={{$city_str}}&fov=30&sensor=false" width="220" height="193">{{--TODO: Top round edges--}}
-        </div>
-        <div id="location_box">
-          <div>
-            <p><b>Wash Type:</b> Full Detail<br /><b>Attendant on Site:</b> Yes<br /><b>Vacuums:</b> N/A<br /><b>Wash Accessories Offered:</b> Yes<br /><b>Hours:</b> 8am-6pm<br /><b>Pricing</b> $50-$100</p>
-          </div>
-        </div><!--location box-->
         <div class="lt_col_ad2">
           <a href="#"><img src="{{ URL::to_asset('images/ad_180x150.jpg'); }}" width="180" height="150" /></a>
         </div><!--180x150 ad-->
@@ -60,19 +50,25 @@
         <div class="grid_6 alpha omega">
           <div id="title_with_sub">
 		  @if ($count == 1)
-            <h3>{{ $carwash->name }} <font>({{ $count }} review)</font></h3>
+            <h3>{{ $product->name }} <font>({{ $count }} review)</font></h3>
 		  @else
-		    <h3>{{ $carwash->name }} <font>({{ $count }} reviews)</font></h3>
+		    <h3>{{ $product->name }} <font>({{ $count }} reviews)</font></h3>
 		  @endif
           </div>
           <div class="spacer10"></div>
           <div>
-            <div class="grid_2 alpha omega"><img src="{{ URL::to_asset('images/' . round($carwash->rating) . 'star.jpg'); }}" width="102" height="17" align="left" class="star_align" /><img src="{{ URL::to_asset('images/certification_logo.jpg'); }}" width="75" height="83" class="certified_align" />
+            <div class="grid_2 alpha omega"><img src="{{ URL::to_asset('images/' . round($product->rating) . 'star.jpg'); }}" width="102" height="17" align="left" class="star_align" />
             </div>
             <div class="grid_4 alpha omega" id="addess">
-              <p>{{ $carwash->busi_ad }}<br />{{ $carwash->city }}, {{ $carwash->state }} {{$carwash->zip}}<br />{{$carwash->phone}}<br />
-			  @if (isset($carwash->website))
-			  <a href="{{$carwash->website}}" target="_blank">&raquo;{{$carwash->website}}</a>
+              <p>
+			  @if ($product->company !== null)
+			  {{ $product->company }}<br />
+			  @endif
+			  @if ($product->phone !== null)
+			  {{$product->phone}}<br />
+			  @endif
+			  @if ($product->website !== null)
+			  <a href="{{$product->website}}" target="_blank">&raquo;{{$product->website}}</a>
 			  @endif
 			  </p>
             </div>
@@ -83,19 +79,16 @@
           </div>
         </div><!--company info-->
         <div>
-          <div class="grid_4 alpha omega">
-            <img src="http://maps.googleapis.com/maps/api/staticmap?center={{$city_str}}&zoom=14&size=311x201&sensor=false&{{$marker_str}}" width="311" height="201" />
-          </div>
-          <div class="grid_2 omega" id="claim_it">
-            <p>Own this wash?<br /><a href="{{URL::to('listing')}}">&raquo;Claim it</a></p>
+          <div class="grid_2 omega">
+            <p>Own this product?<br /><a href="{{URL::to('listing')}}">&raquo;Claim it</a></p>
           </div>
         </div><!--map-->
         <div class="grid_6 alpha" id="user_reviews">
           <div>
 		  @if ($count == 1)
-            <h3>{{ $carwash->name }} <font>({{ $count }} review)</font></h3>
+            <h3>{{ $product->name }} <font>({{ $count }} review)</font></h3>
 		  @else
-		    <h3>{{ $carwash->name }} <font>({{ $count }} reviews)</font></h3>
+		    <h3>{{ $product->name }} <font>({{ $count }} reviews)</font></h3>
 		  @endif
           </div>
           <div class="grid_6 alpha" id="sort_by">
@@ -126,10 +119,10 @@
           </div><!--results1-->
 		  @endforeach
 		  @else
-		  There are no reviews for this location yet! Click <a href="{{URL::to_action('review@carwash', array($c->id))}}">here</a> to write a review.
+		  There are no reviews for this location yet! Click <a href="{{URL::to_action('review@product', array($c->id))}}">here</a> to write a review.
 		  @endif
           <div class="grid_2 alpha omega page_link2">
-          {{ render('search/carwashes/results_pages', array('page' => $page, 'num_pages' => $pages, 'prev_page' => $prev_page, 'next_page' => $next_page, 'params' => $query)) }}
+          {{ render('search/products/results_pages', array('page' => $page, 'num_pages' => $pages, 'prev_page' => $prev_page, 'next_page' => $next_page, 'params' => $query)) }}
           </div><!--results pages bottom-->
         </div><!--reviews-->
       </div><!--middle column-->

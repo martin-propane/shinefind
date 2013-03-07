@@ -2,9 +2,14 @@
 
 use Laravel\Database;
 use Shinefind\Entities\Product;
+use Shinefind\Entities\Product_Review;
+use Shinefind\Services\Product_Query;
+use Shinefind\Services\Product_Review_Validator;
+use stdClass;
 
 class Product_Repository {
 	public $TABLE = 'Data_Products';
+	public $REVIEWS_TABLE = 'Data_Reviews_Products';
 
 	public function add($info) {
 		$send = array();
@@ -88,6 +93,37 @@ class Product_Repository {
 		Database::table($this->TABLE)->delete($id);
 	}
 
+	public function query()
+	{
+		return new Product_Query();
+	}
+
+	public function get_product_type_count($type)
+	{
+		if ($type === 'all')
+			return Database::table($this->TABLE)->count();
+		else
+			return Database::table($this->TABLE)->where('type', '=', $type)->count();
+	}
+
+	public function get_product_paged($type, $per_page, $page)
+	{
+		$info = new stdClass();
+
+		$quer = Database::table($this->TABLE);
+
+		if ($type !== 'all')
+			$quer = $quer->where('type', '=', $type);
+
+		$info->count = $quer->count();
+
+		$results = $quer->take($per_page)->skip($per_page*($page - 1))->get();
+		$info->page = $this->get_entities($results);
+		$info->per_page = $per_page;
+
+		return $info;
+	}
+
 	public function get($id) {
 		//TODO: Properly check if id exists
 		$db = Database::table($this->TABLE);
@@ -111,12 +147,69 @@ class Product_Repository {
 	}
 
 	public function get_entity($tuple) {
-		return new Product($tuple->id, $tuple->name, $tuple->company, $tuple->phone, $tuple->website, $tuple->type);
+		$reviews = $this->get_reviews($tuple->id);
+		$rating = $this->get_reviews_average($tuple->id);
+
+		return new Product($tuple->id, $tuple->name, $tuple->company, $tuple->phone, $tuple->website, $tuple->type, $reviews, $rating);
 	}
 
 	public function get_all() {
 		$quer = Database::table($this->TABLE)->get();
 		return $this->get_entities($quer);
+	}
+
+	public function add_review(&$entity)
+	{
+		$props = get_object_vars($entity);
+
+		if (Product_Review_Validator::validate($entity))
+		{
+			$id = Database::table($this->REVIEWS_TABLE)->insert_get_id($props);
+			
+			$entity->id = $id;
+
+			return true;
+		}
+		else
+			return false;
+	}
+
+	public function edit_review($entity)
+	{
+		$props = get_object_vars($entity);
+
+		Database::table($this->REVIEWS_TABLE)->where('id', '=', $props->id)->update($props);
+	}
+
+	public function get_review($id)
+	{
+		$tuple = Database::table($this->REVIEWS_TABLE)->where('id', '=', $id)->first();
+
+		return get_review_entity($tuple);
+	}
+
+	public function get_reviews($p_id)
+	{
+		$tuples = Database::table($this->REVIEWS_TABLE)->where('p_id', '=', $p_id)->order_by('timestamp', 'desc')->get();
+
+		$entities = array();
+
+		foreach ($tuples as $tuple)
+			$entities[] = $this->get_review_entity($tuple);
+
+		return $entities;
+	}
+
+	public function get_reviews_average($p_id)
+	{
+		$avg = Database::table($this->REVIEWS_TABLE)->where('p_id', '=', $p_id)->avg('rating');
+
+		return $avg;
+	}
+
+	protected function get_review_entity($tuple)
+	{
+		return new Product_Review(get_object_vars($tuple));
 	}
 }
 

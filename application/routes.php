@@ -36,6 +36,7 @@ use Shinefind\Entities\Carwash;
 |
 */
 Route::get('carwashes/(:all)', 'carwashes@index');
+Route::get('products/(:all)', 'products@index');
 Route::any('privacy', 'static@privacy');
 Route::any('resources', 'static@resources');
 Route::any('advertise', 'static@advertise');

@@ -58,15 +58,7 @@
 		</div>
       </div><!--middle column-->
       <div class="grid_3 alpha omega">
-        <div id="diy_box">
-          <p>Driveway detailer? Decide you want to do it yourself? Make sure you have the right products in hand. Read ratings and reviews on the over-the-counter products.<br /><br /><a href="#">&raquo;Wash</a><br />
-          <a href="#">&raquo;Wax</a><br />
-          <a href="#">&raquo;Trim</a><br />
-          <a href="#">&raquo;Towels</a><br />
-          <a href="#">&raquo;Leather</a><br />
-          <a href="#">&raquo;Wheels</a><br />
-          <a href="#">&raquo;More</a><br /></p>
-        </div>
+	  {{ render('partials.diy_box'); }}
         <div id="rt_col_ad">
           <a href="#"><img src="{{ URL::to_asset('images/ad_180x150.jpg'); }}" width="180" height="150" border="0" /></a>
         </div><!--180x150 ad-->
