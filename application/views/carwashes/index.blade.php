@@ -49,12 +49,9 @@
             <p><b>Wash Type:</b> Full Detail<br /><b>Attendant on Site:</b> Yes<br /><b>Vacuums:</b> N/A<br /><b>Wash Accessories Offered:</b> Yes<br /><b>Hours:</b> 8am-6pm<br /><b>Pricing</b> $50-$100</p>
           </div>
         </div><!--location box-->
-        <div class="lt_col_ad2">
-          <a href="#"><img src="{{ URL::to_asset('images/ad_180x150.jpg'); }}" width="180" height="150" /></a>
-        </div><!--180x150 ad-->
-        <div class="lt_col_ad2">
-          <a href="#"><img src="{{ URL::to_asset('images/ad_180x150.jpg'); }}" width="180" height="150" /></a>
-        </div><!--180x150 ad-->
+        <div class="lt_col_ad">
+          {{ render('partials.dfp_wide_skyscraper'); }}
+        </div>
       </div><!--left column-->
       <div class="grid_6">
         <div class="grid_6 alpha omega">

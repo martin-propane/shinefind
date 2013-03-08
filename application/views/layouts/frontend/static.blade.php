@@ -35,12 +35,6 @@
           {{ render('partials.dfp_leaderboard'); }}
       </div>
       <div class="grid_3">
-        <div class="lt_col_ad2">
-          <a href="#"><img src="{{ URL::to_asset('images/ad_180x150.jpg'); }}" width="180" height="150" /></a>
-        </div><!--180x150 ad-->
-        <div class="lt_col_ad2">
-          <a href="#"><img src="{{ URL::to_asset('images/ad_180x150.jpg'); }}" width="180" height="150" /></a>
-        </div><!--180x150 ad-->
         <div class="lt_col_ad">
           {{ render('partials.dfp_wide_skyscraper'); }}
         </div><!--160x600 ad-->
