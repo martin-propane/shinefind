@@ -114,10 +114,7 @@ echo Asset::container('front-header')->scripts();
       </div><!--right column-->
     </div> <!--end container-->
     
-    <div id="iphone_app_link2">
-         <h3>Get the iPhone App!</h3>
-            <a href="#">&raquo;Click Here to go to the App store</a>
-    </div><!--iphone app--> 
+    {{ render('partials.iphone_add_link2'); }} 
     
     <div id="footer">
       <div id="footer_container">
