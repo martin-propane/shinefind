@@ -36,7 +36,7 @@
       <div class="grid_12" id="body_topbreak">
       </div>
       <div class="gird_12" id="top_ad_long">
-        <a href="#"><img src="{{ URL::to_asset('images/ad_728x90.jpg'); }}" width="728" height="90" /></a>
+          {{ render('partials.dfp_leaderboard'); }}
       </div>
       <div class="grid_3">
         <div class="lt_col_ad2">

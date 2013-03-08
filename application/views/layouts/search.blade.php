@@ -46,7 +46,7 @@ echo Asset::container('front-header')->scripts();
       <div class="grid_12" id="body_topbreak">
       </div>
       <div class="gird_12" id="top_ad_long">
-        <a href="#"><img src="<?php echo asset('images/ad_728x90.jpg'); ?>" width="728" height="90" /></a>
+          {{ render('partials.dfp_leaderboard'); }}
       </div>
       <div class="grid_3">
         <div id="refine_box_top">
@@ -59,7 +59,7 @@ echo Asset::container('front-header')->scripts();
           </div>
         </div><!--refine search-->
         <div class="lt_col_ad">
-          <a href="#"><img src="<?php echo asset('images/ad_160x600.jpg'); ?>" width="160" height="600" /></a>
+          {{ render('partials.dfp_wide_skyscraper'); }}
         </div><!--160x600 ad-->
       </div><!--left column-->
       <div class="grid_6 alpha">
