@@ -1,6 +1,6 @@
 <?php if ($products && $products != null): ?>
 <?php
-	$num_pages = (int) ceil($products->count / $products->per_page);
+	$num_pages = (int) ceil($count / $per_page);
 	$prev_page = $page - 1;
 	if ($prev_page < 1)
 		$prev_page = 1;
@@ -14,7 +14,14 @@
 		if ($params['sort'] === $sort)
 			return $params['order'] === 'asc' ? 'desc' : 'asc';
 		else
-			return 'asc';
+		{
+			if ($sort === 'rating')
+				return 'desc';
+			else if ($sort === 'alpha')
+				return 'asc';
+			else
+				return 'desc';
+		}
 	}
 	
 	function get_sort_url($params, $sort)
@@ -38,12 +45,12 @@
 	$TYPE_NAMES = array('all'=>'All', 'wash'=>'Wash', 'wax'=>'Wax', 'trim'=>'Trim', 'towels'=>'Towels', 'leather'=>'Leathers', 'wheels'=>'Wheels');
 ?>
 	<div class="grid_4">
-            <h3><?php echo $TYPE_NAMES[$type];?> <font>(<?php echo $products->count; ?> results)</font></h3>
+            <h3><?php echo $TYPE_NAMES[$type];?> <font>(<?php echo $count; ?> results)</font></h3>
           </div>
           <div class="grid_2 alpha omega page_link">
 	    <?php echo render('search/products/results_pages', array('page' => $page, 'num_pages' => $num_pages, 'prev_page' => $prev_page, 'next_page' => $next_page, 'params' => $params)); ?>
           </div><!--results pages top-->
-	  <?php if ($products->count > 0): ?>
+	  <?php if ($count > 0): ?>
           <div class="grid_6" id="sort_by">
             <p>Sort by</p>
           </div> 
@@ -55,7 +62,7 @@
           </div>
 	  <?php endif; ?><!--sorting-->
 	  <?php if ($products): ?>
-	<?php foreach ($products->page as $c): ?>
+	<?php foreach ($products as $c): ?>
           <div class="grid_6 omega" id="results_divider"><!--This div apparently has id="results_divider2" for the first result??-->
             <img src="<?php echo asset('images/results_divider.jpg'); ?>" width="450" height="1" />
           </div>
@@ -63,14 +70,14 @@
             <div class="grid_2 omega"><img src="<?php echo asset('images/' . round($c->rating) . 'star.jpg'); ?>" width="102" height="17" align="left" />
             </div>
             <div class="grid_4 alpha omega">
-              <h6><?php echo $c->name; ?></h6><p class="ital_caption">[CAPTION]Servicing Memphis and the surrounding areas</p>
+              <h6><a href="{{ URL::to('products/' . $c->id); }}"><?php echo $c->name; ?></a></h6><p class="ital_caption">&nbsp;</p>
               <p class="height17">
 			  @if (count($c->reviews) > 0)
 			  {{ $c->reviews[0]->review }}
 			  <br /><br /><a href="{{ URL::to('products/' . $c->id); }}">&raquo;Read Review</a></p>
 			  @else
 			  There are no reviews for this location yet! Click <a href="{{URL::to_action('review@product', array($c->id))}}">here</a> to write a review.
-			  <br /><br /><a href="{{ URL::to('products/' . $c->id); }}">&raquo;Goto Page</a></p>
+			  <br /><br /></p>
 			  @endif
             </div>
           </div><!--results2-->

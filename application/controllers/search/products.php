@@ -42,7 +42,8 @@ class Search_Products_Controller extends Base_Controller {
 		foreach ($types as $t)
 			$counts[$t] = $p_repo->get_product_type_count($t);
 
-		$products = $p_repo->get_product_paged($type, $this->RESULTS_PER_PAGE, $page);
+		$count = $query->count();
+		$products = $query->page($this->RESULTS_PER_PAGE, $page-1);
 
 		$params['page'] = $page;
 		$params['type'] = $type;
@@ -50,22 +51,7 @@ class Search_Products_Controller extends Base_Controller {
 		$params['order'] = $order;
 
 		$this->layout->content->nest('top_menu', 'Search.Products.top_menu', array('query' => $params, 'type' => $type, 'counts' => $counts));
-		$this->layout->content->nest('results', 'Search.Products.results', array('products' => $products, 'page' => $page, 'type'=>$type, 'query'=>$params));
-	}
-
-	public function post_index()
-	{
-		$this->layout->title = "Add Product";
-
-		$p_repo = IoC::resolve('product_repository');
-		$res = $p_repo->add(Input::all());
-
-		return Redirect::to_action('Admin.Products.view');
-
-		if ($res === TRUE)
-			return Response::make('Succesful submission!');
-		else
-			return Response::make($res);
+		$this->layout->content->nest('results', 'Search.Products.results', array('products' => $products, 'page' => $page, 'type'=>$type, 'query'=>$params, 'per_page'=>$this->RESULTS_PER_PAGE, 'count'=>$count));
 	}
 }
 

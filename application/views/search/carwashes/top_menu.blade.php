@@ -1,11 +1,5 @@
 <?php unset($query['page']); ?>
             <ul>
-	      <?php if ($type === 'all'): ?>
-	      <li>&raquo;All(<?php echo $counts['all'];?>)</a></li>
-	      <?php else: ?>
-              <li><a href="<?php $query['type'] = 'all'; echo URL::current_query($query);?>">&raquo;All(<?php echo $counts['all'];?>)</a></li>
-	      <?php endif; ?>
-
 		  @if ($counts['fullservice'] != 0)
 	      <?php if ($type === 'fullservice'): ?>
               <li>&raquo;Full Service(<?php echo $counts['fullservice'];?>)</li>

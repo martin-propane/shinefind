@@ -10,6 +10,7 @@ class Product_Query
 	public $query;
 	public $TABLE = 'Data_Products';
 	public $REVIEWS_TABLE = 'Data_Reviews_Products';
+	public $RATINGS_VIEW = 'View_Product_Ratings';
 
 	public function __construct()
 	{
@@ -79,6 +80,13 @@ class Product_Query
 
 		return $this;
 	}
+
+	public function sort_rating($order = 'asc')
+	{
+		$this->query = $this->query->left_join($this->RATINGS_VIEW, $this->TABLE.'.id', '=', $this->RATINGS_VIEW.'.p_id')->order_by('rating', $order);
+
+		return $this;
+	}
 	
 	public function get()
 	{
@@ -94,7 +102,7 @@ class Product_Query
 	{
 		$tuples = $this->query->skip($per_page * $page_num)->take($per_page)->get();
 
-		return $this->get_full_entities($tuples);
+		return $this->get_entities($tuples);
 	}
 
 	public function get_reviews_average($p_id)
