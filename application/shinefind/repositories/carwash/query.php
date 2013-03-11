@@ -32,6 +32,7 @@ class Carwash_Query
 	);
 	public $TABLE = 'Data_Carwashes';
 	public $REVIEWS_TABLE = 'Data_Reviews_Carwashes';
+	public $RATINGS_VIEW = 'View_Carwash_Ratings';
 
 	public function __construct()
 	{
@@ -80,6 +81,13 @@ class Carwash_Query
 	public function is_sponsored()
 	{
 		$this->query = $this->query->where('sponsored', '=', 1);
+
+		return $this;
+	}
+
+	public function no_rating()
+	{
+		$this->query = $this->query->left_join($this->RATINGS_VIEW, $this->TABLE.'.id', '=', $this->RATINGS_VIEW.'.cw_id')->where('rating', '=', null);
 
 		return $this;
 	}
@@ -154,6 +162,20 @@ class Carwash_Query
 		return $this;
 	}
 
+	public function sort_rating($order = 'asc')
+	{
+		$this->query = $this->query->left_join($this->RATINGS_VIEW, $this->TABLE.'.id', '=', $this->RATINGS_VIEW.'.cw_id')->order_by('rating', $order);
+
+		return $this;
+	}
+
+	public function sort_certified($order = 'asc')
+	{
+		$this->query = $this->query->order_by('certified', $order);
+
+		return $this;
+	}
+
 	public function get()
 	{
 		return $this->get_full_entities($this->query->get());
@@ -202,9 +224,12 @@ class Carwash_Query
 
 	protected function get_entity($tuple, $types_tuple = null, $options_tuple = null) {
 		$reviews = $this->get_reviews($tuple->id);
-		$rating = $this->get_reviews_average($tuple->id);
+		if (isset($tuple->rating))
+			$rating = $tuple->rating;
+		else
+			$rating = $this->get_reviews_average($tuple->id);
 
-		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $reviews, $rating, $tuple->sponsored, $tuple->sponsor_description, $types_tuple, $options_tuple);
+		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $reviews, $rating, $tuple->sponsored, $tuple->sponsor_description, $tuple->caption, $types_tuple, $options_tuple);
 	}
 
 	protected function get_types_options($query_results)
@@ -235,3 +260,4 @@ class Carwash_Query
 		return new Carwash_Review(get_object_vars($tuple));
 	}
 }
+

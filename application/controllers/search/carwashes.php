@@ -37,8 +37,11 @@ class Search_Carwashes_Controller extends Base_Controller {
 			case 'alpha':
 				$query->sort_name($order);
 				break;
-			case 'ranking':
-				$query->sort_ranking($order);
+			case 'rating':
+				$query->sort_rating($order);
+				//Another query is needed if rated results want to be displayed before nonrated oens
+				//$rating_query->state_is($state);
+				//$rating_query->city_is($city);
 				break;
 			case 'certified':
 				$query->sort_certified($order);
@@ -47,18 +50,27 @@ class Search_Carwashes_Controller extends Base_Controller {
 
 		$counts = array();
 		$types = array('all', 'detailing', 'fullservice', 'tunnel', 'handwash', 'mobile', 'detailing');
-		//if ($city_str)
-		//{
-			//get information for each type
-			foreach ($types as $t)
-				$counts[$t] = $cw_repo->get_city_count($state, $city, $t);
 
-			$carwashes = $cw_repo->get_city_paged($state, $city, $type, $this->RESULTS_PER_PAGE, $page);
-		//}
+		//get information for each type
+		foreach ($types as $t)
+			$counts[$t] = $cw_repo->get_city_count($state, $city, $t);
 
-		$query->is_sponsored();
+		$count = $query->count();
+		$carwashes = $query->page($this->RESULTS_PER_PAGE, $page-1);
 
-		$sponsored = $query->get();
+		if ($page == 1)
+		{
+			$sponsor_query = $cw_repo->query();
+			$sponsor_query->state_is($state);
+			$sponsor_query->city_is($city);
+			$sponsor_query->is_sponsored();
+			$all_sponsors = $sponsor_query->get();
+			shuffle($all_sponsors);
+
+			$sponsored = array_slice($all_sponsors, 0, 4);
+		}
+		else
+			$sponsored = null;
 
 		$params['page'] = $page;
 		$params['type'] = $type;
@@ -66,22 +78,7 @@ class Search_Carwashes_Controller extends Base_Controller {
 		$params['order'] = $order;
 
 		$this->layout->content->nest('top_menu', 'Search.Carwashes.top_menu', array('query' => $params, 'type' => $type, 'counts' => $counts));
-		$this->layout->content->nest('results', 'Search.Carwashes.results', array('carwashes' => $carwashes, 'sponsored'=>$sponsored, 'city' => $city, 'state' => $state, 'page' => $page, 'type'=>$type, 'query'=>$params));
-	}
-
-	public function post_index()
-	{
-		$this->layout->title = "Add Carwash";
-
-		$cw_repo = IoC::resolve('carwash_repository');
-		$res = $cw_repo->add(Input::all());
-
-		return Redirect::to_action('Admin.Carwashes.view');
-
-		if ($res === TRUE)
-			return Response::make('Succesful submission!');
-		else
-			return Response::make($res);
+		$this->layout->content->nest('results', 'Search.Carwashes.results', array('carwashes' => $carwashes, 'sponsored'=>$sponsored, 'city' => $city, 'state' => $state, 'page' => $page, 'type'=>$type, 'query'=>$params, 'per_page'=>$this->RESULTS_PER_PAGE, 'count'=>$count));
 	}
 }
 

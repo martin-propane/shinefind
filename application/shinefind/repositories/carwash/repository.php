@@ -11,7 +11,7 @@ class Carwash_Repository {
 	public $TABLE = 'Data_Carwashes';
 	public $REVIEWS_TABLE = 'Data_Reviews_Carwashes';
 
-	public $DB_ATTRIBUTES = array('id', 'name', 'business_address', 'city', 'state', 'zip', 'phone', 'notes', 'email', 'website', 'corp_address', 'option_other', 'certified', 'sponsored', 'sponsor_description');
+	public $DB_ATTRIBUTES = array('id', 'name', 'business_address', 'city', 'state', 'zip', 'phone', 'notes', 'email', 'website', 'corp_address', 'option_other', 'certified', 'sponsored', 'sponsor_description', 'caption');
 	public $SHORT_TYPES = array(
 		'detailing'=>'Detailing',
 		'freevac'=>'FreeVacuums',
@@ -217,7 +217,7 @@ class Carwash_Repository {
 		$reviews = $this->get_reviews($tuple->id);
 		$rating = $this->get_reviews_average($tuple->id);
 
-		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $reviews, $rating, $tuple->sponsored, $tuple->sponsor_description, $types_tuple, $options_tuple);
+		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $reviews, $rating, $tuple->sponsored, $tuple->sponsor_description, $tuple->caption, $types_tuple, $options_tuple);
 	}
 
 	protected function get_types_options($query_results)
