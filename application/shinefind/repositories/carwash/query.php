@@ -34,6 +34,8 @@ class Carwash_Query
 	public $REVIEWS_TABLE = 'Data_Reviews_Carwashes';
 	public $RATINGS_VIEW = 'View_Carwash_Ratings';
 
+	public $check_types = array();
+
 	public function __construct()
 	{
 		$this->query = Database::table($this->TABLE);
@@ -75,6 +77,22 @@ class Carwash_Query
 
 		$this->query = $this->query->where('phone', 'LIKE', '%'.$phone.'%');
 		
+		return $this;
+	}
+
+	public function type_is($type)
+	{
+		if (isset($this->SHORT_TYPES[$type]))
+		{
+			$table = 'Type_' . $this->SHORT_TYPES[$type];
+			$this->query = $this->query->join($table, $this->TABLE.'.id', '=', $table.'.cw_id');
+		}
+		else if ($type !== 'all')
+		{
+			//if there is no table for the type, then technically the type isn't this
+			$this->query = $this->query->where('id', '=', 0);
+		}
+
 		return $this;
 	}
 
@@ -234,20 +252,24 @@ class Carwash_Query
 
 	protected function get_types_options($query_results)
 	{
+		$results = array();
 		foreach ($query_results as $tuple)
 		{
 			$type_tuple = array();
-			foreach ($this->SHORT_TYPES as $type)
+			foreach ($this->SHORT_TYPES as $t=>$type)
 				$type_tuple[$type] = Database::table('Type_' . $type)->where('cw_id', '=', $tuple->id)->first() !== null;
+
 			$tuple->types = $type_tuple;
 
 			$option_tuple = array();
 			foreach ($this->SHORT_OPTIONS as $option)
 				$option_tuple[$option] = Database::table('Other_' . $option)->where('cw_id', '=', $tuple->id)->first() !== null;
 			$tuple->options = $option_tuple;
+			
+			$results[] = $tuple;
 		}
 
-		return $query_results;
+		return $results;
 	}
 
 	protected function get_full_entities($relation)

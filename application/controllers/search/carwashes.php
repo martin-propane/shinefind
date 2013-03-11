@@ -7,7 +7,7 @@ class Search_Carwashes_Controller extends Base_Controller {
 	
 	public $restful = true;
 	public $layout = 'layouts.frontend.basic';
-	public $RESULTS_PER_PAGE = 4;
+	public $RESULTS_PER_PAGE = 20;
 
 	public function get_index()
 	{
@@ -31,6 +31,8 @@ class Search_Carwashes_Controller extends Base_Controller {
 		$query->state_is($state);
 
 		$query->city_is($city);
+
+		$query->type_is($type);
 
 		switch ($sort)
 		{
