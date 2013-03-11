@@ -1,42 +1,37 @@
 <?php unset($query['page']); ?>
             <ul>
-		  @if ($counts['fullservice'] != 0)
-	      <?php if ($type === 'fullservice'): ?>
-              <li>&raquo;Full Service(<?php echo $counts['fullservice'];?>)</li>
+	      <?php if ($type === 'all'): ?>
+	      <li>&raquo;All(<?php echo $counts['all'];?>)</a></li>
 	      <?php else: ?>
-              <li><a href="<?php $query['type'] = 'fullservice'; echo URL::current_query($query);?>">&raquo;Full Service(<?php echo $counts['fullservice'];?>)</a></li>
+              <li><a href="<?php $query['type'] = 'all'; echo URL::current_query($query);?>">&raquo;All(<?php echo $counts['all'];?>)</a></li>
 	      <?php endif; ?>
-		  @endif
 
-          @if ($counts['tunnel'] != 0)
+              <li>&raquo;Full Service</li>
+	      <?php else: ?>
+              <li><a href="<?php $query['type'] = 'fullservice'; echo URL::current_query($query);?>">&raquo;Full Service</a></li>
+	      <?php endif; ?>
+
 	      <?php if ($type === 'tunnel'): ?>
-	      <li>&raquo;Drive Through Tunnels(<?php echo $counts['tunnel'];?>)</a></li>
+	      <li>&raquo;Drive Through Tunnels</a></li>
 	      <?php else: ?>
-              <li><a href="<?php $query['type'] = 'tunnel'; echo URL::current_query($query);?>">&raquo;Drive Through Tunnels(<?php echo $counts['tunnel']; ?>)</a></li>
+              <li><a href="<?php $query['type'] = 'tunnel'; echo URL::current_query($query);?>">&raquo;Drive Through Tunnels</a></li>
 	      <?php endif; ?>
-		  @endif
 
-          @if ($counts['handwash'] != 0)
 	      <?php if ($type === 'handwash'): ?>
-	      <li>&raquo;Manual Wash(<?php echo $counts['handwash'];?>)</a></li>
+	      <li>&raquo;Manual Wash</a></li>
 	      <?php else: ?>
-              <li><a href="<?php $query['type'] = 'handwash'; echo URL::current_query($query);?>">&raquo;Manual Wash(<?php echo $counts['handwash'];?>)</a></li>
+              <li><a href="<?php $query['type'] = 'handwash'; echo URL::current_query($query);?>">&raquo;Manual Wash</a></li>
 	      <?php endif; ?>
-		  @endif
 
-          @if ($counts['mobile'] != 0)
 	      <?php if ($type === 'mobile'): ?>
-	      <li>&raquo;Mobile Detail(<?php echo $counts['mobile'];?>)</a></li>
+	      <li>&raquo;Mobile Detail</a></li>
 	      <?php else: ?>
-              <li><a href="<?php $query['type'] = 'mobile'; echo URL::current_query($query);?>">&raquo;Mobile Detail(<?php echo $counts['mobile'];?>)</a></li>
+              <li><a href="<?php $query['type'] = 'mobile'; echo URL::current_query($query);?>">&raquo;Mobile Detail</a></li>
 	      <?php endif; ?>
-		  @endif
 
-          @if ($counts['detailing'] != 0)
 	      <?php if ($type === 'detailing'): ?>
-	      <li>&raquo;Advanced Detail(<?php echo $counts['detailing'];?>)</a></li>
+	      <li>&raquo;Advanced Detail</a></li>
 	      <?php else: ?>
-              <li><a href="<?php $query['type'] = 'detailing'; echo URL::current_query($query);?>">&raquo;Advanced Detail(<?php echo $counts['detailing'];?>)</a></li>
+              <li><a href="<?php $query['type'] = 'detailing'; echo URL::current_query($query);?>">&raquo;Advanced Detail</a></li>
 	      <?php endif; ?>
-		  @endif
             </ul>
