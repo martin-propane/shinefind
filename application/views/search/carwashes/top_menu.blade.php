@@ -6,7 +6,8 @@
               <li><a href="<?php $query['type'] = 'all'; echo URL::current_query($query);?>">&raquo;All(<?php echo $counts['all'];?>)</a></li>
 	      <?php endif; ?>
 
-              <li>&raquo;Full Service</li>
+	      <?php if ($type === 'fullservice'): ?>
+          <li>&raquo;Full Service</li>
 	      <?php else: ?>
               <li><a href="<?php $query['type'] = 'fullservice'; echo URL::current_query($query);?>">&raquo;Full Service</a></li>
 	      <?php endif; ?>
