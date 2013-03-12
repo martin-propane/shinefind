@@ -69,7 +69,7 @@
           <div class="grid_2 alpha omega page_link">
 	    <?php echo render('search/carwashes/results_pages', array('page' => $page, 'num_pages' => $num_pages, 'prev_page' => $prev_page, 'next_page' => $next_page, 'params' => $params)); ?>
           </div><!--results pages top-->
-	  <?php if ($count > 0): ?>
+	  @if ($count > 0)
           <div class="grid_6" id="sort_by">
             <p>Sort by</p>
           </div> 
@@ -82,7 +82,7 @@
           <div class="grid_2 omega" id="certified_sort">
             <a href="{{ get_sort_url($params, 'certified'); }}">Certified</a>&nbsp;{{ get_arrow($params, 'certified'); }}
           </div>
-	  <?php endif; ?><!--sorting-->
+	  @endif
 	  <?php if ($carwashes): ?>
 	<?php foreach ($carwashes as $c): ?>
           <div class="grid_6 omega" id="results_divider"><!--This div apparently has id="results_divider2" for the first result??-->
@@ -115,5 +115,10 @@
           <div class="grid_2 alpha omega page_link2">
 	    <?php echo render('search/carwashes/results_pages', array('page' => $page, 'num_pages' => $num_pages, 'prev_page' => $prev_page, 'next_page' => $next_page, 'params' => $params)); ?>
           </div><!--results pages bottom-->
+<?php else: ?>
+	    <div class="grid_6">
+	  	<p>Please click <a href="{{ URL::to('search/carwashes'); }}">here</a> to go back to the main {{ $city }} list.
+		</p>
+		</div>
 <?php endif; ?>
         </div><!--results-->
