@@ -593,6 +593,10 @@ h6 a:link, h6 a:hover, h6 a:active, h6 a:visited {
 	margin-right:10px;
 }
 
+.review_box p {
+	min-height:98px;
+}
+
 .review_box p img {
 	margin-right:0px;
 }

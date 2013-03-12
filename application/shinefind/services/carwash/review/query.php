@@ -8,16 +8,55 @@ class Carwash_Review_Query
 	protected $query;
 
 	public $TABLE = 'Data_Reviews_Carwashes';
+	public $ENTITY_TABLE = 'Data_Carwashes';
+	public $joined_carwash = false;
 
-	public function __construct($cw_id)
+	public function __construct($cw_id = null)
 	{
-		$this->query = Database::table($this->TABLE)->where('cw_id', '=', $cw_id);
+		$this->query = Database::table($this->TABLE);
+
+		if ($cw_id !== null)
+			$this->cw_id_is($cw_id);
+	}
+
+	public function cw_id_is($cw_id)
+	{
+		$this->query = $this->query->where('cw_id', '=', $cw_id);
+		
+		return $this;
 	}
 
 	public function rating_is($rating)
 	{
 		$this->query = $this->query->where('rating', '=', $rating);
 		
+		return $this;
+	}
+
+	//joining with the carwash table is required in order to perform some queries
+	public function city_is($city)
+	{
+		if (!$this->joined_carwash)
+		{
+			$this->joined_carwash = true;
+			$this->query->join($this->ENTITY_TABLE, $this->TABLE.'.cw_id', '=', $this->ENTITY_TABLE.'.id');
+		}
+
+		$this->query->where('city', '=', $city);
+
+		return $this;
+	}
+
+	public function state_is($state)
+	{
+		if (!$this->joined_carwash)
+		{
+			$this->joined_carwash = true;
+			$this->query->join($this->ENTITY_TABLE, $this->TABLE.'.cw_id', '=', $this->ENTITY_TABLE.'.id');
+		}
+
+		$this->query->where('state', '=', $state);
+
 		return $this;
 	}
 
@@ -49,7 +88,7 @@ class Carwash_Review_Query
 		$entities = array();
 
 		foreach ($tuples as $tuple)
-			$entities[] = get_entity($tuple);
+			$entities[] = $this->get_entity($tuple);
 
 		return $entities;
 	}

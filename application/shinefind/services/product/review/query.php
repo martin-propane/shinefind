@@ -9,9 +9,19 @@ class Product_Review_Query
 
 	public $TABLE = 'Data_Reviews_Products';
 
-	public function __construct($p_id)
+	public function __construct($p_id = null)
 	{
-		$this->query = Database::table($this->TABLE)->where('p_id', '=', $p_id);
+		$this->query = Database::table($this->TABLE);
+
+		if ($p_id !== null)
+			$this->p_id_is($p_id);
+	}
+
+	public function p_id_is($p_id)
+	{
+		$this->query = $this->query->where('p_id', '=', $p_id);
+		
+		return $this;
 	}
 
 	public function rating_is($rating)
@@ -49,7 +59,7 @@ class Product_Review_Query
 		$entities = array();
 
 		foreach ($tuples as $tuple)
-			$entities[] = get_entity($tuple);
+			$entities[] = $this->get_entity($tuple);
 
 		return $entities;
 	}

@@ -55,15 +55,16 @@
       </div> <!--left column-->
       <div class="grid_3" id="index_mid_col">
         <h3>Recent Reviews</h3>
-        <div class="review_box"><img src="{{ URL::to_asset('images/pride_carwash_logo.png'); }}" width="103" height="103" align="left" /><p><img src="{{ URL::to_asset('images/1star.jpg'); }}" width="102" height="17" /><br />
-          Lorem ipsum dolor sit amet, consec- tetur adipisicing elit<br /><a href="#">&raquo;Read Review</a></p>
+		@foreach ($reviews as $review)
+        <div class="review_box"><img src="{{ URL::to_asset('images/pride_carwash_logo.png'); }}" width="103" height="103" align="left" /><p><img src="{{ asset('images/' . round($review->rating) . 'star.jpg'); }}" width="102" height="17" /><br />
+          {{ (strlen($review->review) > 53) ? substr($review->review,0,50).'...' : $review->review }}<br />
+		  @if (get_class($review) === 'Shinefind\\Entities\\Carwash_Review')
+		  <a href="{{ URL::to('carwashes/'.$review->cw_id); }}">&raquo;Read Review</a></p>
+		  @else
+		  <a href="{{ URL::to('products/'.$review->p_id); }}">&raquo;Read Review</a></p>
+		  @endif
         </div><!--recent reviews1-->
-        <div class="review_box"><img src="{{ URL::to_asset('images/minute_wax_logo.png'); }}" width="103" height="103" align="left" /><p><img src="{{ URL::to_asset('images/3star.jpg'); }}" width="102" height="17" /><br />
-          Lorem ipsum dolor sit amet, consec- tetur adipisicing elit<br /><a href="#">&raquo;Read Review</a></p>
-        </div><!--recent reviews2-->
-        <div class="review_box"><img src="{{ URL::to_asset('images/paste_wax_logo.png'); }}" width="103" height="103" align="left" /><p><img src="{{ URL::to_asset('images/3star.jpg'); }}" width="102" height="17" /><br />
-          Lorem ipsum dolor sit amet, consec- tetur adipisicing elit<br /><a href="#">&raquo;Read Review</a></p>
-        </div><!--recent reviews3-->
+		@endforeach
         <div class="grid_3 alpha omega" id="iphone_space">
         </div>
       </div><!--center column-->
