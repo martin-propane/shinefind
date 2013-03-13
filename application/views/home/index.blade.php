@@ -7,8 +7,8 @@
       <div class="grid_5 omega" id="tab_washes">
         <div>
           <ul>
-            <li><a href="#"><img src="{{ URL::to_asset('images/tab_washes.png'); }}" /></a></li>
-            <li><a href="#"><img src="{{ URL::to_asset('images/tab_diy.png'); }}" /></a></li>
+            <li><a id="washes_link" href="javascript:void(0)"><img src="{{ URL::to_asset('images/tab_washes.png'); }}" /></a></li>
+            <li><a id="products_link" href="javascript:void(0)"><img src="{{ URL::to_asset('images/tab_diy.png'); }}" /></a></li>
           </ul>
         </div>
         <div class="tab_sub_bar">
@@ -17,18 +17,31 @@
         <div class="tab_shadow">
         </div>
         <div class="tab_box">
-          <div class="tab1">
-            <p>Choose all that apply:</p>
-            <ul>
-              <li><input type="checkbox" name="find" value="full" class="tab_box_adjust" />Full Service Washes</li>
-              <li><input type="checkbox" name="find" value="drive" class="tab_box_adjust" />Drive Through Washes</li>
-              <li><input type="checkbox" name="find" value="manuel" class="tab_box_adjust" />Manuel Washes (aka Jet Spray)</li>
-              <li><input type="checkbox" name="find" value="mobile" class="tab_box_adjust" />Mobile Wash &amp; Detailers</li>
-            </ul>
-          </div>
-          <div class="tab2">
-            <a href="#"><img src="{{ URL::to_asset('images/find_button.png'); }}" /></a>
-          </div>
+		  <div id="products_tab">
+		    <div class="tab1">
+			  <p> Choose a product type:</p>
+			  <ul>
+			    <li><input type="radio" name="find" value="wax" class="tab_box_adjust" />Wax</li>
+			  </ul>
+			</div>
+			<div class="tab2">
+			  <a href="#"><img src="{{ URL::to_asset('images/find_button.png'); }}" /></a>
+			</div>
+		  </div>
+		  <div id="washes_tab">
+		    <div class="tab1">
+			  <p>Choose a service:</p>
+			  <ul>
+			    <li><input type="radio" name="find" value="full" class="tab_box_adjust" />Full Service Washes</li>
+			    <li><input type="radio" name="find" value="drive" class="tab_box_adjust" />Drive Through Washes</li>
+			    <li><input type="radio" name="find" value="manuel" class="tab_box_adjust" />Manuel Washes (aka Jet Spray)</li>
+			    <li><input type="radio" name="find" value="mobile" class="tab_box_adjust" />Mobile Wash &amp; Detailers</li>
+			  </ul>
+		    </div>
+		    <div class="tab2">
+			  <a href="#"><img src="{{ URL::to_asset('images/find_button.png'); }}" /></a>
+		    </div>
+		  </div>
         </div>
       </div><!--tabs-->
       <div class="grid_12 spacer10">
@@ -72,4 +85,15 @@
         <img src="{{ URL::to_asset('images/ad_120x600.jpg'); }}" width="120" height="600" />
       </div><!--right column-->
     </div> <!--end container-->
-
+<script type = "text/javascript">
+$(function() {
+	$('#washes_link').click(function(e) {
+		$('#washes_tab').css('zIndex', '9999');
+		$('#products_tab').css('zIndex', '1');
+	});
+	$('#products_link').click(function(e) {
+		$('#products_tab').css('zIndex', '9999');
+		$('#washes_tab').css('zIndex', '1');
+	});
+});
+</script>
