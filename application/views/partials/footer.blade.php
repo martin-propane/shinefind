@@ -14,7 +14,6 @@
             <li><a href="{{ URL::to('search/products') }}">&raquo;Product Reviews</a></li>
             <li>{{ HTML::link_to_action('login@index', '&raquo;Member Login'); }}</li>
             <li><a href="{{ URL::to('advertise') }}">&raquo;Advertise</a></li>
-            <li><a href="{{ URL::to('resources') }}">&raquo;Information Articles</a></li>
             <li><a href="{{ URL::to('company') }}">&raquo;Company Info</a></li>
             <li><a href="{{ URL::to('listing') }}">&raquo;Get your Product or Company Listed</a></li>
           </ul>

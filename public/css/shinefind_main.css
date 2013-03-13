@@ -316,6 +316,7 @@ body a:hover, a:active {
 }
 
 #sitemap li a:hover, #sitemap li a:active {
+	text-decoration:none;
 	white-space:nowrap;
 }
 
@@ -871,3 +872,8 @@ p.sponsor_red {
 	width:50%;
 }
 
+span.copyright {
+    color: #fff;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:13px;
+}
