@@ -61,7 +61,23 @@ body img {
 }
 
 #menu li {
+    background-color: #CD2229;
 	float:left;
+    text-align: center;
+    width: 150px;
+}
+
+#menu li.change-city {
+    background-color: #000;
+}
+
+#menu li a {
+    color: #fff;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:16px;
+    font-weight: bold;
+    line-height: 20px;
+    text-transform: uppercase;
 }
 
 #menu li input {
