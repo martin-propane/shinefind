@@ -19,9 +19,7 @@ echo Asset::container('front-header')->scripts();
       <div id="logo">
         <a href="#"><h1>Shinefind</h1></a>
       </div> <!--end logo-->
-      <div id="facebook">
-        <a href="#"><img src="<?php echo asset('images/facebook.png'); ?>" width="302" height="33" border="0" /></a><p><a href="#">or create a login</a></p>
-      </div> <!--end facebook-->
+{{ render('partials.facebook'); }}
     </div> <!--end header-->
     
     <div id="menu">
