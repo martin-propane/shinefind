@@ -51,7 +51,7 @@ class Search_Carwashes_Controller extends Base_Controller {
 		}
 
 		$counts = array();
-		$types = array('all', 'detailing', 'fullservice', 'tunnel', 'handwash', 'mobile', 'detailing');
+		$types = array('all', 'detailing', 'fullservice', 'tunnel', 'handwash', 'mobile', 'detailing', 'freevacs', 'selfserve', 'softtouch', 'touchfree', 'xpress');
 
 		//get information for each type
 		foreach ($types as $t)

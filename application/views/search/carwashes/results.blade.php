@@ -60,8 +60,8 @@
 		else
 			return '<img src="'.asset('images/arrow-right.jpg').'" width="9" height="13" border="0"/>';
 	}
-
-	$TYPE_NAMES = array('all'=>'All', 'fullservice'=>'Full Service', 'tunnel'=>'Drive Through Tunnels', 'handwash'=>'Manual Wash', 'mobile'=>'Mobile Detail', 'detailing'=>'Advanced Detailing');
+	//TODO: Make this list stored in the controller, pass it to here, and also make filters on left come from this
+	$TYPE_NAMES = array('all'=>'All', 'fullservice'=>'Full Service', 'tunnel'=>'Drive Through Tunnels', 'handwash'=>'Manual Wash', 'mobile'=>'Mobile Detail', 'detailing'=>'Advanced Detailing', 'freevacs'=>'Free Vacuums', 'selfserve'=>'Self Serve', 'softtouch'=>'Soft Touch', 'touchfree'=>'Touch Free', 'xpress'=>'Express');
 ?>
 	<div class="grid_4">
             <h3><?php echo $TYPE_NAMES[$type];?> <font>(<?php echo $count; ?> results)</font></h3>
