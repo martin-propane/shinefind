@@ -1,7 +1,8 @@
     <div id="footer">
       <div id="footer_container">
         <div id="footer_info">
-          <img src="{{ URL::to_asset('images/footer_copyright.png'); }}" width="220" height="25" />
+          <img src="{{ URL::to_asset('images/footer_copyright.png'); }}" />
+          <span class="copyright">&copy; 2013, Shinefind</span>
           <p>THE authorative force for all things detail-oriented. We pride ourselves with providing our users with accurate and relevant reviews and information to keep their cars looking their best.</p>
 		</div> <!--end footer_info-->
         <div id="sitemap">
