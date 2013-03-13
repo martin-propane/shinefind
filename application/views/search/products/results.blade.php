@@ -90,5 +90,10 @@
           <div class="grid_2 alpha omega page_link2">
 	    <?php echo render('search/products/results_pages', array('page' => $page, 'num_pages' => $num_pages, 'prev_page' => $prev_page, 'next_page' => $next_page, 'params' => $params)); ?>
           </div><!--results pages bottom-->
-<?php endif; ?>
+		<?php else: ?>
+	    <div class="grid_6">
+	  	<p>Please click <a href="{{ URL::to('search/products'); }}">here</a> to go back to the main product list.
+		</p>
+		</div>
+		<?php endif; ?>
 

@@ -25,6 +25,7 @@ class Search_Products_Controller extends Base_Controller {
 		$order = Input::get('order', 'asc');
 
 		$query = $p_repo->query();
+		$query->type_is($type);
 
 		switch ($sort)
 		{

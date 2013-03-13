@@ -41,7 +41,8 @@ class Product_Query
 
 	public function type_is($type)
 	{
-		$this->query = $this->query->where('type', '=', $phone);
+		if ($type !== 'all')
+			$this->query = $this->query->where('type', '=', $type);
 		
 		return $this;
 	}
