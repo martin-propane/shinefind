@@ -79,7 +79,7 @@
           </div><!--company details-->
           <img src="{{ URL::to_asset('images/white_divider.jpg'); }}" width="460" height="1" />
           <div class="grid_6 alpha" id="company_page_desc">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ... <a href="{{ URL::to('review/carwash/'.$carwash->id); }}">Write a Review</a></p>
           </div>
         </div><!--company info-->
         <div>
