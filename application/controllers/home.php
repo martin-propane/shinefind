@@ -62,7 +62,10 @@ class Home_Controller extends Base_Controller
 		$path = $url['path'];
 		
 		//this looks messy, but it seems to work for getting rid of the query string from a url
-		return Redirect::to($url['scheme'] . '://' . $url['host'] . (isset($url['port']) ? ':'.$url['port'] : '') . $path);
+		if ($path === '/' || $path === '/home' || $path === '/index.php' || $path === '/index.php/home')
+			return Redirect::to($url['scheme'] . '://' . $url['host'] . (isset($url['port']) ? ':'.$url['port'] : '') . $path);
+		else
+			return Redirect::to(URL::to('search/carwashes'));
 	}
 }
 
