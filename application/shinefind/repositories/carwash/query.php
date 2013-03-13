@@ -247,7 +247,7 @@ class Carwash_Query
 		else
 			$rating = $this->get_reviews_average($tuple->id);
 
-		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $reviews, $rating, $tuple->sponsored, $tuple->sponsor_description, $tuple->caption, $types_tuple, $options_tuple);
+		return new Carwash($tuple->id, $tuple->name, $tuple->business_address, $tuple->city, $tuple->state, $tuple->zip, $tuple->phone, $tuple->notes, $tuple->email, $tuple->website, $tuple->corp_address, $tuple->option_other, $tuple->certified, $reviews, $rating, $tuple->sponsored, $tuple->description, $tuple->caption, $types_tuple, $options_tuple);
 	}
 
 	protected function get_types_options($query_results)

@@ -9,7 +9,7 @@
             </div>
             <div class="sponsor_info">
               <h6>{{$s->name}}</h6><p class="sponsor_red">{{$s->busi_ad}}, {{$s->city}}, {{$s->state}}<br />{{$s->phone}}</p>
-              <p>{{$s->sponsor_description}}<br /><a href="{{ URL::to('carwashes/' . $s->id); }}">&raquo;Read Review</a></p>
+              <p>{{$s->description}}<br /><a href="{{ URL::to('carwashes/' . $s->id); }}">&raquo;Read Review</a></p>
             </div>
           </div><!--listing1-->
           <div class="grid_6 alpha omega spacer10"></div>
