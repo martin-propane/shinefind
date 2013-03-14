@@ -24,7 +24,7 @@
       <div class="grid_3 alpha omega">
 	  {{ render('partials.diy_box'); }}
         <div id="rt_col_ad">
-          <a href="#"><img src="<?php echo asset('images/ad_180x150.jpg'); ?>" width="180" height="150" border="0" /></a>
+        {{ render('partials.dfp_odd_square'); }}
         </div><!--180x150 ad-->
         <div id="get_listed_box">
           <p>Are you a detailer or product maker?<br />
