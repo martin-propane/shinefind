@@ -29,4 +29,10 @@ class Login_Controller extends Base_Controller
 		else
 			return Response::make('You were not logged in.');
 	}
+
+	public function get_create()
+	{
+		if (Auth::check())
+			return Redirect::to('/');
+	}
 }

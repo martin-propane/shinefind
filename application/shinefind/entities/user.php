@@ -1,18 +1,12 @@
 <?php namespace Shinefind\Entities;
 
-class User
+class User extends Base
 {
-	public $id;
-	public $email;
-	public $password;
-	public $admin;
+	protected $properties = array('id', 'email', 'password', 'admin', 'first_name', 'last_name', 'newsletter', 'city', 'state', 'zip');
 
-	public function __construct($id, $email, $password, $admin)
+	public function __construct($values)
 	{
-		$this->id = $id;
-		$this->email = $email;
-		$this->password = $password;
-		$this->admin = $admin;
+		parent::__construct($this->properties, $values);
 	}
 }
 

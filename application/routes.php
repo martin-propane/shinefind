@@ -45,12 +45,18 @@ Route::any('listing', 'static@listing');
 Route::any('company', 'static@company');
 Route::any('certification', 'static@certification');
 
+Route::any('login', 'user@login');
+Route::any('register', 'user@register');
+Route::any('logout', 'user@logout');
+
 //TODO: Manually add all controllers
 Route::controller(Controller::detect());
 
 Route::get('/', 'home@index');
 
 Route::filter('pattern: admin/*', 'manager');
+
+Route::filter('pattern: review/*', 'review');
 
 /*
 |--------------------------------------------------------------------------
@@ -136,6 +142,11 @@ Route::filter('admin', function()
 	if (Auth::guest()) return Redirect::to('login');
 	else if (Auth::user()->admin === 0) return Redirect::to('search/carwashes');
 	else if (Auth::user()->admin < 2) return Redirect::to('admin/panel');
+});
+
+Route::filter('review', function()
+{
+	if (Auth::guest()) return Redirect::to('login');
 });
 
 View::composer('layouts.admin', function($view)

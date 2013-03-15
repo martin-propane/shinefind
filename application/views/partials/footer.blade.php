@@ -11,7 +11,11 @@
             <li><a href="{{ URL::to('search/carwashes') }}">&raquo;Detailer Reviews</a></li>
             <li><a href="{{ URL::to('privacy') }}">&raquo;Privacy Policy</a></li>
             <li><a href="{{ URL::to('search/products') }}">&raquo;Product Reviews</a></li>
-            <li>{{ HTML::link_to_action('login@index', '&raquo;Member Login'); }}</li>
+			@if (Auth::check())
+			<li>{{ HTML::link_to_action('user@logout', '&raquo;Member Logout'); }}{{--HTML::link_to_action('user@settings', '&raquo;Member Settings'); --}}</li>
+			@else
+            <li>{{ HTML::link('login', '&raquo;Member Login'); }}</li>
+			@endif
             <li><a href="{{ URL::to('advertise') }}">&raquo;Advertise</a></li>
             <li><a href="{{ URL::to('resources') }}">&raquo;Information Articles</a></li>
             <li><a href="{{ URL::to('company') }}">&raquo;Company Info</a></li>

@@ -4,6 +4,7 @@ use \stdClass;
 use Laravel\Database;
 use Laravel\Hash;
 use Shinefind\Entities\User;
+use Shinefind\Services\User_Validator;
 
 class User_Repository
 {
@@ -11,15 +12,22 @@ class User_Repository
 
 	public function add($data)
 	{
-		assert(array_key_exists('email', $data));
-		assert(array_key_exists('password', $data));
-		assert(array_key_exists('admin', $data));
+		$user = new User($data);
+		$user->update(array('admin'=>0));
 
-		$send['email'] = $data['email'];
-		$send['password'] = Hash::make($data['password']);
-		$send['admin'] = $data['admin'];
+		$valid = User_Validator::validate($user);
 
-		$id = Database::table($this->TABLE)->insert_get_id($send);
+		if ($valid)
+		{
+			$password = $user->password;
+			$user->update(array('password'=>Hash::make($password)));
+			$id = Database::table($this->TABLE)->insert_get_id(get_object_vars($user));
+			return $id;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 	public function edit($id, $data)
@@ -49,6 +57,11 @@ class User_Repository
 		return $this->get_entity(Database::table($this->TABLE)->where('id', '=', $id)->first());
 	}
 
+	public function get_with_email($email)
+	{
+		return $this->get_entity(Database::table($this->TABLE)->where('email', '=', $email)->first());
+	}
+
 	public function get_entities($user_tuples)
 	{
 		$users = array();
@@ -62,6 +75,7 @@ class User_Repository
 
 	public function get_entity($tuple)
 	{
-		return new User($tuple->id, $tuple->email, $tuple->password, $tuple->admin);
+		return new User(get_object_vars($tuple));
 	}
 }
+
