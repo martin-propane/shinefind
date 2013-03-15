@@ -69,7 +69,18 @@
       <div class="grid_3" id="index_mid_col">
         <h3>Recent Reviews</h3>
 		@foreach ($reviews as $review)
-        <div class="review_box"><img src="{{ URL::to_asset('images/pride_carwash_logo.png'); }}" width="103" height="103" align="left" /><p><img src="{{ asset('images/' . round($review->rating) . 'star.jpg'); }}" width="102" height="17" /><br />
+		<div class="review_box">
+		{{--TODO: Make the image boxes rounded as they were in the design--}}
+		@if (isset($review->carwash))
+		<?php
+		$carwash = $review->carwash;
+		$city_str = rawurlencode($carwash->busi_ad.','.$carwash->city.$carwash->state);
+		?>
+		<img src="http://maps.googleapis.com/maps/api/streetview?size=103x103&location={{$city_str}}&fov=30&sensor=false" width="103" height="103" align="left" />
+		@else
+        <img src="{{ URL::to_asset('images/product_wheel.png'); }}" width="103" height="103" align="left" />
+		@endif
+		<p><img src="{{ asset('images/' . round($review->rating) . 'star.jpg'); }}" width="102" height="17" /><br />
           {{ (strlen($review->review) > 53) ? substr($review->review,0,50).'...' : $review->review }}<br />
 		  @if (get_class($review) === 'Shinefind\\Entities\\Carwash_Review')
 		  <a href="{{ URL::to('carwashes/'.$review->cw_id); }}">&raquo;Read Review</a></p>
