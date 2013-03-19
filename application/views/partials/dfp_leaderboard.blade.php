@@ -123,3 +123,4 @@ googletag.cmd.push(function() {
 </div>
 
 <?php endif; ?> 
+</div>
