@@ -10,8 +10,9 @@ class Product {
 	public $type;
 	public $reviews;
 	public $rating;
+	public $description;
 
-	public function __construct($id, $name, $company, $phone, $website, $type, $reviews, $rating)
+	public function __construct($id, $name, $company, $phone, $website, $type, $description, $reviews, $rating)
 	{
 		$this->id = $id;
 		$this->name = $name;
@@ -19,6 +20,7 @@ class Product {
 		$this->phone = $phone;
 		$this->website = $website;
 		$this->type = $type;
+		$this->description = $description;
 		$this->reviews = $reviews;
 		$this->rating = $rating;
 	}

@@ -141,7 +141,7 @@ class Product_Query
 		$reviews = $this->get_reviews($tuple->id);
 		$rating = $this->get_reviews_average($tuple->id);
 
-		return new Product($tuple->id, $tuple->name, $tuple->company, $tuple->phone, $tuple->website, $tuple->type, $reviews, $rating);
+		return new Product($tuple->id, $tuple->name, $tuple->company, $tuple->phone, $tuple->website, $tuple->type, $tuple->description, $reviews, $rating);
 	}
 
 	protected function get_review_entity($tuple)
