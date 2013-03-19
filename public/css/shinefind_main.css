@@ -829,7 +829,7 @@ h6 a:link, h6 a:hover, h6 a:active, h6 a:visited {
 	height:190px;
 }
 
-.tab_box img {
+.tab_box input[type="image"] {
 	margin-top:145px;
 }
 

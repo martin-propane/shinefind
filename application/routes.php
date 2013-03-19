@@ -186,3 +186,14 @@ View::composer('partials.city_popup', function($view)
 	$view->current_state = Cookie::get('state');
 });
 
+View::composer('partials.top_menu', function($view)
+{
+	$city = Cookie::get('city');
+	$state = Cookie::get('state');
+
+	if ($city !== null && $state !== null)
+		$view->city = $city . ', ' . $state;
+	else
+		$view->city = 'Choose City';
+});
+

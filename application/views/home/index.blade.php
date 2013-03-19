@@ -12,35 +12,50 @@
           </ul>
         </div>
         <div class="tab_sub_bar">
-          <p>Currently Searching: <b>{{$current_city.', '.$current_state}}</b> <a href="" onClick="showCityPopup();" class="small_wlink">(change city)</a></p>
+          <p>Currently Searching: <b>{{$current_city.', '.$current_state}}</b> <a href="javascript:void(0)" onClick="showCityPopup();" class="small_wlink">(change city)</a></p>
         </div>
         <div class="tab_shadow">
         </div>
         <div class="tab_box">
 		  <div id="products_tab">
+			{{ Form::open('search/products', 'GET') }}
 		    <div class="tab1">
 			  <p> Choose a product type:</p>
 			  <ul>
-			    <li><input type="radio" name="find" value="wax" class="tab_box_adjust" />Wax</li>
+			    <li><input type="radio" name="type" value="wash" class="tab_box_adjust" />Wash</li>
+			    <li><input type="radio" name="type" value="wax" class="tab_box_adjust" />Wax</li>
+			    <li><input type="radio" name="type" value="trim" class="tab_box_adjust" />Trim</li>
+			    <li><input type="radio" name="type" value="towels" class="tab_box_adjust" />Towels</li>
+			    <li><input type="radio" name="type" value="leather" class="tab_box_adjust" />Leather</li>
+			    <li><input type="radio" name="type" value="wheels" class="tab_box_adjust" />Wheels</li>
 			  </ul>
 			</div>
 			<div class="tab2">
-			  <a href="#"><img src="{{ URL::to_asset('images/find_button.png'); }}" /></a>
+			  <input type="image" src="{{ URL::to_asset('images/find_button.png'); }}" />
 			</div>
+			{{ Form::close() }}
 		  </div>
 		  <div id="washes_tab">
+			{{ Form::open('search/carwashes', 'GET') }}
 		    <div class="tab1">
 			  <p>Choose a service:</p>
 			  <ul>
-			    <li><input type="radio" name="find" value="full" class="tab_box_adjust" />Full Service Washes</li>
-			    <li><input type="radio" name="find" value="drive" class="tab_box_adjust" />Drive Through Washes</li>
-			    <li><input type="radio" name="find" value="manuel" class="tab_box_adjust" />Manuel Washes (aka Jet Spray)</li>
-			    <li><input type="radio" name="find" value="mobile" class="tab_box_adjust" />Mobile Wash &amp; Detailers</li>
+			    <li><input type="radio" name="type" value="fullservice" class="tab_box_adjust" />Full Service Washes</li>
+			    <li><input type="radio" name="type" value="tunnel" class="tab_box_adjust" />Drive Through Washes</li>
+			    <li><input type="radio" name="type" value="handwash" class="tab_box_adjust" />Manual Washes (aka Jet Spray)</li>
+			    <li><input type="radio" name="type" value="mobile" class="tab_box_adjust" />Mobile Wash &amp; Detailers</li>
+			    <li><input type="radio" name="type" value="detailing" class="tab_box_adjust" />Advanced Detailing</li>
+			    <li><input type="radio" name="type" value="freevacs" class="tab_box_adjust" />Free Vacuums</li>
+			    <li><input type="radio" name="type" value="selfserve" class="tab_box_adjust" />Self Serve</li>
+			    <li><input type="radio" name="type" value="softtouch" class="tab_box_adjust" />Soft Touch</li>
+			    <li><input type="radio" name="type" value="touchfree" class="tab_box_adjust" />Touch Free</li>
+			    <li><input type="radio" name="type" value="xpress" class="tab_box_adjust" />Express</li>
 			  </ul>
 		    </div>
 		    <div class="tab2">
-			  <a href="#"><img src="{{ URL::to_asset('images/find_button.png'); }}" /></a>
+			  <input type="image" src="{{ URL::to_asset('images/find_button.png'); }}" />
 		    </div>
+			{{ Form::close() }}
 		  </div>
         </div>
       </div><!--tabs-->
