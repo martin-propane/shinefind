@@ -1,3 +1,4 @@
+<div style="margin-top: 50px;">
 <?php 
     $uri = URI::current();
 
@@ -12,7 +13,7 @@ googletag.cmd.push(function() {
 </script>
 
 <!-- 728x90-detailers-review-lb-top -->
-<div id="div-gpt-ad-1363209918169-0" style="width:728px; height:90px;">
+<div id="div-gpt-ad-1363209918169-0" style="width:728px; height:90px; margin: 0 auto;">
     <script type="text/javascript"> googletag.cmd.push(function() { googletag.display('div-gpt-ad-1363209918169-0'); }); </script>
 </div>
 
@@ -27,7 +28,7 @@ googletag.cmd.push(function() {
 </script>
 
 <!-- 728x90-products-review-lb-top -->
-<div id="div-gpt-ad-1363210617226-0" style="width:728px; height:90px;">
+<div id="div-gpt-ad-1363210617226-0" style="width:728px; height:90px; margin: 0 auto;">
     <script type="text/javascript"> googletag.cmd.push(function() { googletag.display('div-gpt-ad-1363210617226-0'); }); </script>
 </div>
 
@@ -121,4 +122,4 @@ googletag.cmd.push(function() {
     <script type="text/javascript"> googletag.cmd.push(function() { googletag.display('div-gpt-ad-1363211682155-0'); }); </script>
 </div>
 
-<?php endif;  // best practice
+<?php endif; ?> 

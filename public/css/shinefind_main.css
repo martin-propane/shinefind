@@ -779,6 +779,7 @@ h6 a:link, h6 a:hover, h6 a:active, h6 a:visited {
 	border-bottom-right-radius:5px;
 	height:194px;
 	position:relative;
+overflow: hidden;
 }
 
 .tab_box p {
@@ -793,14 +794,13 @@ h6 a:link, h6 a:hover, h6 a:active, h6 a:visited {
 }
 
 .tab_box li {
-	clear:both;
-	margin-bottom:10px;
+    float; left;
+    font-size: 11px;
+    padding-right: 10px;
 }
 
 .tab_box_adjust {	
-	position:relative;
-	top:2px;
-	margin-right:15px;
+	margin-right:5px;
 }
 
 #washes_tab {
