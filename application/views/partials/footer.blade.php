@@ -1,7 +1,8 @@
     <div id="footer">
       <div id="footer_container">
         <div id="footer_info">
-          <img src="{{ URL::to_asset('images/footer_copyright.png'); }}" width="220" height="25" />
+          <img src="{{ URL::to_asset('images/footer_copyright.png'); }}" />
+          <span class="copyright">&copy; 2013, Shinefind</span>
           <p>THE authorative force for all things detail-oriented. We pride ourselves with providing our users with accurate and relevant reviews and information to keep their cars looking their best.</p>
 		</div> <!--end footer_info-->
         <div id="sitemap">
@@ -17,7 +18,6 @@
             <li>{{ HTML::link('login', '&raquo;Member Login'); }}</li>
 			@endif
             <li><a href="{{ URL::to('advertise') }}">&raquo;Advertise</a></li>
-            <li><a href="{{ URL::to('resources') }}">&raquo;Information Articles</a></li>
             <li><a href="{{ URL::to('company') }}">&raquo;Company Info</a></li>
             <li><a href="{{ URL::to('listing') }}">&raquo;Get your Product or Company Listed</a></li>
           </ul>

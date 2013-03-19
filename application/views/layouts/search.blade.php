@@ -19,9 +19,7 @@ echo Asset::container('front-header')->scripts();
       <div id="logo">
         <a href="#"><h1>Shinefind</h1></a>
       </div> <!--end logo-->
-      <div id="facebook">
-        <a href="#"><img src="<?php echo asset('images/facebook.png'); ?>" width="302" height="33" border="0" /></a><p><a href="#">or create a login</a></p>
-      </div> <!--end facebook-->
+{{ render('partials.facebook'); }}
     </div> <!--end header-->
     
     <div id="menu">
@@ -46,7 +44,7 @@ echo Asset::container('front-header')->scripts();
       <div class="grid_12" id="body_topbreak">
       </div>
       <div class="gird_12" id="top_ad_long">
-        <a href="#"><img src="<?php echo asset('images/ad_728x90.jpg'); ?>" width="728" height="90" /></a>
+          {{ render('partials.dfp_leaderboard'); }}
       </div>
       <div class="grid_3">
         <div id="refine_box_top">
@@ -59,7 +57,7 @@ echo Asset::container('front-header')->scripts();
           </div>
         </div><!--refine search-->
         <div class="lt_col_ad">
-          <a href="#"><img src="<?php echo asset('images/ad_160x600.jpg'); ?>" width="160" height="600" /></a>
+          {{ render('partials.dfp_wide_skyscraper'); }}
         </div><!--160x600 ad-->
       </div><!--left column-->
       <div class="grid_6 alpha">
@@ -114,10 +112,7 @@ echo Asset::container('front-header')->scripts();
       </div><!--right column-->
     </div> <!--end container-->
     
-    <div id="iphone_app_link2">
-         <h3>Get the iPhone App!</h3>
-            <a href="#">&raquo;Click Here to go to the App store</a>
-    </div><!--iphone app--> 
+    {{ render('partials.iphone_add_link2'); }} 
     
     <div id="footer">
       <div id="footer_container">

@@ -8,6 +8,20 @@
 <link rel="stylesheet" href="{{ URL::to_asset('css/shinefind_main.css'); }}" />
 <script type="text/javascript" src="{{ URL::to_asset('js/jquery-1.8.2.min.js'); }}"></script>
 <script type="text/javascript" src="{{ URL::to_asset('js/shinefind.js'); }}"></script>
+<script type='text/javascript'>
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function() {
+    var gads = document.createElement('script');
+    gads.async = true;
+    gads.type = 'text/javascript';
+    var useSSL = 'https:' == document.location.protocol;
+    gads.src = (useSSL ? 'https:' : 'http:') + 
+        '//www.googletagservices.com/tag/js/gpt.js';
+    var node = document.getElementsByTagName('script')[0];
+    node.parentNode.insertBefore(gads, node);
+    })();
+</script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>{{ $title }}</title>
@@ -21,9 +35,7 @@
       <div id="logo">
         <a href="{{ URL::base(); }}"><h1>Shinefind</h1></a>
       </div> <!--end logo-->
-      <div id="facebook">
-        <a href="#"><img src="{{ URL::to_asset('images/facebook.png'); }}" width="302" height="33" /></a><p><a href="#">or create a login</a></p>
-      </div> <!--end facebook-->
+{{ render('partials.facebook'); }}
     </div> <!--end header-->
     
 {{ render('partials.top_menu'); }}
