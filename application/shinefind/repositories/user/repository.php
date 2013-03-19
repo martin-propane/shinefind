@@ -13,7 +13,6 @@ class User_Repository
 	public function add($data)
 	{
 		$user = new User($data);
-		$user->update(array('admin'=>0));
 
 		$valid = User_Validator::validate($user);
 
@@ -32,14 +31,28 @@ class User_Repository
 
 	public function edit($id, $data)
 	{
-		if (array_key_exists('email', $data))
-			$send['email'] = $data['email'];
-		if (array_key_exists('password', $data))
-			$send['password'] = Hash::make($data['password']);
-		if (array_key_exists('admin', $data))
-			$send['admin'] = $data['admin'];
+		$user = $this->get_entity(Database::table($this->TABLE)->where('id', '=', $id)->first());
 
-		Database::table($this->TABLE)->where('id', '=', $id)->update($send);
+		$user->update($data);
+
+		$valid = User_Validator::validate($user);
+
+		if ($valid)
+		{
+			//if a new password was entered, hash/salt it
+			if (isset($data['password']))
+			{
+				$password = $user->password;
+				$user->update(array('password'=>Hash::make($password)));
+			}
+			Database::table($this->TABLE)->where('id', '=', $id)->update(get_object_vars($user));
+			return $id;
+		}
+		else
+		{
+			return 0;
+		}
+
 	}
 
 	public function delete($id)

@@ -113,8 +113,7 @@
             <div class="grid_2 alpha omega"><img src="{{ URL::to_asset('images/' . round($review->rating) . 'star.jpg'); }}" width="102" height="17" border="0" align="left"  class="star_align" />
             </div> 
             <div class="grid_4 alpha omega">
-              <h6>{{ $review->title }}</h6><p class="ital_caption">Servicing Memphis and the surrounding areas</p>
-              <p class="review_info height17">{{ $review->review }}<br /><br /><a href="#">&raquo;Read Review</a></p>
+              <p class="review_info height17">{{ $review->title }}<br /><br /><a href="{{ URL::to('reviews/product/'.$review->id);}}">&raquo;Read Review</a></p>
             </div>
           </div><!--results1-->
 		  @endforeach

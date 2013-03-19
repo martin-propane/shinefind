@@ -41,36 +41,7 @@
         <a href="#"><img src="{{ URL::to_asset('images/ad_728x90.jpg'); }}" width="728" height="90" /></a>
       </div>
       <div class="grid_3">
-        <div id="location_pic_top">
-		<img src="http://maps.googleapis.com/maps/api/streetview?size=220x193&location={{$city_str}}&fov=30&sensor=false" width="220" height="193">{{--TODO: Top round edges--}}
-        </div>
-        <div id="location_box">
-          <div>
-            <p>
-			<b>Wash Type: </b>
-			<?php
-			$OPTIONS = array('ConvenienceStore'=>'Convenience Store: ', 'CreditCards'=>'Accepts Credit Cards: ', 'Fuel'=>'Fuel: ', 'Fundraiser'=>'Fundraiser: ', 'GiftCards'=>'Gift Cards: ', 'MilitaryDiscount'=>'Military Discount: ', 'OilChange'=>'Oil Changes: ', 'PetWash'=>'Pet Wash: ', 'Salon'=>'Salon: ', 'SeniorDiscount'=>'Senior Discount: ');
-			$TYPE_NAMES = array('FullService'=>'Full Service', 'Tunnel'=>'Drive Through Tunnels', 'HandWash'=>'Manual Wash', 'Mobile'=>'Mobile Detail', 'Detailing'=>'Advanced Detailing', 'FreeVacuums'=>'Free Vacuums', 'SelfServe'=>'Self Serve', 'SoftTouch'=>'Soft Touch', 'TouchFree'=>'Touch Free', 'Xpress'=>'Express');
-			$found = false;
-			foreach ($TYPE_NAMES as $k=>$t)
-			{
-				if ($carwash->types[$k])
-				{
-					echo $t;
-					$found = true;
-					break;
-				}
-			}
-			if (!$found)
-				echo 'N/A';
-			?>
-			<br />
-			@foreach ($OPTIONS as $k=>$o)
-			<b>{{$o}}</b>{{ ($carwash->options[$k] == null) ? 'N/A' : 'Yes' }}<br />
-			@endforeach
-			</p>
-          </div>
-        </div><!--location box-->
+	    {{ render('partials.carwash_location_box', array('carwash'=>$carwash)); }}
         <div class="lt_col_ad2">
           <a href="#"><img src="{{ URL::to_asset('images/ad_180x150.jpg'); }}" width="180" height="150" /></a>
         </div><!--180x150 ad-->
@@ -146,8 +117,7 @@
             <div class="grid_2 alpha omega"><img src="{{ URL::to_asset('images/' . round($review->rating) . 'star.jpg'); }}" width="102" height="17" border="0" align="left"  class="star_align" />
             </div> 
             <div class="grid_4 alpha omega">
-              <h6>{{ $review->title }}</h6><p class="ital_caption">Servicing Memphis and the surrounding areas</p>
-              <p class="review_info height17">{{ $review->review }}<br /><br /><a href="#">&raquo;Read Review</a></p>
+              <p class="review_info height17">{{ $review->title }}<br /><br /><a href="{{URL::to('reviews/carwash/'.$review->id);}}">&raquo;Read Review</a></p>
             </div>
           </div><!--results1-->
 		  @endforeach

@@ -74,7 +74,7 @@
               <p class="height17">
 			  @if (count($c->reviews) > 0)
 			  {{ $c->reviews[0]->review }}
-			  <br /><br /><a href="{{ URL::to('products/' . $c->id); }}">&raquo;Read Review</a></p>
+			  <br /><br /><a href="{{ URL::to('reviews/product/' . $c->reviews[0]->id); }}">&raquo;Read Review</a></p>
 			  @else
 			  There are no reviews for this location yet! Click <a href="{{URL::to_action('review@product', array($c->id))}}">here</a> to write a review.
 			  <br /><br /></p>

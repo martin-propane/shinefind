@@ -361,7 +361,7 @@ class Carwash_Repository {
 	{
 		$tuple = Database::table($this->REVIEWS_TABLE)->where('id', '=', $id)->first();
 
-		return get_review_entity($tuple);
+		return $this->get_review_entity($tuple);
 	}
 
 	public function get_reviews($cw_id)

@@ -6,8 +6,8 @@ use Laravel\Validator;
 class Carwash_Review_Validator
 {
 	public static $RULES = array(
-		'title'=>'max:40',
-		'review'=>'max:3000',
+		'title'=>'max:256',
+		'review'=>'max:20000',
 		'cw_id'=>'integer|required',
 		'rating'=>'integer|required'
 	);

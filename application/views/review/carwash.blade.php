@@ -6,9 +6,9 @@ echo '<h4>' . $carwash->name . ' | ' . $carwash->busi_ad . '</h4>';
 echo '<div class="spacer10"></div>';
 
 echo '<div class = "control-group">';
-echo Form::label('title', 'Title', array('class' => 'control-label'));
+echo Form::label('title', 'Brief Description (256 characters)', array('class' => 'control-label'));
 echo '<div class = "controls">';
-echo Form::text('title', null, array('class' => 'required'));
+echo Form::textarea('title', null, array('class' => 'required'));
 echo '</div></div>';
 
 echo '<div class = "control-group">';
