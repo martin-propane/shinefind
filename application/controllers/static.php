@@ -14,7 +14,7 @@ class Static_Controller extends Base_Controller
 
 	public function get_privacy()
 	{
-		$this->layout->title = 'Privace Policy';
+		$this->layout->title = 'Privacy Policy';
 
 		$this->layout->nest('content', 'static.privacy');
 	}
