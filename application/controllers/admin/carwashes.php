@@ -19,14 +19,24 @@ class Admin_Carwashes_Controller extends Base_Controller {
 		$this->layout->title = "Add Carwash";
 
 		$cw_repo = IoC::resolve('carwash_repository');
-		$res = $cw_repo->add(Input::all());
+		$id = $cw_repo->add(Input::all());
+
+		//TODO: MOVE THIS LOGIC OUT OF THE CONTROLLER, BAD
+		$picture = Input::file('display_picture');
+		if ($picture !== null)
+		{
+			$type_folder = path('public').'carwashes/';
+			$entity_folder = $type_folder.$id.'/';
+			$pic_path = $entity_folder.'display';
+			if (!is_dir($type_folder))
+				mkdir($type_folder);
+			if (!is_dir($entity_folder))
+				mkdir($entity_folder);
+
+			move_uploaded_file($picture['tmp_name'], $pic_path);
+		}
 
 		return Redirect::to_action('Admin.Carwashes.view');
-
-		if ($res === TRUE)
-			return Response::make('Succesful submission!');
-		else
-			return Response::make($res);
 	}
 
 	public function get_edit($id)
@@ -46,6 +56,21 @@ class Admin_Carwashes_Controller extends Base_Controller {
 		$cw_repo = IoC::resolve('carwash_repository');
 
 		$res = $cw_repo->edit($id, Input::all());
+
+		//TODO: MOVE THIS LOGIC OUT OF THE CONTROLLER, BAD
+		$picture = Input::file('display_picture');
+		if ($picture !== null)
+		{
+			$type_folder = path('public').'carwashes/';
+			$entity_folder = $type_folder.$id.'/';
+			$pic_path = $entity_folder.'display';
+			if (!is_dir($type_folder))
+				mkdir($type_folder);
+			if (!is_dir($entity_folder))
+				mkdir($entity_folder);
+
+			move_uploaded_file($picture['tmp_name'], $pic_path);
+		}
 
 		return Redirect::to_action('Admin.Carwashes.view');
 	}

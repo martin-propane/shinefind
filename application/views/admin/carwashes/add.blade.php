@@ -55,13 +55,20 @@ $state_list = array('AL'=>"Alabama",
 
 ?>
 <?php
-echo Form::open('admin/carwashes/add', 'POST', array('id' => 'addForm', 'class' => 'form-horizontal'));
+echo Form::open_for_files('admin/carwashes/add', 'POST', array('id' => 'addForm', 'class' => 'form-horizontal'));
 echo '<legend>Add carwash</legend>';
 
 echo '<div class = "control-group">';
 echo Form::label('name', 'Name', array('class' => 'control-label'));
 echo '<div class = "controls">';
 echo Form::text('name', null, array('class' => 'required'));
+echo '</div></div>';
+
+echo '<div class = "control-group">';
+echo Form::label('display_picture', 'Display Picture', array('class' => 'control-label'));
+echo '<div class = "controls">';
+echo Form::file('display_picture', array('onchange'=>'setImage(this)'));
+echo '<br><img id="display_preview" style="display: none;">';
 echo '</div></div>';
 
 echo '<div class = "control-group">';
@@ -224,6 +231,21 @@ echo Form::close();
 ?>
 <?php echo HTML::script('js/jquery.validate.min.js'); ?>
 <script type = "text/javascript">
+function setImage(input)
+{
+	if (input.files && input.files[0])
+	{
+		var reader = new FileReader();
+
+		reader.onload = function (e)
+		{
+			$('#display_preview').attr('src', e.target.result);
+			$('#display_preview').show();
+		}
+
+		reader.readAsDataURL(input.files[0]);
+	}
+}
 $(document).ready(function()
 {
 	jQuery.validator.addMethod('validPhone', function (value, element) {

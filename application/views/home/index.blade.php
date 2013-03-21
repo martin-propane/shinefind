@@ -87,11 +87,15 @@
 		<div class="review_box">
 		{{--TODO: Make the image boxes rounded as they were in the design--}}
 		@if (isset($review->carwash))
-		<?php
-		$carwash = $review->carwash;
-		$city_str = rawurlencode($carwash->busi_ad.','.$carwash->city.$carwash->state);
-		?>
-		<img src="http://maps.googleapis.com/maps/api/streetview?size=103x103&location={{$city_str}}&fov=30&sensor=false" width="103" height="103" align="left" />
+		  @if ($review->carwash->display !== null)
+          <img src="{{ URL::to_asset($review->carwash->display); }}" width="103" height="103" align="left" />
+		  @else
+		  <?php
+		  $carwash = $review->carwash;
+		  $city_str = rawurlencode($carwash->busi_ad.','.$carwash->city.$carwash->state);
+		  ?>
+		  <img src="http://maps.googleapis.com/maps/api/streetview?size=103x103&location={{$city_str}}&fov=30&sensor=false" width="103" height="103" align="left" />
+		  @endif
 		@else
 		  @if ($review->product->display !== null)
           <img src="{{ URL::to_asset($review->product->display); }}" width="103" height="103" align="left" />

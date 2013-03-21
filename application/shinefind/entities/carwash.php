@@ -22,6 +22,7 @@ class Carwash {
 	public $sponsored;
 	public $description;
 	public $caption;
+	public $display;
 
 	public static $TYPES = array('Detailing', 'FreeVacuums', 'FullService', 'HandWash', 'Mobile', 'SelfServe', 'SoftTouch', 'TouchFree', 'Tunnel', 'Xpress');
 	public static $OPTIONS = array('ConvenienceStore', 'CreditCards', 'Fuel', 'Fundraiser', 'GiftCards', 'MilitaryDiscount', 'OilChange', 'Other', 'PetWash', 'Salon', 'SeniorDiscount');
@@ -62,6 +63,12 @@ class Carwash {
 		$this->sponsored = $sponsored;
 		$this->description = $description;
 		$this->caption = $caption;
+		$this->display = null;
+
+		//TODO: MAKE THIS PROPERLY INSERTED
+		$display = path('public').'carwashes/'.$id.'/display';
+		if (is_file($display))
+			$this->display = 'carwashes/'.$id.'/display';
 	}
 }
 
