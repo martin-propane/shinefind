@@ -1,7 +1,7 @@
 <?php 
     $uri = URI::current();
 
-    if(strpos($uri, '/carwash-reviews') !== false ) : ?>
+    if(strpos($uri, 'carwash-reviews') !== false ) : ?>
 
 <script type="text/javascript">
 googletag.cmd.push(function() {
@@ -16,7 +16,7 @@ googletag.cmd.push(function() {
     <script type="text/javascript"> googletag.cmd.push(function() { googletag.display('div-gpt-ad-1363210257407-0'); }); </script>
 </div>
 
-<?php elseif(strpos($uri, '/products-review') !== false ) : ?>
+<?php elseif(strpos($uri, 'products-review') !== false ) : ?>
 
 <script type="text/javascript">
 googletag.cmd.push(function() {
@@ -31,7 +31,7 @@ googletag.cmd.push(function() {
     <script type="text/javascript"> googletag.cmd.push(function() { googletag.display('div-gpt-ad-1363210697777-0'); }); </script>
 </div>
 
-<?php elseif(strpos($uri, '/products') !== false ) : ?>
+<?php elseif(strpos($uri, 'products') !== false ) : ?>
 
 <script type="text/javascript">
 googletag.cmd.push(function() {
@@ -46,7 +46,7 @@ googletag.cmd.push(function() {
     <script type="text/javascript"> googletag.cmd.push(function() { googletag.display('div-gpt-ad-1362761493682-0'); }); </script>
 </div>
 
-<?php elseif(strpos($uri, '/carwashes') !== false ) : ?>
+<?php elseif(strpos($uri, 'carwashes') !== false ) : ?>
 
 <script type="text/javascript">
 googletag.cmd.push(function() {
@@ -61,7 +61,7 @@ googletag.cmd.push(function() {
     <script type="text/javascript"> googletag.cmd.push(function() { googletag.display('div-gpt-ad-1362761592236-0'); }); </script>
 </div>
 
-<?php elseif(strpos($uri, '/company') !== false ) : ?>
+<?php elseif(strpos($uri, 'company') !== false ) : ?>
 
 <script type="text/javascript">
 googletag.cmd.push(function() {
@@ -76,7 +76,7 @@ googletag.cmd.push(function() {
     <script type="text/javascript"> googletag.cmd.push(function() { googletag.display('div-gpt-ad-1363210977885-0'); }); </script>
 </div>
 
-<?php elseif(strpos($uri, '/listing') !== false ) : ?>
+<?php elseif(strpos($uri, 'listing') !== false ) : ?>
 
 <script type="text/javascript">
 googletag.cmd.push(function() {
@@ -91,7 +91,7 @@ googletag.cmd.push(function() {
     <script type="text/javascript"> googletag.cmd.push(function() { googletag.display('div-gpt-ad-1363211377987-0'); }); </script>
 </div>
 
-<?php elseif(strpos($uri, '/advertise') !== false ) : ?>
+<?php elseif(strpos($uri, 'advertise') !== false ) : ?>
 
 <script type="text/javascript">
 googletag.cmd.push(function() {
