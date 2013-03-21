@@ -93,7 +93,11 @@
 		?>
 		<img src="http://maps.googleapis.com/maps/api/streetview?size=103x103&location={{$city_str}}&fov=30&sensor=false" width="103" height="103" align="left" />
 		@else
-        <img src="{{ URL::to_asset('images/product_wheel.png'); }}" width="103" height="103" align="left" />
+		  @if ($review->product->display !== null)
+          <img src="{{ URL::to_asset($review->product->display); }}" width="103" height="103" align="left" />
+		  @else
+          <img src="{{ URL::to_asset('images/product_wheel.png'); }}" width="103" height="103" align="left" />
+		  @endif
 		@endif
 		<p><img src="{{ asset('images/' . round($review->rating) . 'star.jpg'); }}" width="102" height="17" /><br />
           {{ (strlen($review->review) > 53) ? substr($review->review,0,50).'...' : $review->review }}<br />

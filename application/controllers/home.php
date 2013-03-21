@@ -37,6 +37,7 @@ class Home_Controller extends Base_Controller
 
 			//TODO: CHANGE THIS. This is a hack to get carwash data to the homepage so it can display streetview images
 			$cw_repo = IoC::resolve('carwash_repository');
+			$p_repo = IoC::resolve('product_repository');
 			foreach ($reviews as $review)
 			{
 				if (get_class($review) === 'Shinefind\Entities\Carwash_Review')
@@ -44,6 +45,12 @@ class Home_Controller extends Base_Controller
 					$id = $review->cw_id;
 					$carwash = $cw_repo->get($id);
 					$review->carwash = $carwash;
+				}
+				else
+				{
+					$id = $review->p_id;
+					$product = $p_repo->get($id);
+					$review->product = $product;
 				}
 			}
 		}

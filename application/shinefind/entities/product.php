@@ -12,6 +12,8 @@ class Product {
 	public $rating;
 	public $description;
 
+	public $display;
+
 	public function __construct($id, $name, $company, $phone, $website, $type, $description, $reviews, $rating)
 	{
 		$this->id = $id;
@@ -23,6 +25,12 @@ class Product {
 		$this->description = $description;
 		$this->reviews = $reviews;
 		$this->rating = $rating;
+		$this->display = null;
+
+		//TODO: MAKE THIS PROPERLY INSERTED
+		$display = path('public').'products/'.$id.'/display';
+		if (is_file($display))
+			$this->display = 'products/'.$id.'/display';
 	}
 }
 

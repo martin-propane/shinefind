@@ -19,7 +19,22 @@ class Admin_Products_Controller extends Base_Controller {
 		$this->layout->title = "Add Product";
 
 		$p_repo = IoC::resolve('product_repository');
-		$res = $p_repo->add(Input::all());
+		$id = $p_repo->add(Input::all());
+
+		//TODO: MOVE THIS LOGIC OUT OF THE CONTROLLER, BAD
+		$picture = Input::file('display_picture');
+		if ($picture !== null)
+		{
+			$type_folder = path('public').'products/';
+			$entity_folder = $type_folder.$id.'/';
+			$pic_path = $entity_folder.'display';
+			if (!is_dir($type_folder))
+				mkdir($type_folder);
+			if (!is_dir($entity_folder))
+				mkdir($entity_folder);
+
+			move_uploaded_file($picture['tmp_name'], $pic_path);
+		}
 
 		return Redirect::to_action('Admin.Products.view');
 	}
@@ -50,6 +65,21 @@ class Admin_Products_Controller extends Base_Controller {
 		$p_repo = IoC::resolve('product_repository');
 
 		$res = $p_repo->edit($id, Input::all());
+
+		//TODO: MOVE THIS LOGIC OUT OF THE CONTROLLER, BAD
+		$picture = Input::file('display_picture');
+		if ($picture !== null)
+		{
+			$type_folder = path('public').'products/';
+			$entity_folder = $type_folder.$id.'/';
+			$pic_path = $entity_folder.'display';
+			if (!is_dir($type_folder))
+				mkdir($type_folder);
+			if (!is_dir($entity_folder))
+				mkdir($entity_folder);
+
+			move_uploaded_file($picture['tmp_name'], $pic_path);
+		}
 
 		return Redirect::to_action('Admin.Products.view');
 	}
